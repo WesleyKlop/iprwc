@@ -7,17 +7,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
-  id       String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  email    String @unique @db.VarChar(320)
-  name     String
-  password String @db.VarChar(255)
-  role     String @default("user") @db.VarChar(255)
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id        String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  email     String   @unique @db.VarChar(320)
+  name      String
+  password  String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  role      Role     @default(USER)
 }
 
 model Product {
-  id       String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name     String
-  value    Int
+  id          String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name        String
+  price       Int
+  description String
 }
-
