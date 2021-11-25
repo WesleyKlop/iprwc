@@ -1,12 +1,12 @@
-import { Router } from 'express'
-import { PrismaClient } from '../prisma.mjs'
+import ErrorResponse from '../http/ErrorResponse.mjs'
+import cartRouter from './cart.mjs'
+import productRouter from './products.mjs'
+import userRouter from './users.mjs'
 
-const dbClient = new PrismaClient()
-const router = new Router()
+export default (app) => {
+  app.use('/users', userRouter)
+  app.use('/products', productRouter)
+  app.use('/cart', cartRouter)
 
-router.get('/', async (req, res, next) => {
-  const users = await dbClient.user.findMany()
-  res.json(users)
-})
-
-export default router
+  app.use((err, req, res, next) => ErrorResponse.from(req, err).send(res))
+}
