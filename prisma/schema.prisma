@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id       String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  email    String @unique @db.VarChar(320)
+  name     String
+  password String @db.VarChar(255)
+  role     String @default("user") @db.VarChar(255)
+}
+
+model Product {
+  id       String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name     String
+  value    Int
+}
+
