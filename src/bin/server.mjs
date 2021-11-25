@@ -1,20 +1,14 @@
 #!/usr/bin/env node
 import debugFactory from 'debug'
+import dotenv from 'dotenv'
 import http from 'http'
 import app from '../app.mjs'
 
-/**
- * Module dependencies.
- */
+dotenv.config()
 
 const debug = debugFactory('webshop-rest-api:server')
 
-/**
- * Get port from environment and store in Express.
- */
-
 const port = process.env.PORT || '3000'
-app.set('port', port)
 const server = http.createServer(app)
 
 server.listen(port)
