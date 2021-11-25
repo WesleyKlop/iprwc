@@ -4,7 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node src/bin/server.mjs"
+    "start": "node src/bin/server.mjs",
+    "prepare": "husky install",
+    "lint:fix": "prettier --write src",
+    "lint:check": "prettier --check src"
   },
   "dependencies": {
     "@prisma/client": "^3.5.0",
@@ -13,6 +16,12 @@
     "morgan": "~1.9.1"
   },
   "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2",
+    "prettier": "^2.4.1",
     "prisma": "^3.5.0"
+  },
+  "lint-staged": {
+    "*.{js,mjs,md}": "prettier --write"
   }
 }
