@@ -13,6 +13,10 @@ const getJwtSecret = () => {
   return JWT_SECRET
 }
 
+/**
+ * @param {string} token
+ * @returns {Promise<JwtPayload & Record<string, *>>}
+ */
 export const extractDataFromToken = async (token) => {
   const { payload } = await jwtVerify(token, getJwtSecret(), {
     issuer: ISSUER,
@@ -21,13 +25,16 @@ export const extractDataFromToken = async (token) => {
   return payload
 }
 
+/**
+ * @param {JwtPayload} payload
+ * @returns {Promise<string>}
+ */
 export const createToken = (payload) => {
-  const secret = getJwtSecret()
   return new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setIssuer(ISSUER)
     .setAudience(AUDIENCE)
-    .setExpirationTime('15m')
+    .setExpirationTime('24h')
     .sign(getJwtSecret())
 }

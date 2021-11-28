@@ -1,5 +1,9 @@
 import User from '../dto/User.js'
 
+/**
+ * @param {AppRequest} req
+ * @param {JwtPayload} tokenData
+ */
 const injectUserIntoRequest = (req, tokenData) => {
   // We store data for guests in the jwt too. Those do not have a 'sub'.
   if (!tokenData || !('sub' in tokenData)) {
@@ -15,6 +19,10 @@ const injectUserIntoRequest = (req, tokenData) => {
   )
 }
 
+/**
+ * @param {AppRequest} req
+ * @param {JwtPayload} tokenData
+ */
 const injectCartIntoRequest = (req, tokenData) => {
   if (!tokenData || !('cart' in tokenData)) {
     req.cart = []

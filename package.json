@@ -1,6 +1,7 @@
 {
   "name": "webshop-rest-api",
   "version": "0.0.0",
+  "packageManager": "npm",
   "private": true,
   "type": "module",
   "scripts": {

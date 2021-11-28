@@ -8,5 +8,9 @@ export default (app) => {
   app.use('/products', productRouter)
   app.use('/cart', cartRouter)
 
-  app.use((err, req, res, next) => ErrorResponse.from(req, err).send(res))
+  // Exception handler.
+  app.use((err, req, res, next) => {
+    console.log('Our err handler!', err)
+    return ErrorResponse.from(req, err).send(res)
+  })
 }

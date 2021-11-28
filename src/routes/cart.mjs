@@ -2,8 +2,8 @@ import { Router } from 'express'
 import JsonResponse from '../http/JsonResponse.mjs'
 import {
   addProductToCartSchema,
-  modifyProductCartSchema,
-} from '../validation.mjs'
+  patchProductCartSchema,
+} from '../services/validation.mjs'
 
 const router = new Router()
 
@@ -36,15 +36,18 @@ router.post('/', async (req, res) => {
     .send(res)
 })
 
+/**
+ * Add or subtract a product from the cart.
+ */
 router.patch('/', async (req, res) => {
-  const data = await modifyProductCartSchema.validate(req.body)
+  const data = await patchProductCartSchema.validate(req.body)
 
   // Increment quantity or add to cart
   const product = req.cart.find((p) => p.productId === data.productId)
 
   if (product) {
     product.quantity += data.quantity
-  } else {
+  } else if (data.quantity > 0) {
     req.cart.push(data)
   }
 
@@ -54,6 +57,20 @@ router.patch('/', async (req, res) => {
       ...req.jwtPayload,
       // Add the new cart data to the jwt.
       cart: req.cart,
+    })
+    .send(res)
+})
+
+/**
+ * Empty the shopping cart.
+ */
+router.delete('/', async (req, res) => {
+  return JsonResponse.from(req)
+    .withData([])
+    .withJwtPayload({
+      ...req.jwtPayload,
+      // Add the new cart data to the jwt.
+      cart: [],
     })
     .send(res)
 })
