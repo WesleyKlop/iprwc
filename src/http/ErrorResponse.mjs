@@ -4,26 +4,24 @@ export default class ErrorResponse extends BaseResponse {
   constructor(req, err) {
     super(req)
     this.error = err
-    this.status = 500
+    this.status = err.status ?? 500
   }
 
-  static from(req, err) {
+  static from(req, err = null) {
     return new ErrorResponse(req, err)
   }
 
-  withStatus(status) {
-    if (status < 400) {
-      throw new Error('Status must be >= 400')
-    }
-
-    return super.withStatus(status)
+  withError(err) {
+    this.error = err
+    this.status = err.status ?? 500
+    return this
   }
 
   async send(res) {
     return res
       .status(this.status)
       .json({
-        error: this.error,
+        error: this.error.toJSON(),
         meta: {
           ...this.meta,
           jwt: this.jwt,

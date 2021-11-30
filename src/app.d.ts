@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import User from './dto/User';
+import User from './dto/User.mjs';
 
 type Uuid = string;
 

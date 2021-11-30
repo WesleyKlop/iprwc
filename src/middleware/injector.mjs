@@ -1,4 +1,4 @@
-import User from '../dto/User.js'
+import User from '../dto/User.mjs'
 
 /**
  * @param {AppRequest} req

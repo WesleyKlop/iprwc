@@ -1,4 +1,7 @@
 import { Router } from 'express'
+import AppError from '../errors/AppError.mjs'
+import NotFoundError from '../errors/NotFoundError.mjs'
+import ErrorResponse from '../http/ErrorResponse.mjs'
 import JsonResponse from '../http/JsonResponse.mjs'
 import {
   addProductToCartSchema,
@@ -8,6 +11,9 @@ import {
 const router = new Router()
 
 router.get('/', (req, res) => {
+  if (!req.jwt) {
+    throw new AppError('You do not have a cart yet!', 404)
+  }
   // Return all cart items contained in the jwt
   return JsonResponse.from(req)
     .withData(req.cart || [])

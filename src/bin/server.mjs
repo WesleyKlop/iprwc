@@ -6,7 +6,7 @@ import app from '../app.mjs'
 
 dotenv.config()
 
-const debug = debugFactory('webshop-rest-api:server')
+const debug = debugFactory('rest-api:server')
 
 const port = process.env.PORT || '3000'
 const server = http.createServer(app)
