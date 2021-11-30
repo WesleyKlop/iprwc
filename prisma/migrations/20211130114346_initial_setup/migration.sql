@@ -1,21 +1,6 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Product` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- CreateEnum
 CREATE TYPE "roles" AS ENUM ('USER', 'ADMIN');
-
--- DropTable
-DROP TABLE "Product";
-
--- DropTable
-DROP TABLE "User";
-
--- DropEnum
-DROP TYPE "Role";
 
 -- CreateTable
 CREATE TABLE "users" (
@@ -43,6 +28,7 @@ CREATE TABLE "products" (
 CREATE TABLE "order_products" (
     "id" UUID NOT NULL DEFAULT uuid_generate_v4(),
     "price" INTEGER NOT NULL,
+    "quantity" INTEGER NOT NULL DEFAULT 1,
     "orderId" UUID NOT NULL,
     "productId" UUID NOT NULL,
 

@@ -1,7 +1,5 @@
 import { Router } from 'express'
-import AppError from '../errors/AppError.mjs'
 import NotFoundError from '../errors/NotFoundError.mjs'
-import ErrorResponse from '../http/ErrorResponse.mjs'
 import JsonResponse from '../http/JsonResponse.mjs'
 import { PrismaClient } from '../services/prisma.mjs'
 

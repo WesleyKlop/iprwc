@@ -1,7 +1,19 @@
-import type { Request, Response } from 'express';
-import User from './dto/User.mjs';
+import type { Request, Response } from 'express'
 
-type Uuid = string;
+type Uuid = string
+type Role = 'ADMIN' | 'USER'
+
+declare class User {
+  id: Uuid
+  name: string
+  email: string
+  role: Role
+
+  constructor(id: Uuid, name: string, email: string,  role: Role)
+
+  isAdmin(): this extends { role: 'ADMIN' } ? true : false
+}
+
 
 interface JwtPayload {
   cart: Array<CartItem>
@@ -21,7 +33,6 @@ interface AppRequest extends Request {
 }
 
 interface AppResponse extends Response {
-
 }
 
 interface CartItem {

@@ -14,5 +14,5 @@ export const storeOrderSchema = yup.object().shape({
   name: yup.string().min(1).required(),
   email: yup.string().email().required(),
 
-  // Other address info.
+  // Other address info?
 })

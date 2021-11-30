@@ -1,7 +1,5 @@
 import { Router } from 'express'
 import AppError from '../errors/AppError.mjs'
-import NotFoundError from '../errors/NotFoundError.mjs'
-import ErrorResponse from '../http/ErrorResponse.mjs'
 import JsonResponse from '../http/JsonResponse.mjs'
 import {
   addProductToCartSchema,
@@ -71,6 +69,9 @@ router.patch('/', async (req, res) => {
  * Empty the shopping cart.
  */
 router.delete('/', async (req, res) => {
+  if (!req.jwt) {
+    throw new AppError('You do not have a cart yet!', 404)
+  }
   return JsonResponse.from(req)
     .withData([])
     .withJwtPayload({
