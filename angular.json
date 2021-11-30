@@ -71,7 +71,8 @@
               "browserTarget": "webshop:build:production"
             },
             "development": {
-              "browserTarget": "webshop:build:development"
+              "browserTarget": "webshop:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
