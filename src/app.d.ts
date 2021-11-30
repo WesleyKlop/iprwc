@@ -9,11 +9,10 @@ declare class User {
   email: string
   role: Role
 
-  constructor(id: Uuid, name: string, email: string,  role: Role)
+  constructor(id: Uuid, name: string, email: string, role: Role)
 
   isAdmin(): this extends { role: 'ADMIN' } ? true : false
 }
-
 
 interface JwtPayload {
   cart: Array<CartItem>
@@ -32,8 +31,7 @@ interface AppRequest extends Request {
   jwtPayload?: JwtPayload
 }
 
-interface AppResponse extends Response {
-}
+interface AppResponse extends Response {}
 
 interface CartItem {
   productId: Uuid
