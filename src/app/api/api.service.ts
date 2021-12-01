@@ -5,6 +5,7 @@ import { Response } from './response'
 
 @Injectable({
   // All other services should be able to use this.
+  // This also makes it easy to handle signIn/signOut.
   providedIn: 'root',
 })
 export class ApiService {
@@ -34,7 +35,7 @@ export class ApiService {
       .pipe(
         tap(response => {
           console.log('Received response:', response)
-          if ('jwt' in response.meta) {
+          if (response.meta?.jwt) {
             this.httpHeaders.set('Authorization', `Bearer ${response.meta.jwt}`)
           }
         }),

@@ -1,0 +1,7 @@
+.nav-link {
+  @apply rounded px-4 py-2 bg-white bg-opacity-0 hover:bg-opacity-25;
+}
+
+.nav-link.active {
+  @apply bg-opacity-50 hover:bg-opacity-50;
+}

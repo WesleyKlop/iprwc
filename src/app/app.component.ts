@@ -8,12 +8,10 @@ import { ProductService } from './store/product.service'
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  products: Array<Product> = []
-
-  constructor(private productService: ProductService) {
+  constructor() {
   }
 
-  ngOnInit() {
-    this.productService.fetchAllProducts().subscribe(products => this.products = products)
+  ngOnInit(): void {
   }
+
 }
