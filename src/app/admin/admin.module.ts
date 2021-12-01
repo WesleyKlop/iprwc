@@ -1,19 +1,21 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
 
-import { AdminRoutingModule } from './admin-routing.module';
-import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
-import { ProductsPageComponent } from './products-page/products-page.component';
-
+import { AdminRoutingModule } from './admin-routing.module'
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component'
+import { IndexPageComponent } from './products/index-page/index-page.component'
+import { ShowPageComponent } from './products/show-page/show-page.component'
 
 @NgModule({
   declarations: [
     AdminLayoutComponent,
-    ProductsPageComponent
+    IndexPageComponent,
+    ShowPageComponent,
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
-  ]
+    AdminRoutingModule,
+  ],
 })
-export class AdminModule { }
+export class AdminModule {
+}
