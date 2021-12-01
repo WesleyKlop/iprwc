@@ -7,14 +7,8 @@ import { HttpClientModule } from '@angular/common/http'
 import { StoreModule } from './store/store.module'
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [
     {
       provide: DEFAULT_CURRENCY_CODE,
@@ -23,5 +17,4 @@ import { StoreModule } from './store/store.module'
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

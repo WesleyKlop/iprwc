@@ -12,16 +12,19 @@ const routes: Routes = [
   {
     path: '/products/:id',
     component: ShowPageComponent,
-  }
+  },
 ]
 
 @NgModule({
-  imports: [RouterModule.forChild([{
-    path: '',
-    component: AdminLayoutComponent,
-    children: routes,
-  }])],
+  imports: [
+    RouterModule.forChild([
+      {
+        path: '',
+        component: AdminLayoutComponent,
+        children: routes,
+      },
+    ]),
+  ],
   exports: [RouterModule],
 })
-export class AdminRoutingModule {
-}
+export class AdminRoutingModule {}

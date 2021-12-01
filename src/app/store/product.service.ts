@@ -10,23 +10,22 @@ import { addOrUpdate } from '../utils'
 export class ProductService {
   products = new BehaviorSubject<Product[]>([])
 
-  constructor(private apiService: ApiService) {
-  }
+  constructor(private apiService: ApiService) {}
 
   public fetchAllProducts() {
-    return this.apiService.get<Product[]>('/products')
-      .pipe(
-        tap(products => this.products.next(products)),
-        switchMap(() => this.products),
-      )
+    return this.apiService.get<Product[]>('/products').pipe(
+      tap((products) => this.products.next(products)),
+      switchMap(() => this.products),
+    )
   }
 
   public fetchProduct(id: Uuid) {
-    return this.apiService.get<Product>(`/products/${id}`)
-      .pipe(
-        tap(product => this.products.next(addOrUpdate(this.products.value, product))),
-        switchMap(() => this.products),
-        map(products => products.find(product => product.id === id)),
-      )
+    return this.apiService.get<Product>(`/products/${id}`).pipe(
+      tap((product) =>
+        this.products.next(addOrUpdate(this.products.value, product)),
+      ),
+      switchMap(() => this.products),
+      map((products) => products.find((product) => product.id === id)),
+    )
   }
 }

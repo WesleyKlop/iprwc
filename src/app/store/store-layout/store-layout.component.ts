@@ -10,10 +10,11 @@ import { ProductService } from '../product.service'
 export class StoreLayoutComponent implements OnInit {
   products: Array<Product> = []
 
-  constructor(private productService: ProductService) {
-  }
+  constructor(private productService: ProductService) {}
 
   ngOnInit() {
-    this.productService.fetchAllProducts().subscribe(products => this.products = products)
+    this.productService
+      .fetchAllProducts()
+      .subscribe((products) => (this.products = products))
   }
 }

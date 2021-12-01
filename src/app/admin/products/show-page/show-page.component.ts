@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-show-page',
   templateUrl: './show-page.component.html',
-  styleUrls: ['./show-page.component.css']
+  styleUrls: ['./show-page.component.css'],
 })
 export class ShowPageComponent implements OnInit {
   product?: Product
@@ -14,12 +14,13 @@ export class ShowPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.productService.fetchProduct(params['id']).subscribe(product => this.product = product)
+    this.route.params.subscribe((params) => {
+      this.productService
+        .fetchProduct(params['id'])
+        .subscribe((product) => (this.product = product))
     })
   }
-
 }

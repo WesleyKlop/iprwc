@@ -8,6 +8,5 @@ import { ProductService } from './store/product.service'
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor() {
-  }
+  constructor() {}
 }

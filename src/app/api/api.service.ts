@@ -13,10 +13,7 @@ export class ApiService {
     Accept: 'application/json',
   })
 
-  protected constructor(
-    private http: HttpClient,
-  ) {
-  }
+  protected constructor(private http: HttpClient) {}
 
   public signOut() {
     this.httpHeaders.delete('Authorization')
@@ -27,19 +24,20 @@ export class ApiService {
   }
 
   protected request<R>(method: string, url: string, body?: any): Observable<R> {
-    return this.http.request<Response<R>>(method, '/api' + url, {
-      body,
-      observe: 'body',
-      headers: this.httpHeaders,
-    })
+    return this.http
+      .request<Response<R>>(method, '/api' + url, {
+        body,
+        observe: 'body',
+        headers: this.httpHeaders,
+      })
       .pipe(
-        tap(response => {
+        tap((response) => {
           console.log('Received response:', response)
           if (response.meta?.jwt) {
             this.httpHeaders.set('Authorization', `Bearer ${response.meta.jwt}`)
           }
         }),
-        map(response => response.data),
+        map((response) => response.data),
       )
   }
 }

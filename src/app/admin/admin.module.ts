@@ -7,15 +7,7 @@ import { IndexPageComponent } from './products/index-page/index-page.component'
 import { ShowPageComponent } from './products/show-page/show-page.component'
 
 @NgModule({
-  declarations: [
-    AdminLayoutComponent,
-    IndexPageComponent,
-    ShowPageComponent,
-  ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-  ],
+  declarations: [AdminLayoutComponent, IndexPageComponent, ShowPageComponent],
+  imports: [CommonModule, AdminRoutingModule],
 })
-export class AdminModule {
-}
+export class AdminModule {}
