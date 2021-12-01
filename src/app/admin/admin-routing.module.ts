@@ -10,9 +10,9 @@ const routes: Routes = [
     component: IndexPageComponent,
   },
   {
-    path: 'products/add',
+    path: '/products/:id',
     component: ShowPageComponent,
-  },
+  }
 ]
 
 @NgModule({
