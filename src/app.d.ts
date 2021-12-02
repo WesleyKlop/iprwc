@@ -3,6 +3,11 @@ import type { Request, Response } from 'express'
 type Uuid = string
 type Role = 'ADMIN' | 'USER'
 
+interface Credentials {
+  email: string
+  password: string
+}
+
 declare class User {
   id: Uuid
   name: string

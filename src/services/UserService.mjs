@@ -1,5 +1,6 @@
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
+import User from '../dto/User.mjs'
 
 export default class UserService {
   #userRepository
@@ -32,5 +33,29 @@ export default class UserService {
         role: 'USER',
       },
     })
+  }
+
+  /**
+   * @param {Credentials} credentials
+   * @returns {Promise<User>}
+   */
+  async attempt(credentials) {
+    const user = await this.#userRepository.findUnique({
+      where: { email: credentials.email },
+    })
+
+    if (!user) {
+      return null
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      credentials.password,
+      user.password,
+    )
+    if (!isPasswordValid) {
+      return null
+    }
+
+    return new User(user.id, user.name, user.email, user.role)
   }
 }

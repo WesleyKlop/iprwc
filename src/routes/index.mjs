@@ -13,6 +13,10 @@ export default (app) => {
   app.use('/cart', cartRouter)
   app.use('/orders', orderRouter)
 
+  app.get('/health', (req, res) => {
+    res.status(200).send('OK')
+  })
+
   // Exception handler.
   app.use((err, req, res, next) => {
     logger(err)
