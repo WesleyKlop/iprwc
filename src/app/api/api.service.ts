@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { map, Observable, tap } from 'rxjs'
+import { catchError, map, Observable, tap, throwError } from 'rxjs'
 import { Response } from './response'
+import { ValidationError } from '../errors/ValidationError'
 
 @Injectable({
   // All other services should be able to use this.
@@ -12,7 +13,8 @@ export class ApiService {
     Accept: 'application/json',
   })
 
-  protected constructor(private http: HttpClient) {}
+  protected constructor(private http: HttpClient) {
+  }
 
   public clearAuthorization(): void {
     this.httpHeaders = this.httpHeaders.delete('Authorization')
@@ -38,6 +40,15 @@ export class ApiService {
           }
         }),
         map((response) => response.data),
+        catchError((response) => {
+          console.warn('We got an error!', response.status, response.error)
+          switch(response.status) {
+            case 422:
+              return throwError(() => new ValidationError(response.error.errors))
+              // Handle validation errors.
+          }
+          return throwError(() => response)
+        }),
       )
   }
 

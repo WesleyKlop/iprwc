@@ -1,3 +1,7 @@
 :host {
   @apply block min-w-[225px];
 }
+
+:host.ng-invalid.ng-touched input:not(:focus) {
+  @apply border-red-500;
+}

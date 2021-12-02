@@ -11,8 +11,7 @@ export class AdminLayoutComponent {
   constructor(
     private authService: AuthenticationService,
     private router: Router,
-  ) {
-  }
+  ) {}
 
   signOut(): void {
     this.authService.signOut()

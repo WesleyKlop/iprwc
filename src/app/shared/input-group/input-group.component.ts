@@ -24,7 +24,7 @@ export class InputGroupComponent implements ControlValueAccessor {
   inputType: string = 'text'
 
   @Input()
-  name?: string
+  name!: string
 
   @Input()
   placeholder?: string
@@ -43,6 +43,7 @@ export class InputGroupComponent implements ControlValueAccessor {
   onTouched = () => {}
 
   registerOnChange(onChange: any) {
+    console.log(this)
     this.onChange = onChange
   }
 
