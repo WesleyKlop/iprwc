@@ -33,7 +33,7 @@ export class ApiService {
       })
       .pipe(
         tap((response) => {
-          console.log('Received response:', response)
+          console.debug('Received response:', response)
           if (this.shouldUpdateAuthorization(response.meta?.jwt)) {
             this.setAuthorization(response.meta.jwt)
             localStorage.setItem('app.jwt', response.meta.jwt)
@@ -58,6 +58,7 @@ export class ApiService {
               )
             // Handle validation errors.
           }
+          console.debug('But we could not handle it :(')
           return throwError(() => response)
         }),
       )

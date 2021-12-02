@@ -1,4 +1,5 @@
-import { DEFAULT_CURRENCY_CODE, NgModule } from '@angular/core'
+import '@angular/common/locales/global/nl'
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 
 import { AppRoutingModule } from './app-routing.module'
@@ -14,6 +15,7 @@ import { SharedModule } from './shared/shared.module'
       provide: DEFAULT_CURRENCY_CODE,
       useValue: 'EUR',
     },
+    { provide: LOCALE_ID, useValue: 'nl' },
   ],
   bootstrap: [AppComponent],
 })

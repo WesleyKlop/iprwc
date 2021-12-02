@@ -1,0 +1,41 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="createProduct()"
+  class="flex flex-col gap-4"
+>
+  <p>Op deze pagina kan je een product aanmaken.</p>
+
+  <div class="flex flex-col gap-y-2 max-w-[500px]">
+    <app-input-group
+      formControlName="name"
+      name="name"
+      autocomplete="off"
+      label="Naam"
+      placeholder="Beige broek"
+      [errors]="form.get('name')!.errors"
+      [required]="true"
+    ></app-input-group>
+    <app-input-group
+      inputType="textarea"
+      formControlName="description"
+      name="description"
+      autocomplete="off"
+      label="Beschrijving"
+      placeholder="Een beige broek zoals alleen gedragen door legendes"
+      [errors]="form.get('description')!.errors"
+      [required]="true"
+    ></app-input-group>
+    <app-input-group
+      formControlName="price"
+      name="price"
+      inputType="number"
+      autocomplete="off"
+      label="Prijs"
+      placeholder="13,37"
+      [errors]="form.get('price')!.errors"
+      [required]="true"
+    ></app-input-group>
+
+    <app-button type="submit">Opslaan</app-button>
+  </div>
+</form>

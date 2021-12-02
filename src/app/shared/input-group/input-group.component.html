@@ -5,13 +5,25 @@
   >{{ label }}</label
 >
 <div class="mt-1 relative rounded-md shadow-sm">
+  <textarea
+    *ngIf="inputType === 'textarea'"
+    [value]="value"
+    (input)="handleChange($event)"
+    [name]="name"
+    [id]="name"
+    class="input"
+    [placeholder]="placeholder"
+    [required]="required"
+    [disabled]="disabled"
+  ></textarea>
   <input
+    *ngIf="inputType !== 'textarea'"
     [value]="value"
     (input)="handleChange($event)"
     [type]="inputType"
     [name]="name"
     [id]="name"
-    class="focus:ring-purple-500 focus:border-purple-500 block w-full px-2 sm:text-sm border-gray-300 rounded-md"
+    class="input"
     [placeholder]="placeholder"
     [required]="required"
     [autocomplete]="autocomplete"

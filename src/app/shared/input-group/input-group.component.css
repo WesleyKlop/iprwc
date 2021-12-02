@@ -2,6 +2,10 @@
   @apply block min-w-[225px];
 }
 
-:host.ng-invalid.ng-touched input:not(:focus) {
+:host.ng-invalid.ng-touched .input:not(:focus) {
   @apply border-red-500;
+}
+
+.input {
+  @apply focus:ring-purple-500 focus:border-purple-500 block w-full px-2 sm:text-sm border-gray-300 rounded-md;
 }
