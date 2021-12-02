@@ -9,9 +9,9 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting:InputGroupComponent
-    }
-  ]
+      useExisting: InputGroupComponent,
+    },
+  ],
 })
 export class InputGroupComponent implements ControlValueAccessor {
 
@@ -25,7 +25,7 @@ export class InputGroupComponent implements ControlValueAccessor {
   inputType: string = 'text'
 
   @Input()
-  name: string = ''
+  name?: string
 
   @Input()
   placeholder?: string
@@ -36,12 +36,19 @@ export class InputGroupComponent implements ControlValueAccessor {
   @Input()
   disabled: boolean = false
 
-  constructor() {}
+  value: string = ''
+  touched: boolean = false
 
-  registerOnChange(fn: any): void {
+  onChange = (_: any) => {}
+
+  onTouched = () => {}
+
+  registerOnChange(onChange: any) {
+    this.onChange = onChange;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(onTouched: any) {
+    this.onTouched = onTouched;
   }
 
   setDisabledState(isDisabled: boolean): void {
@@ -49,6 +56,20 @@ export class InputGroupComponent implements ControlValueAccessor {
   }
 
   writeValue(value: string): void {
+    this.value = value
+  }
 
+  handleChange(evt: any) {
+    this.markAsTouched()
+    if (!this.disabled) {
+      this.onChange(evt.target.value)
+    }
+  }
+
+  markAsTouched() {
+    if (!this.touched) {
+      this.onTouched()
+      this.touched = true
+    }
   }
 }

@@ -3,6 +3,8 @@
   }}</label>
 <div class='mt-1 relative rounded-md shadow-sm'>
   <input
+    [value]='value'
+    (input)='handleChange($event)'
     [type]='inputType'
     [name]='name'
     [id]='name'
