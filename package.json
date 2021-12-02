@@ -1,0 +1,7 @@
+{
+    "name": "iprwc",
+    "workspaces": [
+        "frontend",
+        "rest-api"
+    ]
+}
