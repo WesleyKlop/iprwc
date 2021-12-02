@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "DEBUG=rest-api:* node src/bin/server.mjs",
-    "prepare": "husky install",
+    "prepare": "cd .. && husky install rest-api/.husky",
     "lint:fix": "prettier --write src prisma && eslint --fix src",
     "lint:check": "prettier --check src prisma && eslint src"
   },
