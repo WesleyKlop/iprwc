@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthenticationService } from '../api/authentication.service'
 import { Router } from '@angular/router'
 import { ValidationError } from '../errors/ValidationError'
+import { AuthenticationError } from '../errors/AuthenticationError'
 
 @Component({
   selector: 'app-login',
@@ -11,10 +12,7 @@ import { ValidationError } from '../errors/ValidationError'
 })
 export class LoginComponent {
   public loginForm = new FormGroup({
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email,
-    ]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
@@ -24,8 +22,7 @@ export class LoginComponent {
   constructor(
     private authService: AuthenticationService,
     private router: Router,
-  ) {
-  }
+  ) {}
 
   submitLogin() {
     this.authService.authenticate(this.loginForm.value).subscribe({
@@ -40,10 +37,14 @@ export class LoginComponent {
           default:
             console.warn('Auth failed?')
         }
-      }, error: (err) => {
+      },
+      error: (err) => {
         if (err instanceof ValidationError) {
+          err.applyToFormGroup(this.loginForm)
+        }
+        if (err instanceof AuthenticationError) {
           this.loginForm.setErrors({
-            invalid: true
+            invalidCredentials: true,
           })
         }
       },

@@ -1,5 +1,13 @@
 import { Component, Input } from '@angular/core'
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator,
+} from '@angular/forms'
+import { formatValidationMessage } from '../../utils'
 
 @Component({
   selector: 'app-input-group',
@@ -11,9 +19,17 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
       multi: true,
       useExisting: InputGroupComponent,
     },
+    {
+      provide: NG_VALIDATORS,
+      multi: true,
+      useExisting: InputGroupComponent,
+    },
   ],
 })
-export class InputGroupComponent implements ControlValueAccessor {
+export class InputGroupComponent implements ControlValueAccessor, Validator {
+  @Input()
+  errors: ValidationErrors | null = null
+
   @Input()
   label?: string
 
@@ -38,12 +54,25 @@ export class InputGroupComponent implements ControlValueAccessor {
   value: string = ''
   touched: boolean = false
 
+  get nextValidationError(): string | null {
+    if (this.errors !== null) {
+      const [key, props] = Object.entries(this.errors)[0]
+      return formatValidationMessage(key, props, this.label)
+    }
+    return null
+  }
+
   onChange = (_: any) => {}
 
   onTouched = () => {}
 
+  onValidatorChange = () => {}
+
+  registerOnValidatorChange(onValidatorChange: () => void): void {
+    this.onValidatorChange = onValidatorChange
+  }
+
   registerOnChange(onChange: any) {
-    console.log(this)
     this.onChange = onChange
   }
 
@@ -71,5 +100,9 @@ export class InputGroupComponent implements ControlValueAccessor {
       this.onTouched()
       this.touched = true
     }
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    return null
   }
 }

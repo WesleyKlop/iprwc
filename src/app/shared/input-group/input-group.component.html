@@ -18,3 +18,6 @@
     [disabled]="disabled"
   />
 </div>
+<div *ngIf="touched && nextValidationError" class="mt-0.5 text-red-500 text-xm">
+  <p>{{ nextValidationError }}</p>
+</div>
