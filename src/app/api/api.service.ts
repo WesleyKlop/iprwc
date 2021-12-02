@@ -5,7 +5,6 @@ import { Response } from './response'
 
 @Injectable({
   // All other services should be able to use this.
-  // This also makes it easy to handle signIn/signOut.
   providedIn: 'root',
 })
 export class ApiService {
@@ -15,8 +14,8 @@ export class ApiService {
 
   protected constructor(private http: HttpClient) {}
 
-  public signOut() {
-    this.httpHeaders.delete('Authorization')
+  public clearAuthorization(): void {
+    this.httpHeaders = this.httpHeaders.delete('Authorization')
   }
 
   public get<R>(url: string): Observable<R> {
@@ -33,11 +32,28 @@ export class ApiService {
       .pipe(
         tap((response) => {
           console.log('Received response:', response)
-          if (response.meta?.jwt) {
-            this.httpHeaders.set('Authorization', `Bearer ${response.meta.jwt}`)
+          if (this.shouldUpdateAuthorization(response.meta?.jwt)) {
+            this.setAuthorization(response.meta.jwt)
+            localStorage.setItem('app.jwt', response.meta.jwt)
           }
         }),
         map((response) => response.data),
       )
+  }
+
+  public post<R>(url: string, body: Record<any, any>): Observable<R> {
+    return this.request<R>('POST', url, body)
+  }
+
+  public setAuthorization(jwt: string): void {
+    this.httpHeaders = this.httpHeaders.set('Authorization', `Bearer ${jwt}`)
+  }
+
+  private shouldUpdateAuthorization(jwt?: string): jwt is string {
+    if (!jwt) {
+      return false
+    }
+
+    return this.httpHeaders.get('Authorization') !== `Bearer ${jwt}`
   }
 }

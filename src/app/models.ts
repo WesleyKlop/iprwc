@@ -9,6 +9,12 @@ export interface CartItem {
   quantity: number
 }
 
+export interface User extends Entity {
+  name: string
+  email: string
+  role: 'USER' | 'ADMIN'
+}
+
 export interface Product extends Entity {
   name: string
   description: string

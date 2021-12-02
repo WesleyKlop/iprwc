@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
+import { AuthenticationService } from './authentication.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-login',
@@ -12,8 +14,23 @@ export class LoginComponent {
     password: new FormControl(''),
   })
 
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router,
+  ) {}
+
   submitLogin() {
-    console.log('submit')
-    console.log(this.loginForm.value)
+    this.authService.authenticate(this.loginForm.value).subscribe(async (r) => {
+      switch (r.role) {
+        case 'ADMIN':
+          await this.router.navigate(['/admin'])
+          break
+        case 'USER':
+          await this.router.navigate(['/orders'])
+          break
+        default:
+          console.warn('Auth failed?')
+      }
+    })
   }
 }

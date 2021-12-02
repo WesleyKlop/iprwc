@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core'
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms'
+import { Component, Input } from '@angular/core'
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 
 @Component({
   selector: 'app-input-group',
@@ -14,7 +14,6 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
   ],
 })
 export class InputGroupComponent implements ControlValueAccessor {
-
   @Input()
   label?: string
 
@@ -44,11 +43,11 @@ export class InputGroupComponent implements ControlValueAccessor {
   onTouched = () => {}
 
   registerOnChange(onChange: any) {
-    this.onChange = onChange;
+    this.onChange = onChange
   }
 
   registerOnTouched(onTouched: any) {
-    this.onTouched = onTouched;
+    this.onTouched = onTouched
   }
 
   setDisabledState(isDisabled: boolean): void {
