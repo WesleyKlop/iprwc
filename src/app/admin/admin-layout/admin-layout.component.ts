@@ -1,4 +1,6 @@
 import { Component } from '@angular/core'
+import { AuthenticationService } from '../../api/authentication.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-admin-layout',
@@ -6,5 +8,14 @@ import { Component } from '@angular/core'
   styleUrls: ['./admin-layout.component.css'],
 })
 export class AdminLayoutComponent {
-  constructor() {}
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router,
+  ) {
+  }
+
+  signOut(): void {
+    this.authService.signOut()
+    this.router.navigate(['/'])
+  }
 }

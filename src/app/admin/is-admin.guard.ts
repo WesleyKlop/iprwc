@@ -7,7 +7,7 @@ import {
   RouterStateSnapshot,
   UrlSegment,
 } from '@angular/router'
-import { AuthenticationService } from '../login/authentication.service'
+import { AuthenticationService } from '../api/authentication.service'
 
 @Injectable({
   providedIn: 'root',
