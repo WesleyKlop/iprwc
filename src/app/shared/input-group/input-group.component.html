@@ -1,0 +1,15 @@
+<label *ngIf='label' [for]='name' class='block text-sm font-medium text-gray-700'>{{
+  label
+  }}</label>
+<div class='mt-1 relative rounded-md shadow-sm'>
+  <input
+    [type]='inputType'
+    [name]='name'
+    [id]='name'
+    class='focus:ring-purple-500 focus:border-purple-500 block w-full px-2 sm:text-sm border-gray-300 rounded-md'
+    [placeholder]='placeholder'
+    [required]='required'
+    [autocomplete]='autocomplete'
+    [disabled]='disabled'
+  />
+</div>

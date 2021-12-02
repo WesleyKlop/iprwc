@@ -1,0 +1,21 @@
+<form [formGroup]='loginForm' class="bg-white rounded p-8 pt-4 shadow-xl gap-y-2 flex flex-col" (ngSubmit)='submitLogin()'>
+  <h1 class='font-bold text-2xl pb-2'>Login</h1>
+  <app-input-group
+    formControlName='email'
+    label="Email"
+    inputType="email"
+    name='email'
+    placeholder='b.mars@snickers.com'
+    [required]='true'
+  ></app-input-group>
+  <app-input-group
+    formControlName='password'
+    autocomplete='current-password'
+    label='Password'
+    inputType='password'
+    name='password'
+    placeholder='hunter2'
+    [required]='true'
+  ></app-input-group>
+  <app-button type='submit'>Login</app-button>
+</form>

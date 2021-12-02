@@ -5,7 +5,7 @@ module.exports = {
       './src/**/*.{html,ts}',
     ]
   },
-  darkMode: 'media', // or 'media' or 'class'
+  darkMode: 'media',
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
