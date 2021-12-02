@@ -27,6 +27,7 @@ export class AuthenticationService {
   public signOut(): void {
     this.user = undefined
     this.apiService.clearAuthorization()
+    localStorage.clear()
   }
 
   public authenticate(credentials: Credentials): Observable<User> {
