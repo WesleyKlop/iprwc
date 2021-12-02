@@ -7,6 +7,12 @@ export default class ErrorResponse extends BaseResponse {
     this.status = err.status ?? 500
   }
 
+  /**
+   *
+   * @param {e.Request} req
+   * @param {AppError} err
+   * @returns {ErrorResponse}
+   */
   static from(req, err = null) {
     return new ErrorResponse(req, err)
   }
