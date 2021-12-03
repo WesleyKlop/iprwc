@@ -64,7 +64,7 @@ export class ApiService {
       )
   }
 
-  public post<R>(url: string, body: Record<any, any>): Observable<R> {
+  public post<R>(url: string, body: Record<any, any>|FormData): Observable<R> {
     return this.request<R>('POST', url, body)
   }
 

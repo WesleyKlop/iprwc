@@ -5,7 +5,6 @@ import ImageService from '../services/ImageService.mjs'
 import { admin } from '../middleware/guards.mjs'
 import JsonResponse from '../http/JsonResponse.mjs'
 import NotFoundError from '../errors/NotFoundError.mjs'
-import ValidationError from '../errors/ValidationError.mjs'
 
 const prisma = new PrismaClient()
 const router = new Router()
@@ -15,10 +14,8 @@ const upload = multer()
 const imageService = new ImageService(prisma.image)
 
 router.post('/', admin, upload.single('image'), async (req, res, next) => {
-  // File size limit is 1MiB
-  if (req.file.size > 2 ** 20) {
-    throw new ValidationError('Image size limit is 1MiB')
-  }
+  // Validate and overwrite the mime type
+  req.file.mimetype = await imageService.validate(req.file)
 
   const image = await imageService.store(req.file)
 

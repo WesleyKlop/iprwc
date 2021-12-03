@@ -15,6 +15,12 @@ export interface User extends Entity {
   role: 'USER' | 'ADMIN'
 }
 
+export interface Image extends Entity {
+  mimeType: string
+  path: string
+  name: string
+}
+
 export interface Product extends Entity {
   name: string
   description: string

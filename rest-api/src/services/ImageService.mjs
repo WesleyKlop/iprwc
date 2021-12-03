@@ -1,12 +1,18 @@
 import fs from 'fs/promises'
 import { createReadStream } from 'fs'
+import mmm from 'mmmagic'
 import crypto from 'crypto'
 import debugFactory from 'debug'
+import ValidationError from '../errors/ValidationError.mjs'
+
+const { Magic, MAGIC_MIME_TYPE } = mmm
+
 const uploadPath = new URL('../../static/uploads', import.meta.url)
   .toString()
   .substr(7)
 
 const logger = debugFactory('rest-api:image-service')
+const magic = new Magic(MAGIC_MIME_TYPE)
 
 export default class ImageService {
   /** @property {Prisma.ImageDelegate<*>} */
@@ -14,6 +20,27 @@ export default class ImageService {
 
   constructor(imageRepository) {
     this.#imageRepository = imageRepository
+  }
+
+  /**
+   * @param file
+   * @returns {Promise<string, Error>}
+   */
+  validate(file) {
+    // File size limit is 1MiB
+    if (file.size > 2 ** 20) {
+      throw new ValidationError('Image size limit is 1MiB')
+    }
+
+    // File type validation
+    return new Promise((resolve, reject) => {
+      magic.detect(file.buffer, (err, result) => {
+        if (err) {
+          return reject(err)
+        }
+        resolve(result)
+      })
+    })
   }
 
   /**

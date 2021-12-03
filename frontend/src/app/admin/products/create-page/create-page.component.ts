@@ -10,9 +10,10 @@ import { Router } from '@angular/router'
 })
 export class CreatePageComponent {
   public form = new FormGroup({
-    name: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.minLength(2)]),
     price: new FormControl(13.37, [Validators.required, Validators.min(1)]),
-    description: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    imageId: new FormControl(null, [Validators.required])
   })
 
   constructor(private productService: ProductService, private router: Router) {}

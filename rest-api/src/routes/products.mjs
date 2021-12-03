@@ -19,6 +19,11 @@ router.post('/', [admin], async (req, res) => {
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
+      image: {
+        connect: {
+          id: req.body.imageId,
+        },
+      },
     },
   })
 

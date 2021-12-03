@@ -18,6 +18,7 @@ interface ProductCreateRequest {
   name: string
   description: string
   price: number
+  imageId: Uuid
 }
 
 @Injectable({

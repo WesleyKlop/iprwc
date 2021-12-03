@@ -1,0 +1,17 @@
+<label
+  *ngIf='label'
+  [for]='name'
+  class='block text-sm font-medium text-gray-700'
+>{{ label }}</label
+>
+<div class='mt-1 relative rounded-md shadow-sm'>
+  <input
+    (change)='handleChange($event)'
+    type='file'
+    [name]='name'
+    [id]='name'
+    class='input'
+    [required]='required'
+    [disabled]='disabled'
+  />
+</div>
