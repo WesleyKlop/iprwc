@@ -21,3 +21,18 @@ export const loginSchema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().min(8).required(),
 })
+
+export const imageSchema = yup.object().shape({
+  size: yup
+    .number()
+    .required()
+    .max(2 ** 20),
+  mimetype: yup
+    .string()
+    .required()
+    .matches(/^image\//),
+})
+
+export const getOrderSchema = yup.object().shape({
+  orderId: yup.string().required().uuid(),
+})

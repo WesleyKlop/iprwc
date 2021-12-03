@@ -1,13 +1,11 @@
 import { Router } from 'express'
 import AppError from '../errors/AppError.mjs'
-import { validate as isValidUUID } from 'uuid'
 import AuthError from '../errors/AuthError.mjs'
-import ValidationError from '../errors/ValidationError.mjs'
 import JsonResponse from '../http/JsonResponse.mjs'
 import OrderService from '../services/OrderService.js'
 import { PrismaClient } from '../services/prisma.mjs'
 import UserService from '../services/UserService.mjs'
-import { storeOrderSchema } from '../services/validation.mjs'
+import { getOrderSchema, storeOrderSchema } from '../services/validation.mjs'
 
 const prisma = new PrismaClient()
 const router = new Router()
@@ -45,13 +43,7 @@ router.post('/', async (req, res, next) => {
 })
 
 router.get('/:orderId', async (req, res, next) => {
-  if (!isValidUUID(req.params.orderId)) {
-    return next(
-      new ValidationError({
-        orderId: 'orderId must be a valid UUID',
-      }),
-    )
-  }
+  const { orderId } = await getOrderSchema.validate(req.params)
 
   if (!req.user) {
     return next(

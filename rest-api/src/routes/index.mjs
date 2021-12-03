@@ -1,4 +1,4 @@
-import { ValidationError } from 'yup'
+import { ValidationError as YupValidationError } from 'yup'
 import AppError from '../errors/AppError.mjs'
 import ValidationErrorResponse from '../http/ValidationErrorResponse.mjs'
 import ErrorResponse from '../http/ErrorResponse.mjs'
@@ -25,12 +25,12 @@ export default (app) => {
   // Exception handler.
   app.use((err, req, res, next) => {
     logger(err)
-    if (err instanceof AppError) {
-      return ErrorResponse.from(req, err).send(res)
+    if (err instanceof YupValidationError) {
+      return ValidationErrorResponse.from(req, err).send(res)
     }
 
-    if (err instanceof ValidationError) {
-      return ValidationErrorResponse.from(req, err).send(res)
+    if (err instanceof AppError) {
+      return ErrorResponse.from(req, err).send(res)
     }
   })
 }

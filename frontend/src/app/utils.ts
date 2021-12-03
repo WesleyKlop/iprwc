@@ -17,6 +17,7 @@ const validationErrorMap: ErrorFormatters = {
     `${label || 'Waarde'} moet minimaal ${requiredLength} tekens lang zijn.`,
   required: (_, label) => `${label || 'Waarde'} is verplicht.`,
   email: (_, label) => `${label || 'Waarde'} is geen geldig e-mailadres.`,
+  image: (_, label) => `${label || 'Waarde'} is geen geldige afbeelding.`,
 }
 
 export const formatValidationMessage = (

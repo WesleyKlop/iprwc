@@ -53,6 +53,7 @@ export class ApiService {
                   ),
               )
             case 422:
+              console.log('err', response)
               return throwError(
                 () => new ValidationError(response.error.errors),
               )

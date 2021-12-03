@@ -14,8 +14,7 @@ const upload = multer()
 const imageService = new ImageService(prisma.image)
 
 router.post('/', admin, upload.single('image'), async (req, res, next) => {
-  // Validate and overwrite the mime type
-  req.file.mimetype = await imageService.validate(req.file)
+  await imageService.validate(req.file, 'image')
 
   const image = await imageService.store(req.file)
 
