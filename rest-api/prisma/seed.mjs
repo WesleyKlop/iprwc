@@ -17,10 +17,23 @@ await prisma.user.createMany({
   ],
 })
 
+const image = await prisma.image.create({
+  data: {
+    name: 'test.jpg',
+    path: 'c7620c52f1a8d61bb4d4eb13a61757fd55f554638e428929fa6cbdb358639c40',
+    mimeType: 'image/jpeg',
+  },
+})
+
 await prisma.product.create({
   data: {
     name: 'Test product',
     description: 'Test product description',
     price: 1337, // EUR 13.37
+    image: {
+      connect: {
+        id: image.id,
+      },
+    },
   },
 })

@@ -7,6 +7,7 @@ import productRouter from './products.mjs'
 import userRouter from './users.mjs'
 import debugFactory from 'debug'
 import orderRouter from './order.mjs'
+import imageRouter from './images.mjs'
 
 const logger = debugFactory('rest-api:routes')
 
@@ -15,6 +16,7 @@ export default (app) => {
   app.use('/products', productRouter)
   app.use('/cart', cartRouter)
   app.use('/orders', orderRouter)
+  app.use('/images', imageRouter)
 
   app.get('/health', (req, res) => {
     res.status(200).send('OK')

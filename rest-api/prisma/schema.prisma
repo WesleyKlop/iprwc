@@ -32,8 +32,10 @@ model Product {
   name        String
   price       Int
   description String
+  imageId     String @db.Uuid
 
   orderProducts OrderProducts[]
+  image         Image           @relation(fields: [imageId], references: [id])
 
   @@map("products")
 }
@@ -61,4 +63,15 @@ model Order {
   orderProducts OrderProducts[]
 
   @@map("orders")
+}
+
+model Image {
+  id        String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name      String
+  mimeType  String
+  path      String
+  createdAt DateTime @default(now())
+
+  products Product[]
+  @@map("images")
 }
