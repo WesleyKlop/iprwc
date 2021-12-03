@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "DEBUG=rest-api:* node src/bin/server.mjs",
+    "start": "node src/bin/server.mjs",
     "prepare": "cd .. && husky install rest-api/.husky",
     "lint:fix": "prettier --write src prisma && eslint --fix src",
     "lint:check": "prettier --check src prisma && eslint src"
@@ -13,11 +13,11 @@
   "dependencies": {
     "@prisma/client": "^3.5.0",
     "bcrypt": "^5.0.1",
-    "debug": "~2.6.9",
+    "debug": "^4.3.3",
     "dotenv": "^10.0.0",
     "express": "^5.0.0-alpha.8",
     "jose": "^4.3.7",
-    "morgan": "~1.9.1",
+    "morgan": "^1.10.0",
     "multer": "^1.4.3",
     "uuid": "^8.3.2",
     "yup": "^0.32.11"
