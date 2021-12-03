@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import bcrypt from 'bcrypt'
+import { hash, compare } from 'bcrypt'
 import User from '../dto/User.mjs'
 
 export default class UserService {
@@ -14,7 +14,7 @@ export default class UserService {
 
   generateRandomPassword() {
     const randomPassword = crypto.randomBytes(16).toString('hex')
-    return bcrypt.hash(randomPassword, 10)
+    return hash(randomPassword, 10)
   }
 
   async findOrCreateUser(email, name) {
@@ -48,10 +48,7 @@ export default class UserService {
       return null
     }
 
-    const isPasswordValid = await bcrypt.compare(
-      credentials.password,
-      user.password,
-    )
+    const isPasswordValid = await compare(credentials.password, user.password)
     if (!isPasswordValid) {
       return null
     }
