@@ -65,7 +65,10 @@ export class ApiService {
       )
   }
 
-  public post<R>(url: string, body: Record<any, any>|FormData): Observable<R> {
+  public post<R>(
+    url: string,
+    body: Record<any, any> | FormData,
+  ): Observable<R> {
     return this.request<R>('POST', url, body)
   }
 
@@ -79,5 +82,12 @@ export class ApiService {
     }
 
     return this.httpHeaders.get('Authorization') !== `Bearer ${jwt}`
+  }
+
+  public patch<R>(
+    url: string,
+    body: Record<any, any> | FormData,
+  ): Observable<R> {
+    return this.request<R>('PATCH', url, body)
   }
 }

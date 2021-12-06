@@ -8,6 +8,7 @@ import userRouter from './users.mjs'
 import debugFactory from 'debug'
 import orderRouter from './order.mjs'
 import imageRouter from './images.mjs'
+import WrappedError from '../errors/WrappedError.mjs'
 
 const logger = debugFactory('rest-api:routes')
 
@@ -32,5 +33,7 @@ export default (app) => {
     if (err instanceof AppError) {
       return ErrorResponse.from(req, err).send(res)
     }
+
+    return ErrorResponse.from(req, new WrappedError(err)).send(res)
   })
 }

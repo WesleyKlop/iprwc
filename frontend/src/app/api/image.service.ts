@@ -1,16 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Image } from '../models'
 import { ApiService } from './api.service'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ImageService {
-
-  constructor(
-    private apiService: ApiService
-  ) { }
+  constructor(private apiService: ApiService) {}
 
   uploadImage(file: File): Observable<Image> {
     const formData = new FormData()

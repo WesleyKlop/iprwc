@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core'
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms'
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+} from '@angular/forms'
 import { ImageService } from '../../api/image.service'
 import { ValidationError } from '../../errors/ValidationError'
 import { formatValidationMessage } from '../../utils'
@@ -35,16 +39,11 @@ export class FileUploadComponent implements ControlValueAccessor {
   value?: File
   touched: boolean = false
 
-  constructor(
-    private imageService: ImageService,
-  ) {
-  }
+  constructor(private imageService: ImageService) {}
 
-  onChange = (_: any) => {
-  }
+  onChange = (_: any) => {}
 
-  onTouched = () => {
-  }
+  onTouched = () => {}
 
   registerOnChange(onChange: any) {
     this.onChange = onChange
@@ -59,24 +58,22 @@ export class FileUploadComponent implements ControlValueAccessor {
   }
 
   writeValue(value: File): void {
-    console.log('writeValue', value)
     this.value = value
   }
 
   handleChange(evt: Event) {
     this.markAsTouched()
-    if (this.disabled)
-      return
+    if (this.disabled) return
     const input = evt.target as HTMLInputElement
     const file = input.files![0]
 
     this.imageService.uploadImage(file).subscribe({
-      next: (image) =>{
+      next: (image) => {
         this.onChange(image.id)
       },
-      error: (err: ValidationError) =>{
+      error: (err: ValidationError) => {
         this.errors = {
-          image: err.all().map(e => e.type)
+          image: err.all().map((e) => e.type),
         }
       },
     })
@@ -89,7 +86,6 @@ export class FileUploadComponent implements ControlValueAccessor {
     }
     return null
   }
-
 
   markAsTouched() {
     if (!this.touched) {

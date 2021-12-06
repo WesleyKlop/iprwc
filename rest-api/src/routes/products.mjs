@@ -30,6 +30,35 @@ router.post('/', [admin], async (req, res) => {
   return JsonResponse.from(req).withData(product).send(res)
 })
 
+router.patch('/:productId', [admin], async (req, res) => {
+  const { productId } = req.params
+  const exists = await prisma.product.count({
+    where: {
+      id: productId,
+    },
+  })
+  if (!exists) {
+    throw new NotFoundError('Product', productId)
+  }
+  const product = await prisma.product.update({
+    where: {
+      id: productId,
+    },
+    data: {
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      image: {
+        connect: {
+          id: req.body.imageId,
+        },
+      },
+    },
+  })
+
+  return JsonResponse.from(req).withData(product).send(res)
+})
+
 router.get('/:productId', async (req, res, next) => {
   const { productId } = req.params
 

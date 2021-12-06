@@ -3,9 +3,11 @@ import {
   ActivatedRouteSnapshot,
   CanActivate,
   CanLoad,
-  Route, Router,
+  Route,
+  Router,
   RouterStateSnapshot,
-  UrlSegment, UrlTree,
+  UrlSegment,
+  UrlTree,
 } from '@angular/router'
 import { AuthenticationService } from '../api/authentication.service'
 
@@ -16,8 +18,7 @@ export class IsAdminGuard implements CanActivate, CanLoad {
   constructor(
     private authService: AuthenticationService,
     private router: Router,
-  ) {
-  }
+  ) {}
 
   private async userIsAdmin(): Promise<boolean> {
     if (this.authService.isAuthenticated()) {

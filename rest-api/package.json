@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node src/bin/server.mjs",
+    "start": "nodemon src/bin/server.mjs",
     "prepare": "cd .. && husky install rest-api/.husky",
     "lint:fix": "prettier --write src prisma && eslint --fix src",
     "lint:check": "prettier --check src prisma && eslint src"
@@ -31,6 +31,7 @@
     "eslint-config-prettier": "^8.3.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
+    "nodemon": "^2.0.15",
     "prettier": "^2.4.1",
     "prisma": "^3.5.0"
   },

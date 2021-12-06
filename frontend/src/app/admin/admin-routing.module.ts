@@ -4,6 +4,7 @@ import { AdminLayoutComponent } from './admin-layout/admin-layout.component'
 import { IndexPageComponent } from './products/index-page/index-page.component'
 import { ShowPageComponent } from './products/show-page/show-page.component'
 import { CreatePageComponent } from './products/create-page/create-page.component'
+import { EditPageComponent } from './products/edit-page/edit-page.component'
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'products/:id',
     component: ShowPageComponent,
+  },
+  {
+    path: 'products/:id/edit',
+    component: EditPageComponent,
   },
 ]
 

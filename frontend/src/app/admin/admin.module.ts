@@ -8,6 +8,7 @@ import { ShowPageComponent } from './products/show-page/show-page.component'
 import { CreatePageComponent } from './products/create-page/create-page.component'
 import { SharedModule } from '../shared/shared.module'
 import { ReactiveFormsModule } from '@angular/forms'
+import { EditPageComponent } from './products/edit-page/edit-page.component'
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms'
     IndexPageComponent,
     ShowPageComponent,
     CreatePageComponent,
+    EditPageComponent,
   ],
   imports: [
     CommonModule,
