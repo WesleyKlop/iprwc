@@ -49,7 +49,7 @@ jobs:
       - name: Install dependencies
         run: lerna bootstrap --ci
       - name: Run lint check command
-        run: lerna exec --scope=@wesl.io/iprwc-${{ env.SERVICE_NAME }} -- npm run lint:check
+        run: lerna run --scope=@wesl.io/iprwc-${{ env.SERVICE_NAME }} lint:check
 
   build:
     name: Build Docker image
