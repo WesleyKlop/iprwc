@@ -26,6 +26,7 @@ concurrency:
 
 env:
   SERVICE_NAME: backend
+  HUSKY: 0
 
 jobs:
   lint:
@@ -76,6 +77,7 @@ jobs:
           flavor: |
             latest=true
           tags: |
+            type=edge,branch=main
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
