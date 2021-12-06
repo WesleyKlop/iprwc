@@ -43,13 +43,13 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json', format('{0}/package-lock.json', env.SERVICE_NAME)) }}
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install dependencies
-        run: npm ci --include-workspace-root -w ${{ env.SERVICE_NAME }}
+        run: lerna bootstrap --ci
       - name: Run lint check command
-        run: npm run -w ${{ env.SERVICE_NAME }} lint:check
+        run: lerna exec --scope=@wesl.io/iprwc-${{ env.SERVICE_NAME }} -- npm run lint:check
 
   build:
     name: Build Docker image
