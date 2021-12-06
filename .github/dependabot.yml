@@ -10,7 +10,7 @@ updates:
     schedule:
       interval: 'daily'
   - package-ecosystem: docker
-    directory: /rest-api
+    directory: /backend
     schedule:
       interval: 'daily'
   - package-ecosystem: npm
@@ -18,7 +18,7 @@ updates:
     schedule:
       interval: 'daily'
   - package-ecosystem: npm
-    directory: /rest-api
+    directory: /backend
     schedule:
       interval: 'daily'
   - package-ecosystem: npm

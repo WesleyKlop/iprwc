@@ -11,7 +11,7 @@ const uploadPath = new URL('../../static/uploads', import.meta.url)
   .toString()
   .substr(7)
 
-const logger = debugFactory('rest-api:image-service')
+const logger = debugFactory('backend:image-service')
 const magic = new Magic(MAGIC_MIME_TYPE)
 
 const detectMimeType = (buffer) =>

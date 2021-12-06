@@ -31,10 +31,6 @@
     "nodemon": "^2.0.15",
     "prisma": "^3.5.0"
   },
-  "lint-staged": {
-    "*.{js,mjs,md}": "prettier --write",
-    "*.prisma": "prisma format"
-  },
   "prisma": {
     "seed": "node prisma/seed.mjs"
   }

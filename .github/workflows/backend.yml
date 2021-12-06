@@ -1,0 +1,86 @@
+name: 'IPRWC Backend'
+
+on:
+  push:
+    paths:
+      - '/.github/workflows/backend.yml'
+      - '/package-lock.json'
+      - '/package.json'
+      - '/backend/**'
+  pull_request:
+    paths:
+      - '/.github/workflows/backend.yml'
+      - '/package-lock.json'
+      - '/package.json'
+      - '/backend/**'
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  cancel-in-progress: true
+  group: ci/backend/${{ github.ref_name || 'shared' }}
+
+env:
+  SERVICE_NAME: backend
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Node version
+        id: node-version
+        run: |
+          echo "::set-output name=node-version::$(cat .nvmrc)"
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ steps.node-version.outputs.node-version }}
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm ci --include-workspace-root -w ${{ env.SERVICE_NAME }}
+      - name: Run lint check command
+        run: npm run -w ${{ env.SERVICE_NAME }} lint:check
+
+  build:
+    name: Build Docker image
+    runs-on: ubuntu-20.04
+    needs:
+      - lint
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        if: github.event_name != 'pull_request'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - id: meta
+        uses: docker/metadata-action@v3.6.0
+        with:
+          images: ghcr.io/${{ github.repository }}-${{ env.SERVICE_NAME }}
+          flavor: |
+            latest=true
+          tags: |
+            type=edge,branch=main
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ env.SERVICE_NAME }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

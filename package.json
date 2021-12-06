@@ -5,9 +5,18 @@
   "packageManager": "npm@8.1.2",
   "workspaces": [
     "frontend",
-    "rest-api"
+    "backend"
   ],
   "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2",
     "prettier": "^2.5.1"
+  },
+  "lint-staged": {
+    "*.{js,mjs,md,ts,json}": "prettier --write",
+    "*.prisma": "prisma format --schema backend/prisma/schema.prisma"
+  },
+  "scripts": {
+    "prepare": "husky install"
   }
 }

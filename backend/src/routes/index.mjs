@@ -10,7 +10,7 @@ import orderRouter from './order.mjs'
 import imageRouter from './images.mjs'
 import WrappedError from '../errors/WrappedError.mjs'
 
-const logger = debugFactory('rest-api:routes')
+const logger = debugFactory('backend:routes')
 
 export default (app) => {
   app.use('/users', userRouter)
