@@ -3,11 +3,10 @@ import AppError from '../errors/AppError.mjs'
 import AuthError from '../errors/AuthError.mjs'
 import JsonResponse from '../http/JsonResponse.mjs'
 import OrderService from '../services/OrderService.js'
-import { PrismaClient } from '../services/prisma.mjs'
 import UserService from '../services/UserService.mjs'
 import { getOrderSchema, storeOrderSchema } from '../services/validation.mjs'
+import prisma from '../services/prisma.mjs'
 
-const prisma = new PrismaClient()
 const router = new Router()
 
 const userService = new UserService(prisma.user)

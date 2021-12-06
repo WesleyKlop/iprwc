@@ -2,12 +2,11 @@ import { Router } from 'express'
 import AppError from '../errors/AppError.mjs'
 import AuthError from '../errors/AuthError.mjs'
 import JsonResponse from '../http/JsonResponse.mjs'
-import { PrismaClient } from '../services/prisma.mjs'
 import UserService from '../services/UserService.mjs'
 import { loginSchema } from '../services/validation.mjs'
+import prisma from '../services/prisma.mjs'
 
 const router = new Router()
-const prisma = new PrismaClient()
 const userService = new UserService(prisma.user)
 
 router.get('/me', (req, res, next) => {

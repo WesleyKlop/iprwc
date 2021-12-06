@@ -1,6 +1,3 @@
-/**
- * @property
- */
 import AppError from '../errors/AppError.mjs'
 
 export default class OrderService {

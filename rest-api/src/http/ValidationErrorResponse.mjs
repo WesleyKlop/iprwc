@@ -1,4 +1,3 @@
-import AppError from '../errors/AppError.mjs'
 import BaseResponse from './BaseResponse.mjs'
 
 export default class ValidationErrorResponse extends BaseResponse {

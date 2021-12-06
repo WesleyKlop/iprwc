@@ -1,12 +1,11 @@
-import { PrismaClient } from '../services/prisma.mjs'
 import { Router } from 'express'
 import multer from 'multer'
 import ImageService from '../services/ImageService.mjs'
 import { admin } from '../middleware/guards.mjs'
 import JsonResponse from '../http/JsonResponse.mjs'
 import NotFoundError from '../errors/NotFoundError.mjs'
+import prisma from '../services/prisma.mjs'
 
-const prisma = new PrismaClient()
 const router = new Router()
 
 const upload = multer()

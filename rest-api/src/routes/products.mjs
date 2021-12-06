@@ -2,9 +2,8 @@ import { Router } from 'express'
 import NotFoundError from '../errors/NotFoundError.mjs'
 import JsonResponse from '../http/JsonResponse.mjs'
 import { admin } from '../middleware/guards.mjs'
-import { PrismaClient } from '../services/prisma.mjs'
+import prisma from '../services/prisma.mjs'
 
-const prisma = new PrismaClient()
 const router = new Router()
 
 router.get('/', async (req, res) => {
