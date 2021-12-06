@@ -2,6 +2,8 @@ name: 'IPRWC Backend'
 
 on:
   push:
+    branches:
+      - main
     paths:
       - '/.github/workflows/backend.yml'
       - '/package-lock.json'
