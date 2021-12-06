@@ -1,12 +1,11 @@
 {
-  "name": "rest-api",
+  "name": "@wesl.io/iprwc-backend",
+  "private": true,
   "version": "0.0.0",
   "packageManager": "npm@8.1.2",
-  "private": true,
   "type": "module",
   "scripts": {
     "start": "nodemon src/bin/server.mjs",
-    "prepare": "cd .. && husky install rest-api/.husky",
     "lint:fix": "prettier --write src prisma && eslint --fix src",
     "lint:check": "prettier --check src prisma && eslint src"
   },
@@ -29,10 +28,7 @@
     "@types/mmmagic": "^0.4.30",
     "eslint": "^8.3.0",
     "eslint-config-prettier": "^8.3.0",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.1.2",
     "nodemon": "^2.0.15",
-    "prettier": "^2.4.1",
     "prisma": "^3.5.0"
   },
   "lint-staged": {

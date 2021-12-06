@@ -1,7 +1,13 @@
 {
-    "name": "iprwc",
-    "workspaces": [
-        "frontend",
-        "rest-api"
-    ]
+  "name": "@wesl.io/iprwc",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "npm@8.1.2",
+  "workspaces": [
+    "frontend",
+    "rest-api"
+  ],
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  }
 }
