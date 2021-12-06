@@ -5,16 +5,16 @@ on:
     branches:
       - main
     paths:
-      - '/.github/workflows/frontend.yml'
-      - '/package-lock.json'
-      - '/package.json'
-      - '/frontend/**'
+      - '.github/workflows/frontend.yml'
+      - 'package-lock.json'
+      - 'package.json'
+      - 'frontend/**'
   pull_request:
     paths:
-      - '/.github/workflows/frontend.yml'
-      - '/package-lock.json'
-      - '/package.json'
-      - '/frontend/**'
+      - '.github/workflows/frontend.yml'
+      - 'package-lock.json'
+      - 'package.json'
+      - 'frontend/**'
 
 permissions:
   contents: read

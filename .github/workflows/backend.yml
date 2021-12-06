@@ -5,16 +5,16 @@ on:
     branches:
       - main
     paths:
-      - '/.github/workflows/backend.yml'
-      - '/package-lock.json'
-      - '/package.json'
-      - '/backend/**'
+      - '.github/workflows/backend.yml'
+      - 'package-lock.json'
+      - 'package.json'
+      - 'backend/**'
   pull_request:
     paths:
-      - '/.github/workflows/backend.yml'
-      - '/package-lock.json'
-      - '/package.json'
-      - '/backend/**'
+      - '.github/workflows/backend.yml'
+      - 'package-lock.json'
+      - 'package.json'
+      - 'backend/**'
 
 permissions:
   contents: read
