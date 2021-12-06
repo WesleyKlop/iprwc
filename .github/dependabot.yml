@@ -1,0 +1,27 @@
+version: 2
+
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: 'daily'
+  - package-ecosystem: docker
+    directory: /frontend
+    schedule:
+      interval: 'daily'
+  - package-ecosystem: docker
+    directory: /rest-api
+    schedule:
+      interval: 'daily'
+  - package-ecosystem: npm
+    directory: /frontend
+    schedule:
+      interval: 'daily'
+  - package-ecosystem: npm
+    directory: /rest-api
+    schedule:
+      interval: 'daily'
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: 'daily'
