@@ -3,9 +3,9 @@ import {
   ActivatedRouteSnapshot,
   CanActivate,
   CanLoad,
-  Route,
+  Route, Router,
   RouterStateSnapshot,
-  UrlSegment,
+  UrlSegment, UrlTree,
 } from '@angular/router'
 import { AuthenticationService } from '../api/authentication.service'
 
@@ -13,9 +13,13 @@ import { AuthenticationService } from '../api/authentication.service'
   providedIn: 'root',
 })
 export class IsAdminGuard implements CanActivate, CanLoad {
-  constructor(private authService: AuthenticationService) {}
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router,
+  ) {
+  }
 
-  private async can(): Promise<boolean> {
+  private async userIsAdmin(): Promise<boolean> {
     if (this.authService.isAuthenticated()) {
       return this.authService.isAdmin()
     }
@@ -23,14 +27,21 @@ export class IsAdminGuard implements CanActivate, CanLoad {
     return this.authService.isAdmin()
   }
 
+  private async can(): Promise<UrlTree | boolean> {
+    if (await this.userIsAdmin()) {
+      return true
+    }
+    return this.router.createUrlTree(['/login'])
+  }
+
   public canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
-  ): Promise<boolean> {
+  ) {
     return this.can()
   }
 
-  public canLoad(route: Route, segments: UrlSegment[]): Promise<boolean> {
+  public canLoad(route: Route, segments: UrlSegment[]) {
     return this.can()
   }
 }
