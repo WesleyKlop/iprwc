@@ -1,0 +1,34 @@
+version: 3.8
+
+services:
+  frontend:
+    image: ghcr.io/wesleyklop/iprwc-frontend:latest
+    networks:
+      - frontend
+    depends_on:
+      - backend
+    expose:
+      - 80
+  backend:
+    image: ghcr.io/wesleyklop/iprwc-backend:latest
+    networks:
+      - backend
+    expose:
+      - 3000
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: postgres://iprwc:wachtwoord-1234-test@database:5432/iprwc
+      JWT_SECRET: hey-dit-is-een-test-secret-die-niet-zo-lang-is-als-die-zou-moeten-zijn-of-toch-wel
+  database:
+    image: postgres:14
+    networks:
+      - backend
+    environment:
+      POSTGRES_USER: iprwc
+      POSTGRES_PASSWORD: wachtwoord-1234-test
+      POSTGRES_DB: iprwc
+
+networks:
+  frontend:
+  backend:
