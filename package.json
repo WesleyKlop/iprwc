@@ -13,7 +13,7 @@
     "prettier": "^2.5.1"
   },
   "lint-staged": {
-    "*.{js,mjs,md,ts,json}": "prettier --write",
+    "*.{js,mjs,md,ts,json,yml}": "prettier --write",
     "*.prisma": "prisma format --schema backend/prisma/schema.prisma"
   },
   "scripts": {
