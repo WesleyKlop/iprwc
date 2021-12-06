@@ -2,11 +2,6 @@
   "name": "@wesl.io/iprwc",
   "private": true,
   "version": "0.0.0",
-  "packageManager": "npm@8.1.2",
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
   "devDependencies": {
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
