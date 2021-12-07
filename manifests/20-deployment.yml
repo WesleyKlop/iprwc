@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iprwc-deployment
+  namespace: iprwc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iprwc
+  template:
+    metadata:
+      labels:
+        app: iprwc
+    spec:
+      imagePullSecrets:
+        - name: ghcr-access-token
+      containers:
+        - name: api
+          image: ghcr.io/wesleyklop/iprwc-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  key: database-url
+                  name: iprwc-credentials
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: jwt-secret
+                  name: iprwc-credentials
+        - name: web
+          image: ghcr.io/wesleyklop/iprwc-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80

@@ -1,0 +1,21 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: iprwc-ingress-route
+  namespace: iprwc
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`iprwc.wesl.io`)
+      kind: Rule
+      services:
+        - name: iprwc-svc
+          port: web
+    - match: Host(`iprwc.wesl.io`) && PathPrefix(`/api`)
+      kind: Rule
+      services:
+        - name: iprwc-svc
+          port: api
+      middlewares:
+        - name: remove-api-prefix
