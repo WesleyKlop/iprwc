@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { StoreLayoutComponent } from './store-layout.component'
+import { ShowPageComponent } from './show-page.component'
 
-describe('StoreLayoutComponent', () => {
-  let component: StoreLayoutComponent
-  let fixture: ComponentFixture<StoreLayoutComponent>
+describe('ShowPageComponent', () => {
+  let component: ShowPageComponent
+  let fixture: ComponentFixture<ShowPageComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [StoreLayoutComponent],
+      declarations: [ShowPageComponent],
     }).compileComponents()
   })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StoreLayoutComponent)
+    fixture = TestBed.createComponent(ShowPageComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

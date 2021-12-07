@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
+import { AuthenticationService } from '../../api/authentication.service'
+import { CartService } from '../../api/cart.service'
 import { Product } from '../../models'
-import { ProductService } from '../product.service'
+import { ProductService } from '../../api/product.service'
 
 @Component({
   selector: 'app-store-layout',
@@ -8,13 +10,27 @@ import { ProductService } from '../product.service'
   styleUrls: ['./store-layout.component.css'],
 })
 export class StoreLayoutComponent implements OnInit {
-  products: Array<Product> = []
+  productsInCart: number = 0
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService,
+    private authService: AuthenticationService,
+  ) {}
 
-  ngOnInit() {
-    this.productService
-      .fetchAllProducts()
-      .subscribe((products) => (this.products = products))
+  public ngOnInit() {
+    this.cartService.count().subscribe((count) => (this.productsInCart = count))
+  }
+
+  public isAuthenticated() {
+    return this.authService.isAuthenticated()
+  }
+
+  public isCustomer() {
+    return this.authService.isUser()
+  }
+
+  public signOut() {
+    this.authService.signOut()
   }
 }

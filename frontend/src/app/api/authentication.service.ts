@@ -20,6 +20,10 @@ export class AuthenticationService {
     return this.user?.role === 'ADMIN'
   }
 
+  public isUser(): boolean {
+    return this.user?.role === 'USER'
+  }
+
   public isAuthenticated(): boolean {
     return this.user !== undefined
   }

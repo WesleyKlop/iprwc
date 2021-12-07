@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { Product } from '../../../models'
-import { ProductService } from '../../../api/product.service'
 import { ActivatedRoute } from '@angular/router'
+import { ProductService } from '../../../api/product.service'
+import { Product } from '../../../models'
 
 @Component({
   selector: 'app-show-page',
@@ -9,17 +9,17 @@ import { ActivatedRoute } from '@angular/router'
   styleUrls: ['./show-page.component.css'],
 })
 export class ShowPageComponent implements OnInit {
-  product: Product | null = null
+  public product?: Product
 
   constructor(
-    private route: ActivatedRoute,
     private productService: ProductService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.productService.fetchProduct(params['id']).subscribe((product) => {
-        this.product = product
+    this.route.params.subscribe(({ id }) => {
+      this.productService.fetchProduct(id).subscribe((product) => {
+        this.product = product!
       })
     })
   }

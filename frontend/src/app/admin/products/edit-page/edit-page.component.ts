@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { ProductService } from '../../../store/product.service'
+import { ProductService } from '../../../api/product.service'
 import { ActivatedRoute } from '@angular/router'
 import { Uuid } from '../../../models'
 
