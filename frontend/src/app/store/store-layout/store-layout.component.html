@@ -1,50 +1,42 @@
-<header class="bg-purple-500 text-white shadow z-50">
-  <div class="container mx-auto flex gap-4 p-4 lg:px-8">
-    <h1 class="font-bold text-xl">IPRWC - De winkel</h1>
-    <nav class="flex flex-1 justify-between">
-      <ul class="flex w-full gap-x-4 items-center">
+<header class='bg-purple-500 text-white shadow z-50'>
+  <div class='container mx-auto flex gap-4 p-4 lg:px-8 items-center'>
+    <h1 class='font-bold text-xl'>IPRWC - De winkel</h1>
+    <nav class='flex flex-1 justify-between'>
+      <ul class='flex w-full gap-x-4 items-center'>
         <li>
           <a
-            class="nav-link"
-            routerLink="/"
-            [routerLinkActiveOptions]="{ exact: true }"
-            routerLinkActive="active"
+            class='nav-link'
+            routerLink='/'
+            [routerLinkActiveOptions]='{ exact: true }'
+            routerLinkActive='active'
           >
             Home
           </a>
         </li>
         <li>
           <a
-            *ngIf="isCustomer"
-            class="nav-link"
-            routerLink="orders"
-            routerLinkActive="active"
+            *ngIf='isCustomer'
+            class='nav-link'
+            routerLink='orders'
+            routerLinkActive='active'
           >
             Mijn bestellingen
           </a>
         </li>
-        <li class="flex-1"></li>
+        <li class='flex-1'></li>
         <li>
-          <a
-            *ngIf="productsInCart > 0"
-            class="nav-link"
-            routerLink="cart"
-            routerLinkActive="active"
-          >
+          <button class='nav-link' (click)='showCart = true'>
             Winkelwagen
-          </a>
-          <a
-            *ngIf="isAuthenticated"
-            class="nav-link cursor-pointer"
-            href="#"
-            (click)="signOut()"
-            >Uitloggen</a
-          >
+          </button>
+          <button *ngIf='isAuthenticated' class='nav-link cursor-pointer' (click)='signOut()'>
+            Uitloggen
+          </button>
         </li>
       </ul>
     </nav>
   </div>
 </header>
-<main class="container mx-auto p-4 lg:p-8 h-auto z-10">
+<main class='container mx-auto p-4 lg:p-8 h-auto z-10'>
   <router-outlet></router-outlet>
 </main>
+<app-cart-overlay [(open)]='showCart'></app-cart-overlay>

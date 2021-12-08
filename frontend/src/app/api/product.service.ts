@@ -5,14 +5,12 @@ import {
   BehaviorSubject,
   switchMap,
   tap,
-  map,
   Observable,
   catchError,
   throwError,
   of,
 } from 'rxjs'
 import { addOrUpdate } from '../utils'
-import { AjaxResponse } from 'rxjs/ajax'
 
 interface ProductCreateRequest {
   name: string

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
-import { ApiService } from './api.service'
-import { User } from '../models'
 import { firstValueFrom, Observable, tap } from 'rxjs'
+import { User } from '../models'
+import { getJwtPayload } from '../utils'
+import { ApiService } from './api.service'
 
 interface Credentials {
   email: string
@@ -47,6 +48,11 @@ export class AuthenticationService {
     }
 
     this.apiService.setAuthorization(savedToken)
+
+    if (!getJwtPayload(savedToken).sub) {
+      return
+    }
+
     const observable = this.apiService.get<User>('/users/me').pipe(
       tap({
         next: (user) => {

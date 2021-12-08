@@ -11,6 +11,7 @@ import { ProductService } from '../../api/product.service'
 })
 export class StoreLayoutComponent implements OnInit {
   productsInCart: number = 0
+  showCart = false
 
   constructor(
     private productService: ProductService,

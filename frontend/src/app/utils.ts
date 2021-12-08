@@ -1,11 +1,23 @@
 import { Entity } from './models'
 
-export const addOrUpdate = <T extends Entity>(list: T[], entity: T): T[] => {
-  const index = list.findIndex((e) => e.id === entity.id)
+/**
+ * Get the payload part of the jwt token
+ * BEWARE: This does not validate the token!!!
+ */
+export const getJwtPayload = (jwt: string) => {
+  return JSON.parse(atob(jwt.split('.')[1]))
+}
+
+export const addOrUpdate = <T extends Record<string, any> = Entity>(
+  list: T[],
+  entity: T,
+  key: keyof T = 'id',
+): T[] => {
+  const index = list.findIndex((e) => e[key] === entity[key])
   if (index === -1) {
     return list.concat(entity)
   }
-  return list.map((e) => (e.id === entity.id ? entity : e))
+  return list.map((e) => (e[key] === entity[key] ? entity : e))
 }
 
 type ErrorFormatters = Record<string, (prop: any, label?: string) => string>

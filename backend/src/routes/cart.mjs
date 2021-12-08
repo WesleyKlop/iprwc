@@ -56,7 +56,7 @@ router.patch('/', async (req, res) => {
   }
 
   return JsonResponse.from(req)
-    .withData(product)
+    .withData(product || data)
     .withJwtPayload({
       ...req.jwtPayload,
       // Add the new cart data to the jwt.
