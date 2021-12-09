@@ -33,7 +33,7 @@
     "@angular-eslint/template-parser": "13.0.1",
     "@angular/cli": "~13.0.3",
     "@angular/compiler-cli": "~13.0.0",
-    "@tailwindcss/aspect-ratio": "^0.3.0",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
     "@types/jasmine": "~3.10.0",
