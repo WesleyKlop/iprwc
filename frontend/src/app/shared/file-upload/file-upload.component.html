@@ -1,20 +1,20 @@
 <label
-  *ngIf="label"
-  [for]="name"
-  class="block text-sm font-medium text-gray-700"
-  >{{ label }}</label
+    *ngIf="label"
+    [for]="name"
+    class="block text-sm font-medium text-gray-700"
+    >{{ label }}</label
 >
 <div class="mt-1 relative rounded-md shadow-sm">
-  <input
-    (change)="handleChange($event)"
-    type="file"
-    [name]="name"
-    [id]="name"
-    class="input"
-    [required]="required"
-    [disabled]="disabled"
-  />
+    <input
+        (change)="handleChange($event)"
+        type="file"
+        [name]="name"
+        [id]="name"
+        class="input"
+        [required]="required"
+        [disabled]="disabled"
+    />
 </div>
 <div *ngIf="touched && nextValidationError" class="mt-0.5 text-red-500 text-xm">
-  <p>{{ nextValidationError }}</p>
+    <p>{{ nextValidationError }}</p>
 </div>

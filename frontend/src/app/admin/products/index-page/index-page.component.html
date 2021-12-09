@@ -1,47 +1,50 @@
 <p>Op deze pagina kan je producten beheren.</p>
 
 <nav class="my-4 flex gap-x-4">
-  <button
-    class="shadow-sm bg-purple-500 active:bg-purple-700 text-white px-4 py-2 rounded"
-    routerLink="create"
-    routerLinkActive="active"
-  >
-    Voeg product toe
-  </button>
+    <button
+        class="shadow-sm bg-purple-500 active:bg-purple-700 text-white px-4 py-2 rounded"
+        routerLink="create"
+        routerLinkActive="active"
+    >
+        Voeg product toe
+    </button>
 </nav>
 
 <p>
-  Hier een lijst met alle producten. Klik op een product om deze te bewerken.
+    Hier een lijst met alle producten. Klik op een product om deze te bewerken.
 </p>
 
 <div
-  class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:gap-x-8"
+    class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:gap-x-8"
 >
-  <div *ngFor="let product of products" class="group relative">
-    <div
-      class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none"
-    >
-      <img
-        src="/api/images/{{ product.imageId }}"
-        alt="Foto van {{ product.name }}"
-        class="w-full h-full object-center object-cover lg:w-full lg:h-full"
-      />
+    <div *ngFor="let product of products" class="group relative">
+        <div
+            class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none"
+        >
+            <img
+                src="/api/images/{{ product.imageId }}"
+                alt="Foto van {{ product.name }}"
+                class="w-full h-full object-center object-cover lg:w-full lg:h-full"
+            />
+        </div>
+        <div class="mt-4 flex justify-between">
+            <div>
+                <h3 class="text-sm text-gray-700">
+                    <a routerLink="/admin/products/{{ product.id }}/edit">
+                        <span
+                            aria-hidden="true"
+                            class="absolute inset-0"
+                        ></span>
+                        {{ product.name }}
+                    </a>
+                </h3>
+                <p class="mt-1 text-sm text-gray-500 truncate">
+                    {{ product.description }}
+                </p>
+            </div>
+            <p class="text-sm font-medium text-gray-900">
+                {{ product.price / 100 | currency }}
+            </p>
+        </div>
     </div>
-    <div class="mt-4 flex justify-between">
-      <div>
-        <h3 class="text-sm text-gray-700">
-          <a routerLink="/admin/products/{{ product.id }}/edit">
-            <span aria-hidden="true" class="absolute inset-0"></span>
-            {{ product.name }}
-          </a>
-        </h3>
-        <p class="mt-1 text-sm text-gray-500 truncate">
-          {{ product.description }}
-        </p>
-      </div>
-      <p class="text-sm font-medium text-gray-900">
-        {{ product.price / 100 | currency }}
-      </p>
-    </div>
-  </div>
 </div>

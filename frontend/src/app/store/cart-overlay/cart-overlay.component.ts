@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { CartService } from '../../api/cart.service'
 import { CartProduct } from '../../models'
@@ -6,6 +7,38 @@ import { CartProduct } from '../../models'
   selector: 'app-cart-overlay',
   templateUrl: './cart-overlay.component.html',
   styleUrls: ['./cart-overlay.component.css'],
+  animations: [
+    trigger('overlay', [
+      state(
+        'open',
+        style({
+          opacity: 1,
+        }),
+      ),
+      state(
+        'closed',
+        style({
+          opacity: 0,
+        }),
+      ),
+      transition('open <=> closed', [animate('500ms')]),
+    ]),
+    trigger('slideOver', [
+      state(
+        'open',
+        style({
+          transform: 'translateX(0)',
+        }),
+      ),
+      state(
+        'closed',
+        style({
+          transform: 'translateX(100%)',
+        }),
+      ),
+      transition('open <=> closed', [animate('500ms 0s ease-in-out')]),
+    ]),
+  ],
 })
 export class CartOverlayComponent implements OnInit {
   @Input()
