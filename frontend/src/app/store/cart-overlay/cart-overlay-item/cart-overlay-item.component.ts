@@ -16,8 +16,6 @@ export class CartOverlayItemComponent {
   @Output()
   removeProduct = new EventEmitter<Product>()
 
-  constructor() {}
-
   removeFromCart() {
     this.removeProduct.emit(this.product)
   }

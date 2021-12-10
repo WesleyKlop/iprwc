@@ -12,8 +12,6 @@ export class CartOverlayTotalComponent {
   @Output()
   closeEvent = new EventEmitter<void>()
 
-  constructor() {}
-
   close() {
     this.closeEvent.emit()
   }
