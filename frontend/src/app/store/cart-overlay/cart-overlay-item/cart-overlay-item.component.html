@@ -19,7 +19,7 @@
                         product.name
                     }}</a>
                 </h3>
-                <p class="ml-4">
+                <p class="ml-4" *ngIf="!showSum">
                     {{ product.price / 100 | currency }}
                 </p>
             </div>
@@ -27,7 +27,14 @@
         <div class="flex-1 flex items-end justify-between text-sm">
             <p class="text-gray-500">{{ quantity }} maal</p>
 
-            <div class="flex">
+            <p *ngIf="showSum" class="text-gray-800 text-xs">
+                Totaal
+                <span class="text-black text-lg">{{
+                    (product.price * quantity) / 100 | currency
+                }}</span>
+            </p>
+
+            <div class="flex" *ngIf="removable">
                 <button
                     type="button"
                     (click)="removeFromCart()"

@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations'
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -93,7 +93,6 @@ export class DropdownComponent implements ControlValueAccessor, Validator {
   }
 
   writeValue(value: string): void {
-    console.log('writeValue', value)
     this.value = value
   }
 

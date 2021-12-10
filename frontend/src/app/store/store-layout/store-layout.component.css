@@ -1,3 +1,3 @@
 :host {
-  @apply w-screen min-h-screen;
+  @apply block w-screen min-h-screen bg-gray-100;
 }

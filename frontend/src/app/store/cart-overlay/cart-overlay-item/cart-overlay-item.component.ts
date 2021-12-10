@@ -16,6 +16,12 @@ export class CartOverlayItemComponent {
   @Output()
   removeProduct = new EventEmitter<Product>()
 
+  @Input()
+  removable: boolean = true
+
+  @Input()
+  showSum: boolean = false
+
   removeFromCart() {
     this.removeProduct.emit(this.product)
   }

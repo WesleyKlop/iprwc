@@ -15,7 +15,6 @@ export class IndexPageComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     name: new FormControl('', [Validators.required]),
     postalCode: new FormControl('', [Validators.required]),
-    houseNumber: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     street: new FormControl('', [Validators.required]),
     paymentMethod: new FormControl('', [Validators.required]),

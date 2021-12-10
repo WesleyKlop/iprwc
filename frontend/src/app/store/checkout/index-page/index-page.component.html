@@ -1,4 +1,9 @@
-<form [formGroup]="checkoutForm" (ngSubmit)="checkout()" method="POST">
+<form
+    [formGroup]="checkoutForm"
+    (ngSubmit)="checkout()"
+    method="POST"
+    class="col-span-12 lg:col-span-6"
+>
     <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="md:col-span-1">
             <div class="px-4 sm:px-0">
@@ -63,7 +68,7 @@
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <app-input-group
-                                class="col-span-6 sm:col-span-3"
+                                class="col-span-6"
                                 formControlName="street"
                                 label="Straat"
                                 inputType="text"
@@ -72,20 +77,6 @@
                                 placeholder="Schipholweg"
                                 [required]="true"
                                 [errors]="checkoutForm.get('street')!.errors"
-                            ></app-input-group>
-
-                            <app-input-group
-                                class="col-span-6 sm:col-span-3"
-                                formControlName="houseNumber"
-                                label="Huisnummer"
-                                inputType="text"
-                                autocomplete="shipping house-number"
-                                name="houseNumber"
-                                placeholder="11"
-                                [required]="true"
-                                [errors]="
-                                    checkoutForm.get('houseNumber')!.errors
-                                "
                             ></app-input-group>
 
                             <app-input-group
@@ -115,14 +106,6 @@
                             ></app-input-group>
                         </div>
                     </div>
-                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                        <button
-                            type="submit"
-                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                        >
-                            Save
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -147,8 +130,8 @@
                 </div>
             </div>
             <div class="mt-5 md:mt-0 md:col-span-2">
-                <div class="shadow sm:rounded-md">
-                    <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                <div class="shadow bg-white sm:rounded-md">
+                    <div class="px-4 py-5 space-y-6 sm:p-6">
                         <app-dropdown
                             formControlName="paymentMethod"
                             label="Betaalmethode"
@@ -159,16 +142,22 @@
                             [options]="paymentMethods"
                         ></app-dropdown>
                     </div>
-                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                        <button
-                            type="submit"
-                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                        >
-                            Save
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </form>
+<div class="col-span-12 lg:col-span-6 lg:pl-6">
+    <h2 class="text-lg font-medium text-gray-900 leading-6">Jouw bestelling</h2>
+    <div
+        *ngFor="let item of cartProducts"
+        class="bg-white shadow sm:rounded-md mt-5 px-4 py-0 sm:px-6"
+    >
+        <app-cart-overlay-item
+            [product]="item.product"
+            [quantity]="item.quantity"
+            [removable]="false"
+            [showSum]="true"
+        ></app-cart-overlay-item>
+    </div>
+</div>
