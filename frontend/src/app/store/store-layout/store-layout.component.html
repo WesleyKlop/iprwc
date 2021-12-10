@@ -1,19 +1,24 @@
 <app-navbar title="IPRWC - de winkel">
-    <app-navbar-item to="/" [exact]="true">Home</app-navbar-item>
-    <app-navbar-item to="orders" *ngIf="isCustomer">
-        Mijn bestellingen
-    </app-navbar-item>
-    <li class="flex-1"><!-- spacer --></li>
-    <app-navbar-item (click)="showCart = true">Winkelwagen</app-navbar-item>
-    <app-navbar-item
-        *ngIf="isAuthenticated"
-        class="nav-link cursor-pointer"
-        (click)="signOut()"
-    >
-        Uitloggen
-    </app-navbar-item>
+  <app-navbar-item to="/" [exact]="true">Home</app-navbar-item>
+  <app-navbar-item to="orders" *ngIf="isCustomer">
+    Mijn bestellingen
+  </app-navbar-item>
+  <li class="flex-1"><!-- spacer --></li>
+  <app-navbar-item
+    (click)="showCart = true"
+    *ngIf="! onCheckoutPage"
+  >
+    Winkelwagen
+  </app-navbar-item>
+  <app-navbar-item
+    *ngIf="isAuthenticated"
+    class="nav-link cursor-pointer"
+    (click)="signOut()"
+  >
+    Uitloggen
+  </app-navbar-item>
 </app-navbar>
 <main class="container mx-auto p-4 lg:p-8 h-auto z-10">
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </main>
 <app-cart-overlay [(open)]="showCart"></app-cart-overlay>
