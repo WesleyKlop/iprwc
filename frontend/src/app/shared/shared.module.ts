@@ -7,6 +7,8 @@ import { ButtonComponent } from './button/button.component'
 import { FileUploadComponent } from './file-upload/file-upload.component'
 import { NavbarComponent } from './navbar/navbar.component'
 import { NavbarItemComponent } from './navbar-item/navbar-item.component'
+import { DropdownComponent } from './dropdown/dropdown.component'
+import { DropdownItemComponent } from './dropdown-item/dropdown-item.component'
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { NavbarItemComponent } from './navbar-item/navbar-item.component'
     FileUploadComponent,
     NavbarComponent,
     NavbarItemComponent,
+    DropdownComponent,
+    DropdownItemComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   exports: [
@@ -23,6 +27,7 @@ import { NavbarItemComponent } from './navbar-item/navbar-item.component'
     FileUploadComponent,
     NavbarComponent,
     NavbarItemComponent,
+    DropdownComponent,
   ],
 })
 export class SharedModule {}

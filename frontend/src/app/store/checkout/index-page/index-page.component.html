@@ -1,0 +1,174 @@
+<form [formGroup]="checkoutForm" (ngSubmit)="checkout()" method="POST">
+    <div class="md:grid md:grid-cols-3 md:gap-6">
+        <div class="md:col-span-1">
+            <div class="px-4 sm:px-0">
+                <h3 class="text-lg font-medium leading-6 text-gray-900">
+                    Contact info
+                </h3>
+                <p class="mt-1 text-sm text-gray-600">
+                    Deze informatie hebben we nodig om te weten wie je bent.
+                </p>
+            </div>
+        </div>
+        <div class="mt-5 md:mt-0 md:col-span-2">
+            <div class="shadow sm:rounded-md sm:overflow-hidden">
+                <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                    <app-input-group
+                        formControlName="email"
+                        label="Email"
+                        inputType="email"
+                        autocomplete="email"
+                        name="email"
+                        placeholder="b.smit@example.com"
+                        [required]="true"
+                        [errors]="checkoutForm.get('email')!.errors"
+                    ></app-input-group>
+
+                    <app-input-group
+                        formControlName="name"
+                        label="Volledige naam"
+                        inputType="text"
+                        autocomplete="name"
+                        name="name"
+                        placeholder="Bert Smit"
+                        [required]="true"
+                        [errors]="checkoutForm.get('email')!.errors"
+                    ></app-input-group>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden sm:block" aria-hidden="true">
+        <div class="py-5">
+            <div class="border-t border-gray-200"></div>
+        </div>
+    </div>
+
+    <div class="mt-10 sm:mt-0">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+            <div class="md:col-span-1">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">
+                        Adres info
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-600">
+                        Deze informatie hebben we nodig om te weten waar je
+                        bestelling naartoe moet.
+                    </p>
+                </div>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <div class="shadow overflow-hidden sm:rounded-md">
+                    <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="grid grid-cols-6 gap-6">
+                            <app-input-group
+                                class="col-span-6 sm:col-span-3"
+                                formControlName="street"
+                                label="Straat"
+                                inputType="text"
+                                autocomplete="shipping street-address"
+                                name="street"
+                                placeholder="Schipholweg"
+                                [required]="true"
+                                [errors]="checkoutForm.get('street')!.errors"
+                            ></app-input-group>
+
+                            <app-input-group
+                                class="col-span-6 sm:col-span-3"
+                                formControlName="houseNumber"
+                                label="Huisnummer"
+                                inputType="text"
+                                autocomplete="shipping house-number"
+                                name="houseNumber"
+                                placeholder="11"
+                                [required]="true"
+                                [errors]="
+                                    checkoutForm.get('houseNumber')!.errors
+                                "
+                            ></app-input-group>
+
+                            <app-input-group
+                                class="col-span-6 sm:col-span-3"
+                                formControlName="postalCode"
+                                label="Postcode"
+                                inputType="text"
+                                autocomplete="shipping postal-code"
+                                name="street"
+                                placeholder="2333 CK"
+                                [required]="true"
+                                [errors]="
+                                    checkoutForm.get('postalCode')!.errors
+                                "
+                            ></app-input-group>
+
+                            <app-input-group
+                                class="col-span-6 sm:col-span-3"
+                                formControlName="city"
+                                label="Plaats"
+                                inputType="text"
+                                autocomplete="shipping address-level2"
+                                name="city"
+                                placeholder="Leiden"
+                                [required]="true"
+                                [errors]="checkoutForm.get('city')!.errors"
+                            ></app-input-group>
+                        </div>
+                    </div>
+                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                        <button
+                            type="submit"
+                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden sm:block" aria-hidden="true">
+        <div class="py-5">
+            <div class="border-t border-gray-200"></div>
+        </div>
+    </div>
+
+    <div class="mt-10 sm:mt-0">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+            <div class="md:col-span-1">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">
+                        Betaal info
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-600">
+                        Hoe wil je betalen?
+                    </p>
+                </div>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <div class="shadow sm:rounded-md">
+                    <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                        <app-dropdown
+                            formControlName="paymentMethod"
+                            label="Betaalmethode"
+                            name="paymentMethod"
+                            placeholder="Selecteer betaalmethode"
+                            [required]="true"
+                            [errors]="checkoutForm.get('paymentMethod')!.errors"
+                            [options]="paymentMethods"
+                        ></app-dropdown>
+                    </div>
+                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                        <button
+                            type="submit"
+                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

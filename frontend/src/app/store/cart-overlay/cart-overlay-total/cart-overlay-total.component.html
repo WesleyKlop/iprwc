@@ -1,28 +1,28 @@
 <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
-  <div class="flex justify-between text-base font-medium text-gray-900">
-    <p>Subtotaal</p>
-    <p>{{ total / 100 | currency }}</p>
-  </div>
-  <p class="mt-0.5 text-sm text-gray-500">Extra kosten niet inbegrepen</p>
-  <div class="mt-6">
-    <a
-      (click)="close()"
-      routerLink="/checkout"
-      class="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-purple-600 hover:bg-purple-700"
-    >
-      Afrekenen
-    </a>
-  </div>
-  <div class="mt-6 flex justify-center text-sm text-center text-gray-500">
-    <p>
-      of
-      <button
-        (click)="close()"
-        type="button"
-        class="text-purple-600 font-medium hover:text-purple-500"
-      >
-        verder winkelen<span aria-hidden="true">&rarr;</span>
-      </button>
-    </p>
-  </div>
+    <div class="flex justify-between text-base font-medium text-gray-900">
+        <p>Subtotaal</p>
+        <p>{{ total / 100 | currency }}</p>
+    </div>
+    <p class="mt-0.5 text-sm text-gray-500">Extra kosten niet inbegrepen</p>
+    <div class="mt-6">
+        <a
+            (click)="close()"
+            routerLink="/checkout"
+            class="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-purple-600 hover:bg-purple-700"
+        >
+            Afrekenen
+        </a>
+    </div>
+    <div class="mt-6 flex justify-center text-sm text-center text-gray-500">
+        <p>
+            of
+            <button
+                (click)="close()"
+                type="button"
+                class="text-purple-600 font-medium hover:text-purple-500"
+            >
+                verder winkelen<span aria-hidden="true">&rarr;</span>
+            </button>
+        </p>
+    </div>
 </div>

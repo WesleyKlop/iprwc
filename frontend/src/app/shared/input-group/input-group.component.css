@@ -1,5 +1,5 @@
 :host {
-  @apply block min-w-[225px];
+  @apply block;
 }
 
 :host.ng-invalid.ng-touched .input:not(:focus) {
