@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { Product } from '../../models'
+import { Product } from '../../../models'
 
 @Component({
   selector: 'app-cart-overlay-item',
