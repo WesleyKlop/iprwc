@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { CartService } from '../../api/cart.service'
-import { CartProduct } from '../../models'
+import { CartProduct, Product } from '../../models'
 
 @Component({
   selector: 'app-cart-overlay',
@@ -61,8 +61,8 @@ export class CartOverlayComponent implements OnInit {
     this.openChange.emit(false)
   }
 
-  removeFromCart(cartItem: CartProduct) {
-    this.cartService.removeFromCart(cartItem)
+  removeFromCart(product: Product) {
+    this.cartService.removeFromCart(product)
   }
 
   get total() {

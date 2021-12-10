@@ -68,7 +68,7 @@ export class CartService {
       })
   }
 
-  removeFromCart(cartItem: CartItem) {
-    this.modifyCart(cartItem.productId, -1)
+  removeFromCart(product: Product) {
+    this.modifyCart(product.id, -1)
   }
 }
