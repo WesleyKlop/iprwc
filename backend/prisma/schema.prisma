@@ -54,7 +54,13 @@ model OrderProducts {
 }
 
 model Order {
-  id        String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  id String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+
+  city          String
+  postalCode    String
+  street        String
+  paymentMethod String
+
   createdAt DateTime @default(now())
 
   user   User   @relation(fields: [userId], references: [id])

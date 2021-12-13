@@ -6,17 +6,20 @@ export default class OrderService {
   /** @type {Prisma.ProductDelegate<*>} */
   #productRepository
 
+  /**
+   * @param {Prisma.OrderDelegate<*>} orderRepository
+   * @param {Prisma.ProductDelegate<*>} productRepository
+   */
   constructor(orderRepository, productRepository) {
     this.#orderRepository = orderRepository
     this.#productRepository = productRepository
   }
 
   /**
-   * @param {Uuid} userId
+   * @param {{ userId: Uuid, city: string, postalCode: string, street: string, paymentMethod: string }} order
    * @param {CartItem[]} cart
-   * @returns {Promise<Order>}
    */
-  async createOrder(userId, cart) {
+  async createOrder(order, cart) {
     // We have to fetch the products because we need their price.
     const products = await this.#productRepository.findMany({
       where: {
@@ -32,7 +35,7 @@ export default class OrderService {
 
     return await this.#orderRepository.create({
       data: {
-        userId,
+        ...order,
         orderProducts: {
           create: products.map((product) => ({
             product: {

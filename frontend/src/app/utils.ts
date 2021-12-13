@@ -7,7 +7,8 @@ import { Entity } from './models'
 export const getJwtPayload = (jwt: string) => {
   const payload = JSON.parse(atob(jwt.split('.')[1]))
 
-  if (Date.now() > payload.exp) {
+  if (Date.now() / 1000 > payload.exp) {
+    console.warn('Given JWT token is expired.', Date.now() - payload.exp)
     return null
   }
 

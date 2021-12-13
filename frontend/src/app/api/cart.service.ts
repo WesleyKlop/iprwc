@@ -2,9 +2,17 @@ import { Injectable } from '@angular/core'
 import { BehaviorSubject, map, Observable, of, switchMap } from 'rxjs'
 import { CartItem, CartProduct, Product } from '../models'
 import { addOrUpdate, getJwtPayload } from '../utils'
-import { AuthenticationService } from './authentication.service'
 import { ProductService } from './product.service'
 import { ApiService } from './api.service'
+
+interface CreateOrderRequest {
+  name: string
+  email: string
+  postalCode: string
+  city: string
+  street: string
+  paymentMethod: string
+}
 
 @Injectable({
   providedIn: 'root',
@@ -69,5 +77,15 @@ export class CartService {
 
   removeFromCart(product: Product) {
     this.modifyCart(product.id, -1)
+  }
+
+  clear() {
+    this.apiService.delete('/cart').subscribe(() => {
+      this.cartItems.next([])
+    })
+  }
+
+  checkout(value: CreateOrderRequest) {
+    return this.apiService.post('/orders', value)
   }
 }

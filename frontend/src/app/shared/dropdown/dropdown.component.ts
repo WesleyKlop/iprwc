@@ -93,7 +93,6 @@ export class DropdownComponent implements ControlValueAccessor, Validator {
   }
 
   writeValue(value: string): void {
-    console.log('Write value', value)
     this.value = value
   }
 
@@ -101,8 +100,8 @@ export class DropdownComponent implements ControlValueAccessor, Validator {
     this.markAsTouched()
     this.open = false
     if (!this.disabled) {
-      console.log('Emitting', value)
       this.onChange(value)
+      this.writeValue(value)
     }
   }
 

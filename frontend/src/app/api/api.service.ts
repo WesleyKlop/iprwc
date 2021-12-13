@@ -93,4 +93,8 @@ export class ApiService {
   ): Observable<R> {
     return this.request<R>('PATCH', url, body)
   }
+
+  delete<R = void>(url: string) {
+    return this.request<R>('DELETE', url)
+  }
 }

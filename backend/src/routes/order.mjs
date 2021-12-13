@@ -12,8 +12,12 @@ const router = new Router()
 const userService = new UserService(prisma.user)
 const orderService = new OrderService(prisma.order, prisma.product)
 
+/** @param {string} postalCode */
+const normalizePostalCode = (postalCode) =>
+  postalCode.toUpperCase().replace(/[^A-Z0-9]/g, '')
+
 router.post('/', async (req, res, next) => {
-  const customerInfo = await storeOrderSchema.validate(req.body)
+  const orderInfo = await storeOrderSchema.validate(req.body)
 
   if (req.cart.length === 0) {
     return next(new AppError('The cart is empty', 400))
@@ -21,21 +25,26 @@ router.post('/', async (req, res, next) => {
 
   // Create/find user and create order
   const user = await userService.findOrCreateUser(
-    customerInfo.email,
-    customerInfo.name,
+    orderInfo.email,
+    orderInfo.name,
   )
 
   // Create order
-  const order = await orderService.createOrder(user.id, req.cart)
+  const order = await orderService.createOrder(
+    {
+      userId: user.id,
+      city: orderInfo.city,
+      postalCode: normalizePostalCode(orderInfo.postalCode),
+      street: orderInfo.street,
+      paymentMethod: orderInfo.paymentMethod,
+    },
+    req.cart,
+  )
 
   return JsonResponse.from(req)
     .withStatus(201)
     .withData(order)
     .withJwtPayload({
-      sub: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
       // Remove cart
     })
     .send(res)
@@ -50,9 +59,9 @@ router.get('/:orderId', async (req, res, next) => {
     )
   }
 
-  const order = await orderService.findOrderById(req.params.orderId, true)
+  const order = await orderService.findOrderById(orderId, true)
 
-  if (order?.userId !== req.user.id) {
+  if (order?.userId !== req.user.id && !req.user.isAdmin()) {
     return next(AuthError.forbidden('You are not allowed to view this order'))
   }
 

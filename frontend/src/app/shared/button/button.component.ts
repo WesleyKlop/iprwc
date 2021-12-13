@@ -9,5 +9,11 @@ export class ButtonComponent {
   @Input()
   type: 'button' | 'submit' | 'reset' = 'button'
 
+  @Input()
+  size: 'md' | 'lg' = 'md'
+
+  @Input()
+  disabled = false
+
   constructor() {}
 }

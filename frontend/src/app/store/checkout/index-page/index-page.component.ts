@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Router } from '@angular/router'
 import { CartService } from '../../../api/cart.service'
 import { CartProduct } from '../../../models'
 
@@ -10,6 +11,7 @@ import { CartProduct } from '../../../models'
 })
 export class IndexPageComponent implements OnInit {
   public cartProducts: CartProduct[] = []
+  public total: number = 0
 
   public checkoutForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -17,10 +19,10 @@ export class IndexPageComponent implements OnInit {
     postalCode: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     street: new FormControl('', [Validators.required]),
-    paymentMethod: new FormControl('bunq', [Validators.required]),
+    paymentMethod: new FormControl('', [Validators.required]),
   })
 
-  paymentMethods: string[] = [
+  paymentMethods = [
     'ABN AMRO',
     'ASN Bank',
     'bunq',
@@ -35,20 +37,22 @@ export class IndexPageComponent implements OnInit {
     'Van Lanschot',
   ]
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
     this.cartService.products().subscribe((products) => {
       this.cartProducts = products
+      this.total = products.reduce(
+        (total, i) => total + i.product.price * i.quantity,
+        0,
+      )
     })
   }
 
-  public checkout() {}
-
-  get total() {
-    return this.cartProducts.reduce(
-      (acc, { product, quantity }) => acc + product.price * quantity,
-      0,
-    )
+  public checkout() {
+    this.cartService.checkout(this.checkoutForm.value).subscribe(() => {
+      this.cartService.clear()
+      return this.router.navigate(['/', 'orders'])
+    })
   }
 }

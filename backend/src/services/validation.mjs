@@ -14,7 +14,10 @@ export const storeOrderSchema = yup.object().shape({
   name: yup.string().min(1).required(),
   email: yup.string().email().required(),
 
-  // Other address info?
+  city: yup.string().min(1).required(),
+  paymentMethod: yup.string().min(1).required(),
+  postalCode: yup.string().min(1).required(),
+  street: yup.string().min(1).required(),
 })
 
 export const loginSchema = yup.object().shape({

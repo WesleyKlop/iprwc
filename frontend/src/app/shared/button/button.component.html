@@ -1,3 +1,8 @@
-<button [type]="type" class="button">
+<button
+    [disabled]="disabled"
+    [type]="type"
+    class="button"
+    [ngClass]="{ large: size === 'lg' }"
+>
     <ng-content></ng-content>
 </button>
