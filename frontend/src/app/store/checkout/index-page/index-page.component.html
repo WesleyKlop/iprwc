@@ -170,7 +170,7 @@
             </h3>
 
             <p class="text-xl text-purple-500 font-medium mt-2">
-                {{ total | currency }}
+                {{ total / 100 | currency }}
             </p>
 
             <p class="text-xs text-gray-500 font-light max-w-16 pr-8 mt-4">
@@ -188,4 +188,11 @@
             </app-button>
         </div>
     </div>
+
+  <p class="mt-6 font-medium text-sm text-gray-600 hover:text-purple-500">
+    <a routerLink="/">
+      <span aria-hidden="true">&larr;</span>
+      Terug naar de winkel
+    </a>
+  </p>
 </div>
