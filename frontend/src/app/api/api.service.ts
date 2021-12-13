@@ -45,6 +45,9 @@ export class ApiService {
           switch (response.status) {
             case 401:
             case 403:
+              if (response.status === 401) {
+                this.clearAuthorization()
+              }
               return throwError(
                 () =>
                   new AuthenticationError(

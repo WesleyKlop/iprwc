@@ -1,4 +1,6 @@
 import { extractDataFromToken } from '../services/jwt.mjs'
+import { errors } from 'jose'
+import AuthError from '../errors/AuthError.mjs'
 
 const TOKEN_BEARER = 'Bearer'
 
@@ -21,6 +23,9 @@ const middleware = async (req, res, next) => {
     req.jwt = token
     next()
   } catch (err) {
+    if (err instanceof errors.JWTExpired) {
+      throw AuthError.unauthenticated('Token expired')
+    }
     next(err)
   }
 }

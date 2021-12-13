@@ -47,9 +47,15 @@ export class AuthenticationService {
       return
     }
 
+    const payload = getJwtPayload(savedToken)
+
+    if (payload === null) {
+      return
+    }
+
     this.apiService.setAuthorization(savedToken)
 
-    if (!getJwtPayload(savedToken).sub) {
+    if (!('sub' in payload)) {
       return
     }
 

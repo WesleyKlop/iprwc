@@ -13,8 +13,12 @@ import { ProductService } from '../../api/product.service'
 })
 export class StoreLayoutComponent implements OnInit {
   productsInCart: number = 0
-  showCart = false
   onCheckoutPage = false
+  showCart = false
+
+  get shouldShowCartButton() {
+    return !this.onCheckoutPage && this.productsInCart > 0
+  }
 
   constructor(
     private productService: ProductService,

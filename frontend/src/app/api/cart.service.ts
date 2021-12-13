@@ -15,12 +15,11 @@ export class CartService {
   constructor(
     private apiService: ApiService,
     private productService: ProductService,
-    private authService: AuthenticationService,
   ) {
     const savedToken = localStorage.getItem('app.jwt')
     if (savedToken) {
-      const { cart } = getJwtPayload(savedToken)
-      this.cartItems.next(cart)
+      const payload = getJwtPayload(savedToken)
+      if (payload) this.cartItems.next(payload.cart)
     }
   }
 

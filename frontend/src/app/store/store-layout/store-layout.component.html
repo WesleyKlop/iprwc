@@ -4,7 +4,7 @@
         Mijn bestellingen
     </app-navbar-item>
     <li class="flex-1"><!-- spacer --></li>
-    <app-navbar-item (click)="showCart = true" *ngIf="!onCheckoutPage">
+    <app-navbar-item (click)="showCart = true" *ngIf="shouldShowCartButton">
         Winkelwagen
     </app-navbar-item>
     <app-navbar-item

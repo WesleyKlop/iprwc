@@ -2,10 +2,16 @@ import { Entity } from './models'
 
 /**
  * Get the payload part of the jwt token
- * BEWARE: This does not validate the token!!!
+ * BEWARE: Only validates the token `exp`!
  */
 export const getJwtPayload = (jwt: string) => {
-  return JSON.parse(atob(jwt.split('.')[1]))
+  const payload = JSON.parse(atob(jwt.split('.')[1]))
+
+  if (Date.now() > payload.exp) {
+    return null
+  }
+
+  return payload
 }
 
 export const addOrUpdate = <T extends Record<string, any> = Entity>(

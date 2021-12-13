@@ -17,7 +17,7 @@ export class IndexPageComponent implements OnInit {
     postalCode: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     street: new FormControl('', [Validators.required]),
-    paymentMethod: new FormControl('', [Validators.required]),
+    paymentMethod: new FormControl('bunq', [Validators.required]),
   })
 
   paymentMethods: string[] = [
@@ -44,4 +44,11 @@ export class IndexPageComponent implements OnInit {
   }
 
   public checkout() {}
+
+  get total() {
+    return this.cartProducts.reduce(
+      (acc, { product, quantity }) => acc + product.price * quantity,
+      0,
+    )
+  }
 }
