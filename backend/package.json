@@ -21,7 +21,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.16.3",
+    "@babel/eslint-parser": "^7.16.5",
     "@types/debug": "^4.1.7",
     "@types/express": "^4.17.13",
     "@types/mmmagic": "^0.4.30",
