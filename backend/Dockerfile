@@ -15,4 +15,4 @@ COPY ./.docker/entrypoint.sh /docker-entrypoint.sh
 COPY . .
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["npm", "start"]
+CMD ["node", "src/bin/server.mjs"]

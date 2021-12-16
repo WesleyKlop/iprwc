@@ -1,14 +1,8 @@
 module.exports = {
-  mode: 'jit',
-  purge: {
-    content: [
-      './src/**/*.{html,ts}',
-    ]
-  },
-  darkMode: 'media',
+  content: ['./src/**/*.{html,ts}'],
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
   ],
-};
+}
