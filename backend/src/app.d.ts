@@ -21,6 +21,7 @@ declare class User {
 
 interface JwtPayload {
   cart: Array<CartItem>
+  exp: number
 
   sub?: Uuid
   name?: string
