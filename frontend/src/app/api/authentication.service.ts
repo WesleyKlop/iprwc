@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import {
-  BehaviorSubject,
-  defaultIfEmpty,
-  first,
   firstValueFrom,
   interval,
   map,
   mapTo,
   Observable,
   race,
+  ReplaySubject,
   skipWhile,
   tap,
-  timeout,
 } from 'rxjs'
 import { User } from '../models'
 import { getJwtPayload } from '../utils'
@@ -27,8 +24,8 @@ interface Credentials {
   providedIn: 'root',
 })
 export class AuthenticationService {
-  public readonly user$ = new BehaviorSubject<User | undefined>(undefined)
-  public readonly token$ = new BehaviorSubject<string | undefined>(undefined)
+  public readonly user$ = new ReplaySubject<User | undefined>(1)
+  public readonly token$ = new ReplaySubject<string | undefined>(1)
 
   constructor(
     private apiService: ApiService,

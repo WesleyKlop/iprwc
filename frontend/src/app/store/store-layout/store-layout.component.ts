@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router'
+import { NavigationStart, Router } from '@angular/router'
 import { filter } from 'rxjs'
 import { AuthenticationService } from '../../api/authentication.service'
 import { CartService } from '../../api/cart.service'
-import { Product } from '../../models'
 import { ProductService } from '../../api/product.service'
 
 @Component({

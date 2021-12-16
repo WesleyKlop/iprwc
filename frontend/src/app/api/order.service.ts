@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core'
-import {
-  BehaviorSubject,
-  firstValueFrom,
-  Observable,
-  of,
-  switchMap,
-  tap,
-} from 'rxjs'
-import { Order, Product } from '../models'
+import { BehaviorSubject, filter, Observable, switchMap, tap } from 'rxjs'
+import { Order, User } from '../models'
+import { addOrUpdate } from '../utils'
 import { ApiService } from './api.service'
 import { AuthenticationService } from './authentication.service'
 
@@ -24,13 +18,17 @@ export class OrderService {
 
   fetchOrders(): Observable<Order[]> {
     return this.authService.user$.pipe(
-      switchMap((user) => {
-        if (!user) {
-          return of([])
-        }
-        return this.apiService.get<Order[]>(`/orders/${user.id}`)
-      }),
+      filter((user): user is User => typeof user !== 'undefined'),
+      switchMap(() => this.apiService.get<Order[]>(`/orders`)),
       tap((orders) => this.orders.next(orders)),
+    )
+  }
+
+  fetchOrder(id: Order['id']): Observable<Order> {
+    return this.authService.user$.pipe(
+      filter((user): user is User => typeof user !== 'undefined'),
+      switchMap(() => this.apiService.get<Order>(`/orders/${id}`)),
+      tap((order) => this.orders.next(addOrUpdate(this.orders.value, order))),
     )
   }
 }
