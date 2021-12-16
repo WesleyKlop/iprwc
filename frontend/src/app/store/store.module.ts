@@ -12,6 +12,7 @@ import { CartOverlayComponent } from './cart-overlay/cart-overlay.component'
 import { CartOverlayItemComponent } from './cart-overlay/cart-overlay-item/cart-overlay-item.component'
 import { CartOverlayTotalComponent } from './cart-overlay/cart-overlay-total/cart-overlay-total.component'
 import { IndexPageComponent as OrderIndexPage } from './orders/index-page/index-page.component'
+import { ShowPageComponent } from './orders/show-page/show-page.component'
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { IndexPageComponent as OrderIndexPage } from './orders/index-page/index-
     CartOverlayTotalComponent,
     CheckoutPage,
     OrderIndexPage,
+    ShowPageComponent,
   ],
   imports: [
     CommonModule,

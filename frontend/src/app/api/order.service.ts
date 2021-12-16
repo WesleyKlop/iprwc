@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, switchMap, tap } from 'rxjs'
+import {
+  BehaviorSubject,
+  firstValueFrom,
+  Observable,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs'
 import { Order, Product } from '../models'
 import { ApiService } from './api.service'
 import { AuthenticationService } from './authentication.service'
@@ -15,16 +22,15 @@ export class OrderService {
     private authService: AuthenticationService,
   ) {}
 
-  fetchOrders() {
-    console.log('fetching orders')
-    this.authService.subscribeAuthChanges((user) => {
-      if (!user) {
-        return
-      }
-      this.apiService.get<Order[]>('/orders').subscribe((orders) => {
-        this.orders.next(orders)
-      })
-    })
-    return this.orders
+  fetchOrders(): Observable<Order[]> {
+    return this.authService.user$.pipe(
+      switchMap((user) => {
+        if (!user) {
+          return of([])
+        }
+        return this.apiService.get<Order[]>(`/orders/${user.id}`)
+      }),
+      tap((orders) => this.orders.next(orders)),
+    )
   }
 }

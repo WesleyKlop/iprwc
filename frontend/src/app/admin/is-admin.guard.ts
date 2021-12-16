@@ -9,6 +9,7 @@ import {
   UrlSegment,
   UrlTree,
 } from '@angular/router'
+import { firstValueFrom } from 'rxjs'
 import { AuthenticationService } from '../api/authentication.service'
 
 @Injectable({
@@ -21,11 +22,7 @@ export class IsAdminGuard implements CanActivate, CanLoad {
   ) {}
 
   private async userIsAdmin(): Promise<boolean> {
-    if (this.authService.isAuthenticated()) {
-      return this.authService.isAdmin()
-    }
-    await this.authService.attemptRestoreSession()
-    return this.authService.isAdmin()
+    return firstValueFrom(this.authService.isAdmin$())
   }
 
   private async can(): Promise<UrlTree | boolean> {

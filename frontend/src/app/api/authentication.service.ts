@@ -3,13 +3,16 @@ import { ActivatedRoute, Router } from '@angular/router'
 import {
   BehaviorSubject,
   defaultIfEmpty,
-  filter,
+  first,
   firstValueFrom,
+  interval,
   map,
+  mapTo,
   Observable,
-  Observer,
-  Subject,
+  race,
+  skipWhile,
   tap,
+  timeout,
 } from 'rxjs'
 import { User } from '../models'
 import { getJwtPayload } from '../utils'
@@ -24,69 +27,89 @@ interface Credentials {
   providedIn: 'root',
 })
 export class AuthenticationService {
-  protected user?: User
-  protected token$ = new BehaviorSubject<string | undefined>(undefined)
+  public readonly user$ = new BehaviorSubject<User | undefined>(undefined)
+  public readonly token$ = new BehaviorSubject<string | undefined>(undefined)
 
   constructor(
     private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute,
   ) {
+    this.token$.subscribe((t) => console.warn('New token:', t))
+    // Always store the token in the auth service
     this.token$.subscribe((token) => {
-      if (token) apiService.setAuthorization(token)
-      else apiService.clearAuthorization()
+      if (typeof token === 'string') {
+        apiService.setAuthorization(token)
+      } else {
+        apiService.clearAuthorization()
+      }
+    })
+    // Sync the user stored in the token
+    this.token$.subscribe(async (token) => {
+      if (typeof token === 'string') {
+        await this.fetchCurrentUser()
+      } else {
+        this.user$.next(undefined)
+      }
+    })
+    // Sync localStorage with the token
+    this.token$.subscribe((token) => {
+      if (typeof token === 'string') {
+        localStorage.setItem('app.jwt', token)
+      }
     })
   }
 
-  public subscribeAuthChanges(handler?: (value: User | undefined) => void) {
-    return this.token$
-      .pipe(map((token) => (token ? this.user : undefined)))
-      .subscribe(handler)
+  protected fetchCurrentUser(): Promise<User> {
+    const observable = this.apiService.get<User>('/users/me').pipe(
+      tap((user) => {
+        this.user$.next(user)
+      }),
+    )
+    return firstValueFrom(observable)
   }
 
-  public isAdmin(): boolean {
-    return this.user?.role === 'ADMIN'
+  public isAdmin$(): Observable<boolean> {
+    return this.user$.pipe(map((user) => user?.role === 'ADMIN'))
   }
 
-  public isUser(): boolean {
-    return this.user?.role === 'USER'
+  public isUser$(): Observable<boolean> {
+    return this.user$.pipe(map((user) => user?.role === 'USER'))
   }
 
-  public isAuthenticated(): boolean {
-    return this.user !== undefined
+  public isAuthenticated$(): Observable<boolean> {
+    return this.user$.pipe(map((user) => typeof user !== 'undefined'))
   }
 
   public signOut(): void {
-    this.user = undefined
-    this.apiService.clearAuthorization()
-    localStorage.clear()
+    this.token$.next(undefined)
+    localStorage.removeItem('app.jwt')
   }
 
   public authenticate(credentials: Credentials): Observable<User> {
     return this.apiService
       .post<User>('/users/login', credentials)
-      .pipe(tap((user) => (this.user = user)))
+      .pipe(tap((user) => this.user$.next(user)))
   }
 
   private pullSavedToken(): Promise<string | null> {
-    const observable = this.route.queryParamMap.pipe(
-      // We first check if the URL contains the token query parameter
-      filter((params) => params.has('token')),
-      map((params) => params.get('token')),
-      tap(() => {
-        return this.router.navigate([], {
-          queryParams: { token: null },
-          queryParamsHandling: 'merge',
-        })
-      }),
-      // Else we fall back to the localStorage.
-      defaultIfEmpty(localStorage.getItem('app.jwt')),
-    )
+    const observable = race([
+      interval(250).pipe(mapTo(localStorage.getItem('app.jwt'))),
+      this.route.queryParamMap.pipe(
+        skipWhile((params) => !params.has('token')),
+        map((params) => params.get('token')),
+        tap(() => {
+          return this.router.navigate([], {
+            queryParams: { token: null },
+            queryParamsHandling: 'merge',
+          })
+        }),
+      ),
+    ])
     return firstValueFrom(observable)
   }
 
-  public async attemptRestoreSession(): Promise<User | undefined> {
-    console.log('Attempting to restore session')
+  public async attemptRestoreSession() {
     const savedToken = await this.pullSavedToken()
     if (!savedToken) {
       return
@@ -94,28 +117,10 @@ export class AuthenticationService {
 
     const payload = getJwtPayload(savedToken)
 
-    if (payload === null) {
+    if (!payload) {
       return
     }
 
     this.token$.next(savedToken)
-
-    if (!('sub' in payload)) {
-      return
-    }
-
-    const observable = this.apiService.get<User>('/users/me').pipe(
-      tap({
-        next: (user) => {
-          this.user = user
-          localStorage.setItem('app.jwt', savedToken)
-        },
-        error: () => {
-          this.apiService.clearAuthorization()
-        },
-      }),
-    )
-
-    return firstValueFrom(observable)
   }
 }

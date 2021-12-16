@@ -40,7 +40,7 @@ export class IndexPageComponent implements OnInit {
   constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
-    this.cartService.products().subscribe((products) => {
+    this.cartService.cartProducts$.subscribe((products) => {
       this.cartProducts = products
       this.total = products.reduce(
         (total, i) => total + i.product.price * i.quantity,

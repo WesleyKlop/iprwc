@@ -52,7 +52,7 @@ export class CartOverlayComponent implements OnInit {
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cartService.products().subscribe((products) => {
+    this.cartService.cartProducts$.subscribe((products) => {
       this.cartProducts = products
     })
   }

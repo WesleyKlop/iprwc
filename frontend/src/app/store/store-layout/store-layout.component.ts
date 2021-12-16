@@ -16,6 +16,9 @@ export class StoreLayoutComponent implements OnInit {
   onCheckoutPage = false
   showCart = false
 
+  public isAuthenticated = false
+  public isCustomer = false
+
   get shouldShowCartButton() {
     return !this.onCheckoutPage && this.productsInCart > 0
   }
@@ -28,23 +31,22 @@ export class StoreLayoutComponent implements OnInit {
   ) {}
 
   public ngOnInit() {
-    this.cartService.count().subscribe((count) => {
+    this.cartService.count$.subscribe((count) => {
       this.productsInCart = count
     })
     this.router.events
-      .pipe(filter((event) => event instanceof NavigationStart))
-      .subscribe((event) => {
-        const route = event as NavigationStart
+      .pipe(
+        filter(
+          (event): event is NavigationStart => event instanceof NavigationStart,
+        ),
+      )
+      .subscribe((route) => {
         this.onCheckoutPage = route.url === '/checkout'
       })
-  }
-
-  public isAuthenticated() {
-    return this.authService.isAuthenticated()
-  }
-
-  public isCustomer() {
-    return this.authService.isUser()
+    this.authService.user$.subscribe((user) => {
+      this.isAuthenticated = typeof user !== 'undefined'
+      this.isCustomer = user?.role === 'USER'
+    })
   }
 
   public signOut() {
