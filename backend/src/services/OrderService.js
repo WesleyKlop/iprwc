@@ -61,4 +61,14 @@ export default class OrderService {
       },
     })
   }
+
+  findOrdersByUser(userId) {
+    return this.#orderRepository.findMany({
+      where: {
+        user: {
+          id: userId,
+        },
+      },
+    })
+  }
 }

@@ -34,6 +34,7 @@ export default (app) => {
       return ErrorResponse.from(req, err).send(res)
     }
 
+    console.error(err)
     return ErrorResponse.from(req, new WrappedError(err)).send(res)
   })
 }

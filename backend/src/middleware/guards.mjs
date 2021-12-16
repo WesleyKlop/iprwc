@@ -7,6 +7,15 @@ export const guest = (req, res, next) => {
   next()
 }
 
+export const authenticated = (req, res, next) => {
+  if (!req.user) {
+    throw AuthError.unauthenticated(
+      'You must be authenticated to access this route',
+    )
+  }
+  next()
+}
+
 export const admin = (req, res, next) => {
   if (!req.user) {
     throw AuthError.unauthenticated(

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, map, Observable, of, switchMap } from 'rxjs'
+import { BehaviorSubject, filter, map, Observable, of, switchMap } from 'rxjs'
 import { CartItem, CartProduct, Product } from '../models'
 import { addOrUpdate, getJwtPayload } from '../utils'
 import { ProductService } from './product.service'
@@ -33,7 +33,8 @@ export class CartService {
 
   products(): Observable<CartProduct[]> {
     return this.cartItems.pipe(
-      switchMap((items: CartItem[], _) => {
+      filter((items) => Array.isArray(items)),
+      switchMap((items: CartItem[]) => {
         if (!items.length) {
           return of([])
         }
@@ -57,6 +58,7 @@ export class CartService {
 
   count(): Observable<number> {
     return this.cartItems.pipe(
+      filter((items) => Array.isArray(items)),
       map((items) => items.reduce((acc, item) => acc + item.quantity, 0)),
     )
   }

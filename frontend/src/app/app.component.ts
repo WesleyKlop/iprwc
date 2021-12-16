@@ -6,8 +6,10 @@ import { AuthenticationService } from './api/authentication.service'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  constructor(private authService: AuthenticationService) {
+export class AppComponent implements OnInit {
+  constructor(private authService: AuthenticationService) {}
+
+  ngOnInit(): void {
     this.authService.attemptRestoreSession().then(() => {
       console.log('session restored')
     })

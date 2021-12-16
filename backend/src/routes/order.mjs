@@ -6,15 +6,21 @@ import OrderService from '../services/OrderService.js'
 import UserService from '../services/UserService.mjs'
 import { getOrderSchema, storeOrderSchema } from '../services/validation.mjs'
 import prisma from '../services/prisma.mjs'
+import { formatEmail, sendMail } from '../services/mailer.mjs'
+import { createToken } from '../services/jwt.mjs'
+import { normalizePostalCode } from '../services/utils.mjs'
+import { authenticated } from '../middleware/guards.mjs'
 
 const router = new Router()
 
 const userService = new UserService(prisma.user)
 const orderService = new OrderService(prisma.order, prisma.product)
 
-/** @param {string} postalCode */
-const normalizePostalCode = (postalCode) =>
-  postalCode.toUpperCase().replace(/[^A-Z0-9]/g, '')
+router.get('/', authenticated, async (req, res, next) => {
+  const orders = await orderService.findOrdersByUser(req.user.id)
+
+  return JsonResponse.from(req).withData(orders).send(res)
+})
 
 router.post('/', async (req, res, next) => {
   const orderInfo = await storeOrderSchema.validate(req.body)
@@ -39,6 +45,30 @@ router.post('/', async (req, res, next) => {
       paymentMethod: orderInfo.paymentMethod,
     },
     req.cart,
+  )
+
+  // Send an email to the user.
+  const orderUrl = new URL('/orders/' + order.id, process.env.APP_URL)
+  orderUrl.searchParams.set(
+    'token',
+    await createToken({
+      sub: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      cart: [],
+    }),
+  )
+  await sendMail(
+    formatEmail(user),
+    `
+  Je bestelling is geplaatst.
+
+  Gebruik de volgende link om in te loggen en je bestelling te bekijken:
+  __URL__
+  `
+      .trim()
+      .replace('__URL__', orderUrl.toString()),
   )
 
   return JsonResponse.from(req)

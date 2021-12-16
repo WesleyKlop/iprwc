@@ -12,6 +12,7 @@ export interface CartItem {
 export interface CartProduct extends CartItem {
   product: Product
 }
+export interface Order extends Entity {}
 
 export interface User extends Entity {
   name: string
