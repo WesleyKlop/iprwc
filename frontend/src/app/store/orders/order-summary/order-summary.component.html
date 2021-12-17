@@ -9,16 +9,11 @@
   </div>
 </div>
 <ul class="p-6" *ngIf="order">
-  <li *ngFor="let op of orderProducts" class="grid grid-cols-[auto,1fr,1fr] grid-rows-[auto,1fr,auto] gap-x-8 items-start">
-    <div class="col-span-1 row-span-3">
-      <img src="/api/images/{{ op.product.imageId }}" alt="{{ op.product.name }}" class="max-h-40 object-cover">
-    </div>
-    <h3 class="col-span-1 row-span-1 text-lg">{{ op.product.name }}</h3>
-    <span class="col-span-1 row-span-1 text-right">{{ itemTotal(op) / 100 | currency }}</span>
-    <p class="col-span-2 row-span-1 text-gray-500 justify-self-start">{{ op.product.description }}</p>
-    <div class="col-span-2 flex justify-end items-end gap-x-4">
-      <a class="px-2 py-px rounded font-medium text-purple-500 hover:underline" routerLink="/products/{{ op.productId }}">Bekijk product</a>
-      <button class="px-2 py-px rounded font-medium text-purple-500 hover:underline" (click)="addToCart(op)">Bestel nog eens</button>
-    </div>
-  </li>
+  <app-order-summary-item
+    *ngFor="let op of orderProducts"
+    [product]="op.product"
+    (addToCart)="addToCart(op)"
+    [price]="op.price"
+    [quantity]="op.quantity"
+  ></app-order-summary-item>
 </ul>

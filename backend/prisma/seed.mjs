@@ -28,10 +28,6 @@ await prisma.product.create({
     name: 'Test product',
     description: 'Test product description',
     price: 1337, // EUR 13.37
-    image: {
-      connect: {
-        id: image.id,
-      },
-    },
+    imageId: image.id,
   },
 })

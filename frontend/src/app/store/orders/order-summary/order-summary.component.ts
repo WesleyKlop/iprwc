@@ -42,10 +42,6 @@ export class OrderSummaryComponent implements OnInit {
     })
   }
 
-  itemTotal(op: OrderProduct): number {
-    return op.price * op.quantity
-  }
-
   addToCart(op: OrderProduct) {
     this.cartService.addToCart(op.productId)
   }
