@@ -5,7 +5,7 @@ import UserService from '../services/UserService.mjs'
 
 dotenv.config()
 
-const service = new UserService(prisma)
+const service = new UserService(prisma.user)
 
 const email = process.env.APP_ADMIN_EMAIL
 const password = process.env.APP_ADMIN_PASSWORD
