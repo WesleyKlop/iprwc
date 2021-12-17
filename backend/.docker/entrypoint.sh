@@ -12,4 +12,4 @@ npx prisma generate
 echo "Migrating database"
 npx prisma migrate deploy
 
-exec "$@"
+exec "src/bin/$1.mjs"

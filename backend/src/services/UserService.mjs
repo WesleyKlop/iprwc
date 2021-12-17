@@ -55,4 +55,16 @@ export default class UserService {
 
     return new User(user.id, user.name, user.email, user.role)
   }
+
+  async createUser(email, name, password, role = 'USER') {
+    const user = await this.#userRepository.create({
+      data: {
+        email,
+        name,
+        password: await hash(password, 10),
+        role,
+      },
+    })
+    return new User(user.id, user.name, user.email, user.role)
+  }
 }

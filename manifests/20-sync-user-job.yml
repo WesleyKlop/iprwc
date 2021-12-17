@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sync-user-job
+  namespace: iprwc
+spec:
+  backoffLimit: 4
+  ttlSecondsAfterFinished: 300
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrator
+          image: ghcr.io/wesleyklop/iprwc-backend:latest
+          imagePullPolicy: Always
+          command: ['sync-user']
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  key: database-url
+                  name: iprwc-credentials
+            - name: APP_ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: iprwc-credentials
+            - name: APP_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: iprwc-credentials
