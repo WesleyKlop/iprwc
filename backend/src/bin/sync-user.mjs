@@ -12,12 +12,10 @@ const password = process.env.APP_ADMIN_PASSWORD
 
 if (!email || !password) {
   console.error('Missing APP_ADMIN_EMAIL or APP_ADMIN_PASSWORD')
-  return 1
+  process.exit(1)
 }
 
 console.log('Creating user with email:', email)
 await service.createOrUpdateUser(email, 'Admin', password, 'ADMIN')
 
 console.log('User created or updated!')
-
-return 0
