@@ -56,13 +56,18 @@ export default class UserService {
     return new User(user.id, user.name, user.email, user.role)
   }
 
-  async createUser(email, name, password, role = 'USER') {
-    const user = await this.#userRepository.create({
-      data: {
-        email,
-        name,
-        password: await hash(password, 10),
-        role,
+  async createOrUpdateUser(email, name, rawPassword, role = 'USER') {
+    const password = await hash(rawPassword, 10)
+
+    const where = { email }
+    const update = { name, role, password }
+
+    const user = await this.#userRepository.upsert({
+      where,
+      update,
+      create: {
+        ...where,
+        ...update,
       },
     })
     return new User(user.id, user.name, user.email, user.role)

@@ -16,8 +16,8 @@ if (!email || !password) {
 }
 
 console.log('Creating user with email:', email)
-await service.createUser(email, 'Admin', password, 'ADMIN')
+await service.createOrUpdateUser(email, 'Admin', password, 'ADMIN')
 
-console.log('User created!')
+console.log('User created or updated!')
 
 return 0
