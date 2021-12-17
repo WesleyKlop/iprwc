@@ -9,7 +9,7 @@
     <p class="text-gray-500">{{ product.description }}</p>
   </div>
   <div class="col-span-2 flex justify-start gap-x-4">
-    <a class="px-2 py-px rounded font-medium text-purple-500 hover:underline" routerLink="/products/{{ product.id }}">Bekijk product</a>
-    <button class="px-2 py-px rounded font-medium text-purple-500 hover:underline" (click)="addToCart.emit()">Bestel nog eens</button>
+    <a class="py-px rounded font-medium text-purple-500 hover:underline" routerLink="/products/{{ product.id }}">Bekijk product</a>
+    <button class="py-px rounded font-medium text-purple-500 hover:underline" (click)="addToCart.emit()">Bestel nog eens</button>
   </div>
 </li>
