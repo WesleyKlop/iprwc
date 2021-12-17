@@ -17,13 +17,11 @@
           <span class="block lg:hidden w-auto">{{ title }}</span>
           <span class="hidden lg:block w-auto">IPRWC - {{ title }}</span>
         </div>
-        <div class="hidden sm:block sm:ml-6">
+        <div class="hidden sm:block sm:ml-6 flex-1">
           <div class="flex space-x-4">
             <ng-container [ngTemplateOutlet]="content.templateRef"></ng-container>
           </div>
         </div>
-      </div>
-      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
       </div>
     </div>
   </div>
