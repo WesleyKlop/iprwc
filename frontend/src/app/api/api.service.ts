@@ -33,7 +33,7 @@ export class ApiService {
       })
       .pipe(
         tap((response) => {
-          console.debug('Received response:', url, response)
+          console.debug('Received response:', method, url, response)
           if (this.shouldUpdateAuthorization(response.meta?.jwt)) {
             this.setAuthorization(response.meta.jwt)
             localStorage.setItem('app.jwt', response.meta.jwt)

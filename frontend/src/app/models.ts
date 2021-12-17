@@ -5,14 +5,31 @@ export interface Entity {
 }
 
 export interface CartItem {
-  productId: Uuid
+  productId: Product['id']
   quantity: number
 }
 
 export interface CartProduct extends CartItem {
   product: Product
 }
-export interface Order extends Entity {}
+
+export interface OrderProduct extends Entity {
+  orderId: Order['id']
+  productId: Product['id']
+  price: number
+  quantity: number
+}
+
+export interface Order<T = string> extends Entity {
+  city: string
+  paymentMethod: string
+  postalCode: string
+  street: string
+  createdAt: T
+
+  userId: User['id']
+  orderProducts: OrderProduct[]
+}
 
 export interface User extends Entity {
   name: string
@@ -30,5 +47,5 @@ export interface Product extends Entity {
   name: string
   description: string
   price: number
-  imageId: Uuid
+  imageId: Image['id']
 }

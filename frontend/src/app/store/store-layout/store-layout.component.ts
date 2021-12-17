@@ -16,7 +16,6 @@ export class StoreLayoutComponent implements OnInit {
   showCart = false
 
   public isAuthenticated = false
-  public isCustomer = false
 
   get shouldShowCartButton() {
     return !this.onCheckoutPage && this.productsInCart > 0
@@ -42,9 +41,8 @@ export class StoreLayoutComponent implements OnInit {
       .subscribe((route) => {
         this.onCheckoutPage = route.url === '/checkout'
       })
-    this.authService.user$.subscribe((user) => {
-      this.isAuthenticated = typeof user !== 'undefined'
-      this.isCustomer = user?.role === 'USER'
+    this.authService.isAuthenticated$().subscribe((isAuthenticated) => {
+      this.isAuthenticated = isAuthenticated
     })
   }
 

@@ -1,6 +1,6 @@
 <app-navbar title="IPRWC - de winkel">
     <app-navbar-item to="/" [exact]="true">Home</app-navbar-item>
-    <app-navbar-item to="orders" *ngIf="isCustomer">
+    <app-navbar-item to="orders" *ngIf="isAuthenticated">
         Mijn bestellingen
     </app-navbar-item>
     <li class="flex-1"><!-- spacer --></li>

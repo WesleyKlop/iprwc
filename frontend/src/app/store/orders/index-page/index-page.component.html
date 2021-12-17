@@ -1,1 +1,18 @@
-<p>index-page works!</p>
+<h2 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
+    Mijn bestellingen
+</h2>
+<p class="mb-8 text-gray-500 text-sm">Al jouw bestellingen op een rijtje.</p>
+
+<div class="flex flex-col gap-y-5">
+    <app-order-summary
+        *ngFor="let order of ordersToShow"
+        [orderId]="order.id"
+        [products]="products"
+    ></app-order-summary>
+
+  <ng-container *ngIf="orders.length > 5 && showAll === false">
+    <app-button size="lg" (click)="showAll = true">
+      Laat alles zien
+    </app-button>
+  </ng-container>
+</div>

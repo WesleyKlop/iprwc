@@ -75,7 +75,9 @@ router.post('/', async (req, res, next) => {
     .withStatus(201)
     .withData(order)
     .withJwtPayload({
+      ...req.jwtPayload,
       // Remove cart
+      cart: [],
     })
     .send(res)
 })

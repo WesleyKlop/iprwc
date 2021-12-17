@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, filter, map, of, switchMap } from 'rxjs'
-import { CartItem, Product } from '../models'
+import { BehaviorSubject, filter, map, Observable, of, switchMap } from 'rxjs'
+import { CartItem, CartProduct, Product } from '../models'
 import { addOrUpdate, getJwtPayload } from '../utils'
 import { AuthenticationService } from './authentication.service'
 import { ProductService } from './product.service'
@@ -20,8 +20,8 @@ interface CreateOrderRequest {
 })
 export class CartService {
   private cartItems$ = new BehaviorSubject<CartItem[]>([])
-  public readonly cartProducts$
-  public readonly count$
+  public readonly cartProducts$: Observable<CartProduct[]>
+  public readonly count$: Observable<number>
 
   constructor(
     private apiService: ApiService,

@@ -20,7 +20,6 @@ export default class OrderService {
    * @param {CartItem[]} cart
    */
   async createOrder(order, cart) {
-    // We have to fetch the products because we need their price.
     const products = await this.#productRepository.findMany({
       where: {
         id: {
@@ -33,18 +32,23 @@ export default class OrderService {
       throw new AppError('Cart contains invalid products', 500)
     }
 
+    const productMap = products.reduce((map, product) => {
+      map.set(product.id, product)
+      return map
+    }, new Map())
+
     return await this.#orderRepository.create({
       data: {
         ...order,
         orderProducts: {
-          create: products.map((product) => ({
+          create: cart.map((cartItem) => ({
             product: {
               connect: {
-                id: product.id,
+                id: cartItem.productId,
               },
             },
-            quantity: product.quantity,
-            price: product.price,
+            quantity: cartItem.quantity,
+            price: productMap.get(cartItem.productId).price,
           })),
         },
       },
@@ -68,6 +72,9 @@ export default class OrderService {
         user: {
           id: userId,
         },
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     })
   }

@@ -32,29 +32,7 @@ export class AuthenticationService {
     private router: Router,
     private route: ActivatedRoute,
   ) {
-    this.token$.subscribe((t) => console.warn('New token:', t))
-    // Always store the token in the auth service
-    this.token$.subscribe((token) => {
-      if (typeof token === 'string') {
-        apiService.setAuthorization(token)
-      } else {
-        apiService.clearAuthorization()
-      }
-    })
-    // Sync the user stored in the token
-    this.token$.subscribe(async (token) => {
-      if (typeof token === 'string') {
-        await this.fetchCurrentUser()
-      } else {
-        this.user$.next(undefined)
-      }
-    })
-    // Sync localStorage with the token
-    this.token$.subscribe((token) => {
-      if (typeof token === 'string') {
-        localStorage.setItem('app.jwt', token)
-      }
-    })
+    this.subscribeDataFromToken()
   }
 
   protected fetchCurrentUser(): Promise<User> {
@@ -119,5 +97,32 @@ export class AuthenticationService {
     }
 
     this.token$.next(savedToken)
+  }
+
+  private subscribeDataFromToken() {
+    this.token$.subscribe((t) => console.warn('New token:', t))
+    // Always store the token in the auth service
+    this.token$.subscribe((token) => {
+      if (typeof token === 'string') {
+        this.apiService.setAuthorization(token)
+      } else {
+        this.apiService.clearAuthorization()
+      }
+    })
+    // Sync the user stored in the token
+    this.token$.subscribe(async (token) => {
+      if (typeof token === 'string') {
+        const payload = getJwtPayload(token)
+        if ('sub' in payload) await this.fetchCurrentUser()
+      } else {
+        this.user$.next(undefined)
+      }
+    })
+    // Sync localStorage with the token
+    this.token$.subscribe((token) => {
+      if (typeof token === 'string') {
+        localStorage.setItem('app.jwt', token)
+      }
+    })
   }
 }
