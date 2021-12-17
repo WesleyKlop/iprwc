@@ -48,28 +48,24 @@ router.post('/', async (req, res, next) => {
   )
 
   // Send an email to the user.
-  const orderUrl = new URL('/orders/' + order.id, process.env.APP_URL)
-  orderUrl.searchParams.set(
-    'token',
-    await createToken({
-      sub: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      cart: [],
-    }),
-  )
-  await sendMail(
-    formatEmail(user),
-    `
+  const token = await createToken({
+    sub: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    cart: [],
+  })
+  const orderUrl = new URL('/orders', process.env.APP_URL)
+  orderUrl.searchParams.set('token', token)
+  const body = `
   Je bestelling is geplaatst.
 
   Gebruik de volgende link om in te loggen en je bestelling te bekijken:
   __URL__
   `
-      .trim()
-      .replace('__URL__', orderUrl.toString()),
-  )
+    .trim()
+    .replace('__URL__', orderUrl.toString())
+  await sendMail(formatEmail(user), 'Bestel bevestiging', body)
 
   return JsonResponse.from(req)
     .withStatus(201)

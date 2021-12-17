@@ -24,5 +24,6 @@ export class NavbarComponent {
 
   isOpen = false
 
-  @ContentChild(NavbarDirective) content!: NavbarDirective
+  @ContentChild(NavbarDirective)
+  content!: NavbarDirective
 }

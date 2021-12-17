@@ -7,7 +7,7 @@ const defaultOptions = {
 }
 
 export const formatEmail = (user) => `${user.name} <${user.email}>`
-export const sendMail = (to, text) => {
+export const sendMail = (to, subject, text) => {
   const mailOptions = {
     ...defaultOptions,
     text,

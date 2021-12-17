@@ -1,7 +1,7 @@
 import { Directive, TemplateRef } from '@angular/core'
 
 @Directive({
-  selector: '[app-navbar]',
+  selector: '[appNavbar]',
 })
 export class NavbarDirective {
   constructor(public templateRef: TemplateRef<unknown>) {}

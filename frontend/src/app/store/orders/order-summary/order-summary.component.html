@@ -1,19 +1,19 @@
 <div class="flex p-6 gap-x-12 text-sm" *ngIf="order">
-  <div>
-    <p class="font-medium">Datum geplaatst</p>
-    <p class="text-gray-600">{{ order.createdAt | date:'longDate' }}</p>
-  </div>
-  <div>
-    <p class="font-medium">Totaalbedrag</p>
-    <p class="text-gray-900">{{ orderTotal / 100 | currency }}</p>
-  </div>
+    <div>
+        <p class="font-medium">Datum geplaatst</p>
+        <p class="text-gray-600">{{ order.createdAt | date: "longDate" }}</p>
+    </div>
+    <div>
+        <p class="font-medium">Totaalbedrag</p>
+        <p class="text-gray-900">{{ orderTotal / 100 | currency }}</p>
+    </div>
 </div>
 <ul class="p-6" *ngIf="order">
-  <app-order-summary-item
-    *ngFor="let op of orderProducts"
-    [product]="op.product"
-    (addToCart)="addToCart(op)"
-    [price]="op.price"
-    [quantity]="op.quantity"
-  ></app-order-summary-item>
+    <app-order-summary-item
+        *ngFor="let op of orderProducts"
+        [product]="op.product"
+        (addToCart)="addToCart(op)"
+        [price]="op.price"
+        [quantity]="op.quantity"
+    ></app-order-summary-item>
 </ul>

@@ -1,15 +1,36 @@
-<li class="grid sm:grid-cols-[auto,1fr,1fr] grid-cols-[auto,1fr] grid-rows-[auto,1fr,auto] gap-x-8 gap-y-2 sm:gap-y-0 items-start">
-  <div class="col-span-1 row-span-3 hidden sm:block">
-    <img src="/api/images/{{ product.imageId }}" alt="{{ product.name }}" class="max-h-40 object-cover rounded">
-  </div>
-  <h3 class="col-span-1 row-span-1 text-lg font-medium">{{product.name }}</h3>
-  <span class="col-span-1 row-span-1 text-right">{{ itemTotal | currency }}</span>
-  <div class="col-span-2 row-span-1 justify-self-start">
-    <span class="text-sm text-gray-700 font-medium">Aantal: {{ quantity }}</span>
-    <p class="text-gray-500">{{ product.description }}</p>
-  </div>
-  <div class="col-span-2 flex justify-start gap-x-4">
-    <a class="py-px rounded font-medium text-purple-500 hover:underline" routerLink="/products/{{ product.id }}">Bekijk product</a>
-    <button class="py-px rounded font-medium text-purple-500 hover:underline" (click)="addToCart.emit()">Bestel nog eens</button>
-  </div>
+<li
+    class="grid sm:grid-cols-[auto,1fr,1fr] grid-cols-[auto,1fr] grid-rows-[auto,1fr,auto] gap-x-8 gap-y-2 sm:gap-y-0 items-start"
+>
+    <div class="col-span-1 row-span-3 hidden sm:block">
+        <img
+            src="/api/images/{{ product.imageId }}"
+            alt="{{ product.name }}"
+            class="max-h-40 object-cover rounded"
+        />
+    </div>
+    <h3 class="col-span-1 row-span-1 text-lg font-medium">
+        {{ product.name }}
+    </h3>
+    <span class="col-span-1 row-span-1 text-right">{{
+        itemTotal | currency
+    }}</span>
+    <div class="col-span-2 row-span-1 justify-self-start">
+        <span class="text-sm text-gray-700 font-medium"
+            >Aantal: {{ quantity }}</span
+        >
+        <p class="text-gray-500">{{ product.description }}</p>
+    </div>
+    <div class="col-span-2 flex justify-start gap-x-4">
+        <a
+            class="py-px rounded font-medium text-purple-500 hover:underline"
+            routerLink="/products/{{ product.id }}"
+            >Bekijk product</a
+        >
+        <button
+            class="py-px rounded font-medium text-purple-500 hover:underline"
+            (click)="addToCart.emit()"
+        >
+            Bestel nog eens
+        </button>
+    </div>
 </li>

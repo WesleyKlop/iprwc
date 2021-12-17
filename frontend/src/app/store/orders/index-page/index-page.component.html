@@ -10,9 +10,9 @@
         [products]="products"
     ></app-order-summary>
 
-  <ng-container *ngIf="orders.length > 5 && showAll === false">
-    <app-button size="lg" (click)="showAll = true">
-      Laat alles zien
-    </app-button>
-  </ng-container>
+    <ng-container *ngIf="orders.length > 5 && showAll === false">
+        <app-button size="lg" (click)="showAll = true">
+            Laat alles zien
+        </app-button>
+    </ng-container>
 </div>

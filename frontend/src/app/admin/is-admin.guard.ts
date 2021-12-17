@@ -22,7 +22,7 @@ export class IsAdminGuard implements CanActivate, CanLoad {
   ) {}
 
   private async userIsAdmin(): Promise<boolean> {
-    return firstValueFrom(this.authService.isAdmin$())
+    return firstValueFrom(this.authService.isAdmin$)
   }
 
   private async can(): Promise<UrlTree | boolean> {

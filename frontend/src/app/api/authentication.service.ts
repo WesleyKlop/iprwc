@@ -27,12 +27,20 @@ export class AuthenticationService {
   public readonly user$ = new ReplaySubject<User | undefined>(1)
   public readonly token$ = new ReplaySubject<string | undefined>(1)
 
+  public readonly isAdmin$: Observable<boolean>
+  public readonly isAuthenticated$: Observable<boolean>
+
   constructor(
     private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute,
   ) {
     this.subscribeDataFromToken()
+
+    this.isAdmin$ = this.user$.pipe(map((user) => user?.role === 'ADMIN'))
+    this.isAuthenticated$ = this.user$.pipe(
+      map((user) => typeof user !== 'undefined'),
+    )
   }
 
   protected fetchCurrentUser(): Promise<User> {
@@ -42,18 +50,6 @@ export class AuthenticationService {
       }),
     )
     return firstValueFrom(observable)
-  }
-
-  public isAdmin$(): Observable<boolean> {
-    return this.user$.pipe(map((user) => user?.role === 'ADMIN'))
-  }
-
-  public isUser$(): Observable<boolean> {
-    return this.user$.pipe(map((user) => user?.role === 'USER'))
-  }
-
-  public isAuthenticated$(): Observable<boolean> {
-    return this.user$.pipe(map((user) => typeof user !== 'undefined'))
   }
 
   public signOut(): void {
@@ -87,12 +83,14 @@ export class AuthenticationService {
   public async attemptRestoreSession() {
     const savedToken = await this.pullSavedToken()
     if (!savedToken) {
+      this.token$.next(undefined)
       return
     }
 
     const payload = getJwtPayload(savedToken)
 
     if (!payload) {
+      this.token$.next(undefined)
       return
     }
 
@@ -113,7 +111,9 @@ export class AuthenticationService {
     this.token$.subscribe(async (token) => {
       if (typeof token === 'string') {
         const payload = getJwtPayload(token)
-        if ('sub' in payload) await this.fetchCurrentUser()
+        if ('sub' in payload) {
+          await this.fetchCurrentUser()
+        }
       } else {
         this.user$.next(undefined)
       }

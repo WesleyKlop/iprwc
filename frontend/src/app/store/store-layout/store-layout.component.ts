@@ -11,10 +11,9 @@ import { ProductService } from '../../api/product.service'
   styleUrls: ['./store-layout.component.css'],
 })
 export class StoreLayoutComponent implements OnInit {
-  productsInCart: number = 0
-  onCheckoutPage = false
-  showCart = false
-
+  public productsInCart: number = 0
+  public onCheckoutPage = false
+  public showCart = false
   public isAuthenticated = false
 
   get shouldShowCartButton() {
@@ -41,7 +40,7 @@ export class StoreLayoutComponent implements OnInit {
       .subscribe((route) => {
         this.onCheckoutPage = route.url === '/checkout'
       })
-    this.authService.isAuthenticated$().subscribe((isAuthenticated) => {
+    this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
       this.isAuthenticated = isAuthenticated
     })
   }
