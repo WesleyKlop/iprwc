@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core'
+import { Component, ContentChild, Input } from '@angular/core'
+import { NavbarDirective } from './navbar.directive'
 
 @Component({
   selector: 'app-navbar',
@@ -8,4 +9,8 @@ import { Component, Input } from '@angular/core'
 export class NavbarComponent {
   @Input()
   title!: string
+
+  isOpen = false
+
+  @ContentChild(NavbarDirective) content!: NavbarDirective
 }

@@ -1,7 +1,0 @@
-.nav-link {
-  @apply appearance-none rounded px-4 py-2 bg-white bg-opacity-0 hover:bg-opacity-25 cursor-pointer;
-}
-
-.nav-link.active {
-  @apply bg-opacity-50 hover:bg-opacity-50;
-}

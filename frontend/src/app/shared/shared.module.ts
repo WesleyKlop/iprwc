@@ -9,6 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component'
 import { NavbarItemComponent } from './navbar-item/navbar-item.component'
 import { DropdownComponent } from './dropdown/dropdown.component'
 import { DropdownItemComponent } from './dropdown-item/dropdown-item.component'
+import { NavbarDirective } from './navbar/navbar.directive'
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { DropdownItemComponent } from './dropdown-item/dropdown-item.component'
     NavbarItemComponent,
     DropdownComponent,
     DropdownItemComponent,
+    NavbarDirective,
   ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   exports: [
@@ -28,6 +30,7 @@ import { DropdownItemComponent } from './dropdown-item/dropdown-item.component'
     NavbarComponent,
     NavbarItemComponent,
     DropdownComponent,
+    NavbarDirective,
   ],
 })
 export class SharedModule {}

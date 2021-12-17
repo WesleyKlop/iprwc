@@ -1,11 +1,13 @@
-<app-navbar title="IPRWC - het admin deel">
+<app-navbar title="het admin deel">
+  <ng-template app-navbar>
     <app-navbar-item to="/admin" [exact]="true">Home</app-navbar-item>
     <app-navbar-item to="products">Producten</app-navbar-item>
     <app-navbar-item to="customers">Klanten</app-navbar-item>
 
-    <li class="flex-1"><!-- spacer --></li>
+    <div class="hidden sm:block flex-1"><!-- spacer --></div>
 
     <app-navbar-item (click)="signOut()">Uitloggen</app-navbar-item>
+  </ng-template>
 </app-navbar>
 <main class="container mx-auto p-4 lg:p-8 h-auto z-10">
     <router-outlet></router-outlet>
