@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { IsAuthenticatedGuard } from '../is-authenticated.guard'
 import { IndexPageComponent as CheckoutPage } from './checkout/index-page/index-page.component'
 import { IndexPageComponent as ProductIndexPage } from './index-page/index-page.component'
 import { ShowPageComponent as ProductShowPage } from './products/show-page/show-page.component'
@@ -18,6 +19,7 @@ const routes: Routes = [
   {
     path: 'orders',
     component: OrderIndexPage,
+    canActivate: [IsAuthenticatedGuard],
   },
   {
     path: '',

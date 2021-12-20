@@ -27,6 +27,6 @@ export class ShowPageComponent implements OnInit {
   }
 
   public addToCart(): void {
-    this.cartService.addToCart(this.product!.id)
+    this.cartService.addToCart(this.product!)
   }
 }

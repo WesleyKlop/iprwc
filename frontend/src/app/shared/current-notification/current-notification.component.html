@@ -1,0 +1,7 @@
+<app-notification
+    *ngIf="notification"
+    [message]="notification.message"
+    [type]="notification.type"
+    [title]="notification.title"
+    (closeEvent)="dismissNotification()"
+></app-notification>

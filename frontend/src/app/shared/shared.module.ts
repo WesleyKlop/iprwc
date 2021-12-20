@@ -11,6 +11,8 @@ import { DropdownComponent } from './dropdown/dropdown.component'
 import { DropdownItemComponent } from './dropdown-item/dropdown-item.component'
 import { NavbarDirective } from './navbar/navbar.directive'
 import { FooterComponent } from './footer/footer.component'
+import { NotificationComponent } from './notification/notification.component'
+import { CurrentNotificationComponent } from './current-notification/current-notification.component'
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { FooterComponent } from './footer/footer.component'
     DropdownItemComponent,
     NavbarDirective,
     FooterComponent,
+    NotificationComponent,
+    CurrentNotificationComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   exports: [
@@ -34,6 +38,8 @@ import { FooterComponent } from './footer/footer.component'
     DropdownComponent,
     NavbarDirective,
     FooterComponent,
+    NotificationComponent,
+    CurrentNotificationComponent,
   ],
 })
 export class SharedModule {}

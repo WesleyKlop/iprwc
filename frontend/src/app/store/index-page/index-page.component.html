@@ -14,9 +14,9 @@
                 class="w-full h-full object-center object-cover lg:w-full lg:h-full"
             />
         </div>
-        <div class="mt-4 flex justify-between">
-            <div>
-                <h3 class="text-sm text-gray-700">
+        <div class="mt-4 flex flex-col">
+            <div class="flex gap-x-2 justify-between">
+                <h3 class="text-sm text-gray-700 truncate">
                     <a routerLink="/products/{{ product.id }}">
                         <span
                             aria-hidden="true"
@@ -25,12 +25,12 @@
                         {{ product.name }}
                     </a>
                 </h3>
-                <p class="mt-1 text-sm text-gray-500 line-clamp-2">
-                    {{ product.description }}
+                <p class="text-sm font-medium text-gray-900">
+                    {{ product.price / 100 | currency }}
                 </p>
             </div>
-            <p class="text-sm font-medium text-gray-900">
-                {{ product.price / 100 | currency }}
+            <p class="mt-1 w-full text-sm text-gray-500 line-clamp-2">
+                {{ product.description }}
             </p>
         </div>
     </div>

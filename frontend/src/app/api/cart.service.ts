@@ -1,6 +1,16 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, filter, map, Observable, of, switchMap } from 'rxjs'
+import {
+  BehaviorSubject,
+  filter,
+  firstValueFrom,
+  map,
+  Observable,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs'
 import { CartItem, CartProduct, Product } from '../models'
+import { NotificationService } from '../shared/notification/notification.service'
 import { addOrUpdate, getJwtPayload } from '../utils'
 import { AuthenticationService } from './authentication.service'
 import { ProductService } from './product.service'
@@ -27,6 +37,7 @@ export class CartService {
     private apiService: ApiService,
     private productService: ProductService,
     private authService: AuthenticationService,
+    private notificationService: NotificationService,
   ) {
     this.subscribeCartFromToken()
     this.cartProducts$ = this.cartItems$.pipe(
@@ -53,18 +64,26 @@ export class CartService {
       })
   }
 
-  public addToCart(id: Product['id']) {
-    this.modifyCart(id, 1)
+  public async addToCart(product: Product) {
+    await this.modifyCart(product.id, 1)
+    this.notificationService.success(
+      'Product toegevoegd',
+      `${product.name} is toegevoegd aan je winkelwagen`,
+      5000,
+    )
   }
 
-  protected modifyCart(id: Product['id'], quantity = 1) {
-    this.apiService
+  protected modifyCart(id: Product['id'], quantity = 1): Promise<CartItem> {
+    const observable = this.apiService
       .patch<CartItem>('/cart', { productId: id, quantity })
-      .subscribe((result) => {
-        this.cartItems$.next(
-          addOrUpdate(this.cartItems$.value, result, 'productId'),
-        )
-      })
+      .pipe(
+        tap((result) => {
+          this.cartItems$.next(
+            addOrUpdate(this.cartItems$.value, result, 'productId'),
+          )
+        }),
+      )
+    return firstValueFrom(observable)
   }
 
   public removeFromCart(product: Product) {
@@ -78,7 +97,15 @@ export class CartService {
   }
 
   public checkout(value: CreateOrderRequest) {
-    return this.apiService.post('/orders', value)
+    return this.apiService.post('/orders', value).pipe(
+      tap(() => {
+        this.notificationService.success(
+          'Bestelling geplaatst',
+          'Je bestelling is succesvol geplaatst! In je mailbox vindt je een link om in te loggen.',
+          10 * 1000,
+        )
+      }),
+    )
   }
 
   private mapProductsToCartProducts(items: CartItem[]) {

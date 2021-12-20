@@ -25,6 +25,7 @@ export class ApiService {
   }
 
   protected request<R>(method: string, url: string, body?: any): Observable<R> {
+    console.groupCollapsed(`${method} ${url}`)
     return this.http
       .request<Response<R>>(method, '/api' + url, {
         body,
@@ -33,7 +34,9 @@ export class ApiService {
       })
       .pipe(
         tap((response) => {
-          console.debug('Received response:', method, url, response)
+          console.debug('response:', response)
+          console.log('data:', response.data)
+          console.debug('meta:', response.meta)
           if (this.shouldUpdateAuthorization(response.meta?.jwt)) {
             this.setAuthorization(response.meta.jwt)
             localStorage.setItem('app.jwt', response.meta.jwt)
@@ -64,6 +67,7 @@ export class ApiService {
           console.debug('But we could not handle it :(')
           return throwError(() => response)
         }),
+        tap(() => console.groupEnd()),
       )
   }
 

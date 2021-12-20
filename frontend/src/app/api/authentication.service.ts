@@ -12,6 +12,7 @@ import {
   tap,
 } from 'rxjs'
 import { User } from '../models'
+import { NotificationService } from '../shared/notification/notification.service'
 import { getJwtPayload } from '../utils'
 import { ApiService } from './api.service'
 
@@ -34,12 +35,13 @@ export class AuthenticationService {
     private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute,
+    private notificationService: NotificationService,
   ) {
     this.subscribeDataFromToken()
 
     this.isAdmin$ = this.user$.pipe(map((user) => user?.role === 'ADMIN'))
     this.isAuthenticated$ = this.user$.pipe(
-      map((user) => typeof user !== 'undefined'),
+      map((user): user is User => typeof user !== 'undefined'),
     )
   }
 
@@ -55,6 +57,11 @@ export class AuthenticationService {
   public signOut(): void {
     this.token$.next(undefined)
     localStorage.removeItem('app.jwt')
+    this.notificationService.info(
+      'Uitgelogd',
+      'Je bent succesvol uitgelogd',
+      3000,
+    )
   }
 
   public authenticate(credentials: Credentials): Observable<User> {
@@ -98,7 +105,6 @@ export class AuthenticationService {
   }
 
   private subscribeDataFromToken() {
-    this.token$.subscribe((t) => console.warn('New token:', t))
     // Always store the token in the auth service
     this.token$.subscribe((token) => {
       if (typeof token === 'string') {
@@ -113,6 +119,8 @@ export class AuthenticationService {
         const payload = getJwtPayload(token)
         if ('sub' in payload) {
           await this.fetchCurrentUser()
+        } else {
+          this.user$.next(undefined)
         }
       } else {
         this.user$.next(undefined)

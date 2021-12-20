@@ -42,7 +42,7 @@ export class OrderSummaryComponent implements OnInit {
     })
   }
 
-  addToCart(op: OrderProduct) {
-    this.cartService.addToCart(op.productId)
+  addToCart(op: { product: Product }) {
+    this.cartService.addToCart(op.product)
   }
 }
