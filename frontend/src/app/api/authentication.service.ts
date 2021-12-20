@@ -25,11 +25,14 @@ interface Credentials {
   providedIn: 'root',
 })
 export class AuthenticationService {
-  public readonly user$ = new ReplaySubject<User | undefined>(1)
-  public readonly token$ = new ReplaySubject<string | undefined>(1)
+  private readonly _user$ = new ReplaySubject<User | undefined>(1)
+  private readonly _token$ = new ReplaySubject<string | undefined>(1)
 
   public readonly isAdmin$: Observable<boolean>
   public readonly isAuthenticated$: Observable<boolean>
+
+  public readonly user$: Observable<User | undefined>
+  public readonly token$: Observable<string | undefined>
 
   constructor(
     private apiService: ApiService,
@@ -38,6 +41,9 @@ export class AuthenticationService {
     private notificationService: NotificationService,
   ) {
     this.subscribeDataFromToken()
+
+    this.user$ = this._user$.asObservable()
+    this.token$ = this._token$.asObservable()
 
     this.isAdmin$ = this.user$.pipe(map((user) => user?.role === 'ADMIN'))
     this.isAuthenticated$ = this.user$.pipe(
@@ -48,14 +54,14 @@ export class AuthenticationService {
   protected fetchCurrentUser(): Promise<User> {
     const observable = this.apiService.get<User>('/users/me').pipe(
       tap((user) => {
-        this.user$.next(user)
+        this._user$.next(user)
       }),
     )
     return firstValueFrom(observable)
   }
 
   public signOut(): void {
-    this.token$.next(undefined)
+    this._token$.next(undefined)
     localStorage.removeItem('app.jwt')
     this.notificationService.info(
       'Uitgelogd',
@@ -67,7 +73,7 @@ export class AuthenticationService {
   public authenticate(credentials: Credentials): Observable<User> {
     return this.apiService
       .post<User>('/users/login', credentials)
-      .pipe(tap((user) => this.user$.next(user)))
+      .pipe(tap((user) => this._user$.next(user)))
   }
 
   private pullSavedToken(): Promise<string | null> {
@@ -90,23 +96,23 @@ export class AuthenticationService {
   public async attemptRestoreSession() {
     const savedToken = await this.pullSavedToken()
     if (!savedToken) {
-      this.token$.next(undefined)
+      this._token$.next(undefined)
       return
     }
 
     const payload = getJwtPayload(savedToken)
 
     if (!payload) {
-      this.token$.next(undefined)
+      this._token$.next(undefined)
       return
     }
 
-    this.token$.next(savedToken)
+    this._token$.next(savedToken)
   }
 
   private subscribeDataFromToken() {
     // Always store the token in the auth service
-    this.token$.subscribe((token) => {
+    this._token$.subscribe((token) => {
       if (typeof token === 'string') {
         this.apiService.setAuthorization(token)
       } else {
@@ -114,20 +120,20 @@ export class AuthenticationService {
       }
     })
     // Sync the user stored in the token
-    this.token$.subscribe(async (token) => {
+    this._token$.subscribe(async (token) => {
       if (typeof token === 'string') {
         const payload = getJwtPayload(token)
         if ('sub' in payload) {
           await this.fetchCurrentUser()
         } else {
-          this.user$.next(undefined)
+          this._user$.next(undefined)
         }
       } else {
-        this.user$.next(undefined)
+        this._user$.next(undefined)
       }
     })
     // Sync localStorage with the token
-    this.token$.subscribe((token) => {
+    this._token$.subscribe((token) => {
       if (typeof token === 'string') {
         localStorage.setItem('app.jwt', token)
       }
