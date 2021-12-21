@@ -28,7 +28,7 @@
     "@types/mmmagic": "^0.4.30",
     "@types/nodemailer": "^6.4.4",
     "nodemon": "^2.0.15",
-    "prisma": "^3.5.0"
+    "prisma": "^3.7.0"
   },
   "prisma": {
     "seed": "node prisma/seed.mjs"
