@@ -32,6 +32,13 @@ spec:
                 secretKeyRef:
                   key: jwt-secret
                   name: iprwc-credentials
+            - name: MAILER_URL
+              valueFrom:
+                secretKeyRef:
+                  key: mail-url
+                  name: iprwc-credentials
+            - name: MAILER_FROM
+              value: noreply@iprwc.wesl.io
         - name: web
           image: ghcr.io/wesleyklop/iprwc-frontend:latest
           imagePullPolicy: Always
