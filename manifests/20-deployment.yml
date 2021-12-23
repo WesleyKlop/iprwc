@@ -39,8 +39,17 @@ spec:
                   name: iprwc-credentials
             - name: MAILER_FROM
               value: noreply@iprwc.wesl.io
+            - name: APP_URL
+              value: https://iprwc.wesl.io
+          volumeMounts:
+            - mountPath: /srv/iprwc-backend/static
+              name: static
         - name: web
           image: ghcr.io/wesleyklop/iprwc-frontend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
+      volumes:
+        - name: static
+          persistentVolumeClaim:
+            claimName: iprwc-static

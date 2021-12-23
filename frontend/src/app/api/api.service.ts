@@ -65,6 +65,7 @@ export class ApiService {
               )
           }
           console.debug('But we could not handle it :(')
+          console.groupEnd()
           return throwError(() => response)
         }),
         tap(() => console.groupEnd()),
