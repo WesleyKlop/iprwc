@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - 00-namespace.yml
+  - 10-config.yml
+  #  - 11-image-pull-secret.yml
+  - 12-storage.yml
+  - 20-deployment.yml
+  - 20-sync-user-job.yml
+  - 30-service.yml
+  - 31-middleware.yml
+  - 32-ingress-route.yml
