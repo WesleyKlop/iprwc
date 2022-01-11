@@ -15,6 +15,9 @@ on:
       - 'package-lock.json'
       - 'package.json'
       - 'backend/**'
+  release:
+    types:
+      - created
 
 permissions:
   contents: read
