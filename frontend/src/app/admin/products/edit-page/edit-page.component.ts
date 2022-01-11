@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { ActivatedRoute, Router } from '@angular/router'
 import { ProductService } from '../../../api/product.service'
-import { ActivatedRoute } from '@angular/router'
 import { Uuid } from '../../../models'
 
 @Component({
@@ -25,6 +25,7 @@ export class EditPageComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +44,7 @@ export class EditPageComponent implements OnInit {
       .updateProduct(this.productId!, this.form.value)
       .subscribe(() => {
         console.log('Product updated')
+        return this.router.navigate(['/', 'admin', 'products'])
       })
   }
 }
