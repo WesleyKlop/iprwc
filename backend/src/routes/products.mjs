@@ -7,7 +7,11 @@ import prisma from '../services/prisma.mjs'
 const router = new Router()
 
 router.get('/', async (req, res) => {
-  const products = await prisma.product.findMany()
+  const products = await prisma.product.findMany({
+    orderBy: {
+      name: 'asc',
+    },
+  })
 
   return JsonResponse.from(req).withData(products).send(res)
 })
