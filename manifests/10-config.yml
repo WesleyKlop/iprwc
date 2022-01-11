@@ -2,6 +2,7 @@ apiVersion: onepassword.com/v1
 kind: OnePasswordItem
 metadata:
   name: iprwc-credentials
-  namespace: iprwc
+  annotations:
+    operator.1password.io/auto-restart: 'true'
 spec:
   itemPath: vaults/idris/items/iprwc
