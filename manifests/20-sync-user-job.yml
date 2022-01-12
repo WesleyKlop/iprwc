@@ -4,7 +4,6 @@ metadata:
   name: sync-user-job
 spec:
   backoffLimit: 4
-  ttlSecondsAfterFinished: 300
   template:
     spec:
       imagePullSecrets:
