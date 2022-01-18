@@ -33,3 +33,6 @@ spec:
       form-action 'self';
       block-all-mixed-content;
       upgrade-insecure-requests;
+    permissionsPolicy: 'none'
+    customResponseHeaders:
+      server: ''
