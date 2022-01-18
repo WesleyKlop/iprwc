@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+RUN npm run build -- --subresource-integrity --aot
 
 FROM nginx:1.21-alpine
 
