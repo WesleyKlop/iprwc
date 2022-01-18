@@ -20,20 +20,6 @@ spec:
     stsPreload: true
     forceSTSHeader: true
     stsSeconds: 31536000
-    contentSecurityPolicy: |
-      default-src 'self';
-      script-src 'self';
-      style-src 'self' 'unsafe-inline';
-      img-src 'self' data:;
-      font-src 'self';
-      object-src 'none';
-      media-src 'none';
-      frame-ancestors 'none';
-      base-uri 'self';
-      form-action 'self';
-      block-all-mixed-content;
-      upgrade-insecure-requests;
-      trusted-types angular;
-      require-trusted-types-for 'script';
     customResponseHeaders:
       server: ''
+    contentSecurityPolicy: "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; media-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; block-all-mixed-content; upgrade-insecure-requests; trusted-types angular; require-trusted-types-for 'script';"
