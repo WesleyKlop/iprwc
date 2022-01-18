@@ -6,3 +6,17 @@ spec:
   stripPrefix:
     prefixes:
       - /api
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: security-headers
+spec:
+  headers:
+    frameDeny: true
+    contentTypeNosniff: true
+    referrerPolicy: same-origin
+    stsIncludeSubdomains: true
+    stsPreload: true
+    forceSTSHeader: true
+    stsSeconds: 31536000

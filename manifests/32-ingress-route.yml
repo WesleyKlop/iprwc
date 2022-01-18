@@ -11,6 +11,8 @@ spec:
       services:
         - name: iprwc-svc
           port: web
+      middlewares:
+        - name: security-headers
     - match: Host(`iprwc.wesl.io`) && PathPrefix(`/api`)
       kind: Rule
       services:
@@ -18,3 +20,4 @@ spec:
           port: api
       middlewares:
         - name: remove-api-prefix
+        - name: security-headers
