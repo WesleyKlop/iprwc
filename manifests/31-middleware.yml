@@ -33,6 +33,7 @@ spec:
       form-action 'self';
       block-all-mixed-content;
       upgrade-insecure-requests;
-    permissionsPolicy: 'none'
+      trusted-types angular;
+      require-trusted-types-for 'script';
     customResponseHeaders:
       server: ''
