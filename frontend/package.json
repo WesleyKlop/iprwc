@@ -8,8 +8,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint:check": "prettier --check src && ng lint",
-    "lint:fix": "prettier --write src && ng lint --fix"
+    "lint:check": "prettier --check src && rustywind --dry-run src/app && ng lint",
+    "lint:fix": "prettier --write src && rustywind --write src/app && ng lint --fix"
   },
   "dependencies": {
     "@angular/animations": "~13.1.2",
@@ -47,6 +47,7 @@
     "karma-coverage": "^2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "rustywind": "^0.12.2",
     "tailwindcss": "^3.0.15",
     "typescript": "^4.4.3"
   }
