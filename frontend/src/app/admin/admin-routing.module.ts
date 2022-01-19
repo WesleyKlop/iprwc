@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component'
-import { IndexPageComponent } from './products/index-page/index-page.component'
-import { ShowPageComponent } from './products/show-page/show-page.component'
 import { CreatePageComponent } from './products/create-page/create-page.component'
 import { EditPageComponent } from './products/edit-page/edit-page.component'
+import { IndexPageComponent } from './products/index-page/index-page.component'
+import { ShowPageComponent } from './products/show-page/show-page.component'
 
 const routes: Routes = [
   {
@@ -22,6 +22,11 @@ const routes: Routes = [
   {
     path: 'products/:id/edit',
     component: EditPageComponent,
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'products',
   },
 ]
 
