@@ -1,6 +1,6 @@
 <li
     (click)="selectEvent.emit(value)"
-    class="cursor-pointer select-none relative py-2 pl-3 pr-9"
+    class="relative py-2 pr-9 pl-3 cursor-pointer select-none"
     role="option"
     [id]="value"
     (mouseenter)="highlighted = true"
@@ -17,12 +17,12 @@
     </div>
     <span
         *ngIf="selected"
-        class="absolute inset-y-0 right-0 flex items-center pr-4"
+        class="flex absolute inset-y-0 right-0 items-center pr-4"
         [ngClass]="highlighted ? 'text-white' : 'text-purple-600'"
     >
         <!-- Heroicon name: solid/check -->
         <svg
-            class="h-5 w-5"
+            class="w-5 h-5"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"

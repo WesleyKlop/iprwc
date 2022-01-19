@@ -15,9 +15,9 @@
                 </p>
             </div>
         </div>
-        <div class="mt-5 md:mt-0 md:col-span-2">
-            <div class="shadow sm:rounded-md sm:overflow-hidden">
-                <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+        <div class="mt-5 md:col-span-2 md:mt-0">
+            <div class="shadow sm:overflow-hidden sm:rounded-md">
+                <div class="py-5 px-4 space-y-6 bg-white sm:p-6">
                     <app-input-group
                         formControlName="email"
                         label="Email"
@@ -63,9 +63,9 @@
                     </p>
                 </div>
             </div>
-            <div class="mt-5 md:mt-0 md:col-span-2">
-                <div class="shadow overflow-hidden sm:rounded-md">
-                    <div class="px-4 py-5 bg-white sm:p-6">
+            <div class="mt-5 md:col-span-2 md:mt-0">
+                <div class="overflow-hidden shadow sm:rounded-md">
+                    <div class="py-5 px-4 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <app-input-group
                                 class="col-span-6"
@@ -129,9 +129,9 @@
                     </p>
                 </div>
             </div>
-            <div class="mt-5 md:mt-0 md:col-span-2">
-                <div class="shadow bg-white sm:rounded-md">
-                    <div class="px-4 py-5 space-y-6 sm:p-6">
+            <div class="mt-5 md:col-span-2 md:mt-0">
+                <div class="bg-white shadow sm:rounded-md">
+                    <div class="py-5 px-4 space-y-6 sm:p-6">
                         <app-dropdown
                             formControlName="paymentMethod"
                             label="Betaalmethode"
@@ -148,10 +148,10 @@
     </div>
 </form>
 <div class="col-span-12 lg:col-span-6 lg:pl-6">
-    <h2 class="text-lg font-medium text-gray-900 leading-6">Jouw bestelling</h2>
+    <h2 class="text-lg font-medium leading-6 text-gray-900">Jouw bestelling</h2>
     <div
         *ngFor="let item of cartProducts"
-        class="bg-white shadow sm:rounded-md mt-5 px-4 py-0 sm:px-6"
+        class="py-0 px-4 mt-5 bg-white shadow sm:px-6 sm:rounded-md"
     >
         <app-cart-overlay-item
             [product]="item.product"
@@ -162,18 +162,18 @@
     </div>
 
     <div
-        class="bg-white shadow sm:rounded-md mt-5 px-4 py-5 sm:p-6 flex justify-between"
+        class="flex justify-between py-5 px-4 mt-5 bg-white shadow sm:p-6 sm:rounded-md"
     >
         <div>
             <h3 class="text-lg font-medium leading-6 text-gray-700">
                 Totale prijs
             </h3>
 
-            <p class="text-xl text-purple-500 font-medium mt-2">
+            <p class="mt-2 text-xl font-medium text-purple-500">
                 {{ total / 100 | currency }}
             </p>
 
-            <p class="text-xs text-gray-500 font-light max-w-16 pr-8 mt-4">
+            <p class="pr-8 mt-4 text-xs font-light text-gray-500 max-w-16">
                 Dit bedrag is inclusief de 42% toeslag die rechtstreeks in de
                 portemonnee van de maker van deze applicatie gaat.
             </p>
@@ -189,7 +189,7 @@
         </div>
     </div>
 
-    <p class="mt-6 font-medium text-sm text-gray-600 hover:text-purple-500">
+    <p class="mt-6 text-sm font-medium text-gray-600 hover:text-purple-500">
         <a routerLink="/">
             <span aria-hidden="true">&larr;</span>
             Terug naar de winkel

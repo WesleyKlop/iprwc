@@ -2,7 +2,7 @@
     <svg
         *ngSwitchCase="'success'"
         xmlns="http://www.w3.org/2000/svg"
-        class="text-green-600 h-5 w-5"
+        class="w-5 h-5 text-green-600"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -17,7 +17,7 @@
     <svg
         *ngSwitchCase="'failure'"
         xmlns="http://www.w3.org/2000/svg"
-        class="text-red-600 h-5 w-5"
+        class="w-5 h-5 text-red-600"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -32,7 +32,7 @@
     <svg
         *ngSwitchDefault
         xmlns="http://www.w3.org/2000/svg"
-        class="text-blue-600 h-5 w-5"
+        class="w-5 h-5 text-blue-600"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -53,11 +53,11 @@
     <button
         (click)="closeEvent.emit()"
         type="button"
-        class="-m-2 p-2 text-gray-400 hover:text-gray-500"
+        class="p-2 -m-2 text-gray-400 hover:text-gray-500"
     >
         <span class="sr-only">Sluit</span>
         <svg
-            class="h-5 w-5"
+            class="w-5 h-5"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"

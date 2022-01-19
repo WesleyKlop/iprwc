@@ -1,11 +1,11 @@
 <div
     [ngClass]="open ? 'pointer-events-auto' : 'pointer-events-none'"
-    class="z-10 fixed inset-0 overflow-hidden"
+    class="overflow-hidden fixed inset-0 z-10"
     aria-labelledby="slide-over-title"
     role="dialog"
     aria-modal="true"
 >
-    <div class="absolute inset-0 overflow-hidden">
+    <div class="overflow-hidden absolute inset-0">
         <div
             [@overlay]="open ? 'open' : 'closed'"
             class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
@@ -13,31 +13,31 @@
             (click)="close()"
         ></div>
 
-        <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
+        <div class="flex fixed inset-y-0 right-0 pl-10 max-w-full">
             <div
                 [@slideOver]="open ? 'open' : 'closed'"
                 class="w-screen max-w-md"
             >
                 <div
-                    class="h-full flex flex-col bg-white shadow-xl overflow-y-scroll"
+                    class="flex overflow-y-scroll flex-col h-full bg-white shadow-xl"
                 >
-                    <div class="flex-1 py-6 overflow-y-auto px-4 sm:px-6">
-                        <div class="flex items-start justify-between">
+                    <div class="overflow-y-auto flex-1 py-6 px-4 sm:px-6">
+                        <div class="flex justify-between items-start">
                             <h2
                                 class="text-lg font-medium text-gray-900"
                                 id="slide-over-title"
                             >
                                 Winkelwagen
                             </h2>
-                            <div class="ml-3 h-7 flex items-center">
+                            <div class="flex items-center ml-3 h-7">
                                 <button
                                     (click)="close()"
                                     type="button"
-                                    class="-m-2 p-2 text-gray-400 hover:text-gray-500"
+                                    class="p-2 -m-2 text-gray-400 hover:text-gray-500"
                                 >
                                     <span class="sr-only">Sluit</span>
                                     <svg
-                                        class="h-6 w-6"
+                                        class="w-6 h-6"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
