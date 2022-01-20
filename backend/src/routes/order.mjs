@@ -55,7 +55,7 @@ router.post('/', async (req, res, next) => {
     role: user.role,
     cart: [],
   })
-  const orderUrl = new URL('/orders', process.env.APP_URL)
+  const orderUrl = new URL('/', process.env.APP_URL)
   orderUrl.searchParams.set('token', token)
   const body = `
   Je bestelling is geplaatst.

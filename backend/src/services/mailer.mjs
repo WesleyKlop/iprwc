@@ -12,6 +12,7 @@ export const sendMail = (to, subject, text) => {
     ...defaultOptions,
     text,
     to,
+    subject,
   }
 
   return transporter.sendMail(mailOptions)
