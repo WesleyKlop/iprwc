@@ -35,6 +35,6 @@ export const createToken = (payload) => {
     .setIssuedAt()
     .setIssuer(ISSUER)
     .setAudience(AUDIENCE)
-    .setExpirationTime('14d')
+    .setExpirationTime('8h')
     .sign(getJwtSecret())
 }

@@ -20,8 +20,8 @@ const middleware = async (req, res, next) => {
 
   try {
     req.jwtPayload = await extractDataFromToken(token)
-    // Refresh the jwt when it almost expires (1 week)
-    if (req.jwtPayload.exp - Date.now() < 1000 * 60 * 60 * 24 * 7) {
+    // Refresh the jwt when it almost expires (2 hours before expiration)
+    if (req.jwtPayload.exp - Date.now() < 1000 * 60 * 60 * 2) {
       req.jwt = await createToken(req.jwtPayload)
     } else {
       req.jwt = token
