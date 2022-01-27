@@ -12,7 +12,7 @@
     "rustywind": "^0.12.2"
   },
   "lint-staged": {
-    "*.{js,mjs,md,ts,json,yml}": "prettier --write"
+    "*.{js,mjs,md,ts,json,yml,html}": "prettier --write"
   },
   "scripts": {
     "prepare": "husky install"
