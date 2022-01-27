@@ -9,3 +9,7 @@
 .button:disabled {
   @apply bg-gray-400 cursor-default hover:bg-gray-400;
 }
+
+.button.flat {
+  @apply text-purple-700 bg-transparent border border-purple-500 hover:border-purple-300 active:border-purple-800;
+}

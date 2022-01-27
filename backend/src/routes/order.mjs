@@ -17,7 +17,10 @@ const userService = new UserService(prisma.user)
 const orderService = new OrderService(prisma.order, prisma.product)
 
 router.get('/', authenticated, async (req, res, next) => {
-  const orders = await orderService.findOrdersByUser(req.user.id)
+  const fetchAllOrders = req.user.role === 'ADMIN' && req.query.all === 'true'
+  const orders = fetchAllOrders
+    ? await orderService.findAll()
+    : await orderService.findOrdersByUser(req.user.id)
 
   return JsonResponse.from(req).withData(orders).send(res)
 })

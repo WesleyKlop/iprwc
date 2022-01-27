@@ -1,0 +1,29 @@
+<div class="flex gap-x-12 p-6 text-sm" *ngIf="order">
+  <div>
+    <p class="font-medium">Datum geplaatst</p>
+    <p class="text-gray-600">{{ order.createdAt | date: "longDate" }}</p>
+  </div>
+  <div>
+    <p class="font-medium">Door</p>
+    <p class="text-gray-600">{{ user.email }}</p>
+  </div>
+  <div>
+    <p class="font-medium">Totaalbedrag</p>
+    <p class="text-gray-900">{{ orderTotal / 100 | currency }}</p>
+  </div>
+</div>
+<ul class="p-6 space-y-6" *ngIf="order">
+  <ng-container *ngIf="showOrderProducts; else showButton">
+    <app-order-summary-item
+      *ngFor="let op of orderProducts"
+      [product]="op.product"
+      [price]="op.price"
+      [quantity]="op.quantity"
+    ></app-order-summary-item>
+  </ng-container>
+  <ng-template #showButton>
+    <app-button (click)="showOrderProducts = true" [flat]="true">
+      Laat {{ orderProducts.length }} {{ orderProducts.length !== 1 ? 'producten' : 'product' }} zien
+    </app-button>
+  </ng-template>
+</ul>

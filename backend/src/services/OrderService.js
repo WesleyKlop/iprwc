@@ -78,4 +78,16 @@ export default class OrderService {
       },
     })
   }
+
+  findAll() {
+    return this.#orderRepository.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        user: true,
+        orderProducts: true,
+      }
+    })
+  }
 }

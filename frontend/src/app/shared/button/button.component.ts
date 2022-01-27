@@ -15,5 +15,8 @@ export class ButtonComponent {
   @Input()
   disabled = false
 
+  @Input()
+  flat = false
+
   constructor() {}
 }

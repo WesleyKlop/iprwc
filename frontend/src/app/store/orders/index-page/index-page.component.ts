@@ -16,10 +16,11 @@ export class IndexPageComponent implements OnInit {
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    this.orderService.fetchOrders().subscribe((orders) => {
+    this.orderService.fetchOrders(false).subscribe((orders) => {
       this.orders = orders
     })
     this.productService.fetchAllProducts().subscribe((products) => {

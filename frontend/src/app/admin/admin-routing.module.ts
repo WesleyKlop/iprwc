@@ -5,6 +5,7 @@ import { CreatePageComponent } from './products/create-page/create-page.componen
 import { EditPageComponent } from './products/edit-page/edit-page.component'
 import { IndexPageComponent } from './products/index-page/index-page.component'
 import { ShowPageComponent } from './products/show-page/show-page.component'
+import { IndexPageComponent as OrdersIndexPage } from './orders/index-page/index-page.component'
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'products/:id/edit',
     component: EditPageComponent,
+  },
+  {
+    path: 'customers',
+    component: OrdersIndexPage,
   },
   {
     path: '',

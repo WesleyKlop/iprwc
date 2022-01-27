@@ -1,0 +1,14 @@
+<p>
+  Op deze pagina kan je bestellingen beheren.<br />
+  Hier een lijst met alle bestellingen.
+</p>
+
+
+<div class="flex flex-col gap-y-5">
+  <app-order-summary
+    *ngFor="let order of orders"
+    [order]="order"
+    [products]="products"
+    [user]="order.user"
+  ></app-order-summary>
+</div>
