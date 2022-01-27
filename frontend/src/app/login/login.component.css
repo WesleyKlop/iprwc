@@ -1,4 +1,4 @@
 :host {
-  @apply w-screen h-screen flex items-center justify-center bg-purple-400 bg-repeat;
+  @apply flex h-screen w-screen items-center justify-center bg-purple-400 bg-repeat;
   background-image: url('./church-on-sunday.svg');
 }

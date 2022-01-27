@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, filter, firstValueFrom, map, Observable, switchMap, tap } from 'rxjs'
+import {
+  BehaviorSubject,
+  filter,
+  firstValueFrom,
+  map,
+  Observable,
+  switchMap,
+  tap,
+} from 'rxjs'
 import { Order, User } from '../models'
 import { addOrUpdate } from '../utils'
 import { ApiService } from './api.service'
@@ -19,15 +27,16 @@ export class OrderService {
   constructor(
     private apiService: ApiService,
     private authService: AuthenticationService,
-  ) {
-  }
+  ) {}
 
   public fetchOrders(forAllUsers = false): Observable<Order<Date>[]> {
     return this.authService.user$.pipe(
       filter((user): user is User => typeof user !== 'undefined'),
-      switchMap((user) => this.apiService.get<Order<string>[]>(`/orders`, {
-        all: user.role === 'ADMIN' && forAllUsers,
-      })),
+      switchMap((user) =>
+        this.apiService.get<Order<string>[]>(`/orders`, {
+          all: user.role === 'ADMIN' && forAllUsers,
+        }),
+      ),
       map((orders) => orders.map((order) => mapOrder(order))),
       tap((orders) => this.orders$.next(orders)),
     )

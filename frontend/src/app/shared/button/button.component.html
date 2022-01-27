@@ -2,7 +2,7 @@
     [disabled]="disabled"
     [type]="type"
     class="button"
-    [ngClass]="{ large: size === 'lg', flat }"
+    [ngClass]="{ large: size === 'lg', flat: this.flat }"
 >
     <ng-content></ng-content>
 </button>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 import { OrderService } from '../../../api/order.service'
 import { ProductService } from '../../../api/product.service'
 import { Order, Product, User } from '../../../models'
@@ -8,7 +8,7 @@ type FatOrder = Order<Date> & { user: User }
 @Component({
   selector: 'app-index-page',
   templateUrl: './index-page.component.html',
-  styleUrls: ['./index-page.component.css']
+  styleUrls: ['./index-page.component.css'],
 })
 export class IndexPageComponent implements OnInit {
   orders: FatOrder[] = []
@@ -16,11 +16,11 @@ export class IndexPageComponent implements OnInit {
 
   constructor(
     private orderService: OrderService,
-    private productService: ProductService
-  ) { }
+    private productService: ProductService,
+  ) {}
 
   ngOnInit(): void {
-    this.orderService.fetchOrders(true).subscribe(orders => {
+    this.orderService.fetchOrders(true).subscribe((orders) => {
       this.orders = orders as FatOrder[]
     })
     this.productService.fetchAllProducts().subscribe((products) => {

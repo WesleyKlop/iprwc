@@ -1,8 +1,8 @@
 :host {
-  @apply w-screen min-h-screen;
+  @apply min-h-screen w-screen;
 }
 .nav-link {
-  @apply rounded px-4 py-2 bg-white bg-opacity-0 hover:bg-opacity-25;
+  @apply rounded bg-white bg-opacity-0 px-4 py-2 hover:bg-opacity-25;
 }
 
 .nav-link.active {

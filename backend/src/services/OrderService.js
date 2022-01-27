@@ -87,7 +87,7 @@ export default class OrderService {
       include: {
         user: true,
         orderProducts: true,
-      }
+      },
     })
   }
 }

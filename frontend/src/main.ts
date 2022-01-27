@@ -11,11 +11,13 @@ if (environment.production) {
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .then(() => {
-    console.log(`
+    console.log(
+      `
 Veel success met het hacken van deze applicatie trouwens! :)
 
 Heb je het idee dat je er nou echt niet uit komt mag je wat mij betreft de broncode wel zien:
 https://github.com/WesleyKlop/iprwc
-`.trim())
+`.trim(),
+    )
   })
   .catch((err) => console.error(err))

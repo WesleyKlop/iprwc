@@ -16,8 +16,7 @@ export class IndexPageComponent implements OnInit {
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.orderService.fetchOrders(false).subscribe((orders) => {

@@ -20,12 +20,17 @@ export class ApiService {
     this.httpHeaders = this.httpHeaders.delete('Authorization')
   }
 
-  public get<R>(url: string, search?: Record<string,any>): Observable<R> {
+  public get<R>(url: string, search?: Record<string, any>): Observable<R> {
     const params = new HttpParams({ fromObject: search })
     return this.request<R>('GET', url, undefined, params)
   }
 
-  protected request<R>(method: string, url: string, body?: any, params?: HttpParams): Observable<R> {
+  protected request<R>(
+    method: string,
+    url: string,
+    body?: any,
+    params?: HttpParams,
+  ): Observable<R> {
     console.groupCollapsed(`${method} ${url}`)
     return this.http
       .request<Response<R>>(method, '/api' + url, {

@@ -1,23 +1,23 @@
 <li
-  class="grid sm:grid-cols-[200px,auto,auto] grid-cols-[auto,1fr] grid-rows-[auto,1fr,auto] gap-x-8 gap-y-2 sm:gap-y-0 items-start"
+    class="grid grid-cols-[auto,1fr] grid-rows-[auto,1fr,auto] items-start gap-x-8 gap-y-2 sm:grid-cols-[200px,auto,auto] sm:gap-y-0"
 >
-  <div class="hidden col-span-1 row-span-3 sm:block">
-    <img
-      src="/api/images/{{ product.imageId }}"
-      alt="{{ product.name }}"
-      class="object-cover m-auto max-h-32 rounded"
-    />
-  </div>
-  <h3 class="col-span-1 row-span-1 text-lg font-medium">
-    {{ product.name }}
-  </h3>
-  <span class="col-span-1 row-span-1 text-right">{{
-    itemTotal | currency
+    <div class="hidden col-span-1 row-span-3 sm:block">
+        <img
+            src="/api/images/{{ product.imageId }}"
+            alt="{{ product.name }}"
+            class="object-cover m-auto max-h-32 rounded"
+        />
+    </div>
+    <h3 class="col-span-1 row-span-1 text-lg font-medium">
+        {{ product.name }}
+    </h3>
+    <span class="col-span-1 row-span-1 text-right">{{
+        itemTotal | currency
     }}</span>
-  <div class="col-span-2 row-span-1 justify-self-start">
+    <div class="col-span-2 row-span-1 justify-self-start">
         <span class="text-sm font-medium text-gray-700"
-        >Aantal: {{ quantity }}</span
+            >Aantal: {{ quantity }}</span
         >
-    <p class="text-gray-500">{{ product.description }}</p>
-  </div>
+        <p class="text-gray-500">{{ product.description }}</p>
+    </div>
 </li>
