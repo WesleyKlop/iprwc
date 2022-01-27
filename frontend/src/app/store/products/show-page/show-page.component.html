@@ -1,14 +1,14 @@
 <div class="pt-6" *ngIf="product">
     <div
-        class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:px-8 lg:max-w-7xl"
+        class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8"
     >
         <div
-            class="sm:overflow-hidden sm:rounded-lg aspect-w-4 aspect-h-5 lg:aspect-w-3 lg:aspect-h-4"
+            class="aspect-w-4 aspect-h-5 lg:aspect-w-3 lg:aspect-h-4 sm:overflow-hidden sm:rounded-lg"
         >
             <img
                 src="/api/images/{{ product.imageId }}"
                 [alt]="product.name"
-                class="object-cover object-center w-full h-full"
+                class="h-full w-full object-cover object-center"
             />
         </div>
     </div>
@@ -16,7 +16,7 @@
     <div
         class="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24"
     >
-        <div class="lg:col-span-2 lg:pr-8 lg:border-r lg:border-gray-200">
+        <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
             <h1
                 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl"
             >
@@ -34,7 +34,7 @@
                 <button
                     type="button"
                     (click)="addToCart()"
-                    class="flex justify-center items-center py-3 px-8 mt-10 w-full text-base font-medium text-white bg-purple-600 rounded-md border border-transparent hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:outline-none"
+                    class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-purple-600 py-3 px-8 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
                 >
                     Bestel
                 </button>
@@ -42,7 +42,7 @@
         </div>
 
         <div
-            class="py-10 lg:col-span-2 lg:col-start-1 lg:pt-6 lg:pr-8 lg:pb-16 lg:border-r lg:border-gray-200"
+            class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pr-8 lg:pb-16"
         >
             <div>
                 <h3 class="sr-only">Description</h3>

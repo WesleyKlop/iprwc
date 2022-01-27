@@ -12,7 +12,6 @@
     "rustywind": "^0.12.2"
   },
   "lint-staged": {
-    "*.html": "frontend/node_modules/.bin/rustywind --write",
     "*.{js,mjs,md,ts,json,yml}": "prettier --write"
   },
   "scripts": {

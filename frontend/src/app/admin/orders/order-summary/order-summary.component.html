@@ -12,7 +12,7 @@
         <p class="text-gray-900">{{ orderTotal / 100 | currency }}</p>
     </div>
 </div>
-<ul class="p-6 space-y-6" *ngIf="order">
+<ul class="space-y-6 p-6" *ngIf="order">
     <ng-container *ngIf="showOrderProducts; else showButton">
         <app-order-summary-item
             *ngFor="let op of orderProducts"

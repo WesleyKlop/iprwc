@@ -10,14 +10,14 @@
         </app-navbar-item>
         <app-navbar-item
             *ngIf="isAuthenticated"
-            class="cursor-pointer nav-link"
+            class="nav-link cursor-pointer"
             (click)="signOut()"
         >
             Uitloggen
         </app-navbar-item>
     </ng-template>
 </app-navbar>
-<main class="container z-10 flex-1 p-4 mx-auto h-auto lg:p-8">
+<main class="container z-10 mx-auto h-auto flex-1 p-4 lg:p-8">
     <router-outlet></router-outlet>
 </main>
 <app-footer></app-footer>

@@ -1,4 +1,4 @@
-<div class="py-6 px-4 border-t border-gray-200 sm:px-6">
+<div class="border-t border-gray-200 py-6 px-4 sm:px-6">
     <div class="flex justify-between text-base font-medium text-gray-900">
         <p>Subtotaal</p>
         <p>{{ total / 100 | currency }}</p>
@@ -8,12 +8,12 @@
         <a
             (click)="close()"
             routerLink="/checkout"
-            class="flex justify-center items-center py-3 px-6 text-base font-medium text-white bg-purple-600 rounded-md border border-transparent shadow-sm hover:bg-purple-700"
+            class="flex items-center justify-center rounded-md border border-transparent bg-purple-600 py-3 px-6 text-base font-medium text-white shadow-sm hover:bg-purple-700"
         >
             Afrekenen
         </a>
     </div>
-    <div class="flex justify-center mt-6 text-sm text-center text-gray-500">
+    <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
         <p>
             of
             <button
