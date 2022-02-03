@@ -12,7 +12,7 @@
     "lint:fix": "prettier --write src && ng lint --fix"
   },
   "dependencies": {
-    "@angular/animations": "~13.2.0",
+    "@angular/animations": "~13.2.1",
     "@angular/common": "~13.2.0",
     "@angular/compiler": "~13.2.0",
     "@angular/core": "~13.2.0",
